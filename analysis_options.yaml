@@ -5,3 +5,5 @@ linter:
     require_trailing_commas: true
     avoid_print: true
     prefer_single_quotes: true
+    always_put_required_named_parameters_first: true
+    sort_child_properties_last: true

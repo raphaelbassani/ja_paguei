@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ja_paguei/src/helpers/routes.dart';
+import 'package:ja_paguei/src/widgets/bills_tab_widget.dart';
+
+import '../../ui.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,9 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _indiceAtual = 0;
-  final List<Widget> _telas = [
-    _BaseScreenWidget(title: 'Minha conta'),
+  int tabIndex = 0;
+  final List<Widget> tabPages = [
+    BillsTabWidget(),
     _BaseScreenWidget(title: 'Meus pedidos'),
     _BaseScreenWidget(title: 'Balanço'),
   ];
@@ -19,17 +22,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Já Paguei'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => Navigator.of(context).pushNamed(Routes.newBill),
-          ),
-        ],
+      appBar: JPAppBar(title: 'Já Paguei'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).pushNamed(Routes.newBill),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _indiceAtual,
+        currentIndex: tabIndex,
         onTap: onTabTapped,
         selectedItemColor: Colors.green,
         items: [
@@ -47,13 +45,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: _telas[_indiceAtual],
+      body: tabPages[tabIndex],
     );
   }
 
   void onTabTapped(int index) {
     setState(() {
-      _indiceAtual = index;
+      tabIndex = index;
     });
   }
 }
