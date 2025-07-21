@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/src/helpers/navigator_extension.dart';
-import 'package:ja_paguei/ui.dart';
+
+import '../../src/helpers/extensions.dart';
+import '../../ui.dart';
 
 class JPAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -25,18 +26,20 @@ class _JPAppBarState extends State<JPAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       centerTitle: true,
       title: JPText(widget.title, type: JPTextTypeEnum.l),
-      actions: [
-        if (widget.hasTrailing)
-          Padding(
-            padding: JPPadding.right,
-            child: JPGestureDetector(
-              child: Icon(Icons.close),
-              onTap: () => context.popUntilIsRoot(),
-            ),
-          ),
-      ],
+      actions: widget.hasTrailing
+          ? [
+              Padding(
+                padding: JPPadding.right,
+                child: JPGestureDetector(
+                  child: Icon(Icons.close),
+                  onTap: () => context.popUntilIsRoot(),
+                ),
+              ),
+            ]
+          : null,
       leading: widget.hasLeading
           ? Padding(
               padding: JPPadding.left - EdgeInsets.only(left: 9),

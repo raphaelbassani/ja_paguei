@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/src/helpers/bills_database.dart';
-import 'package:ja_paguei/src/helpers/routes.dart';
-import 'package:ja_paguei/src/pages/home_page.dart';
-import 'package:ja_paguei/src/pages/new_bill_page.dart';
-import 'package:ja_paguei/src/view_models/database_view_model.dart';
 import 'package:provider/provider.dart';
+
+import 'src/helpers/bills_database.dart';
+import 'src/helpers/routes.dart';
+import 'src/pages/bill_page.dart';
+import 'src/pages/home_page.dart';
+import 'src/view_models/database_view_model.dart';
 
 void main() {
   BillsDatabase billsDatabase = BillsDatabase.instance;
@@ -55,7 +56,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Já Paguei',
       routes: {
         Routes.home: (context) => const HomePage(),
-        Routes.newBill: (context) => const NewBillPage(),
+        Routes.bill: (context) => const BillPage(),
       },
     );
   }

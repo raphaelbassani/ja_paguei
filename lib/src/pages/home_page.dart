@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/src/helpers/navigator_extension.dart';
-import 'package:ja_paguei/src/helpers/routes.dart';
-import 'package:ja_paguei/src/widgets/bills_tab_widget.dart';
 
 import '../../ui.dart';
+import '../helpers/extensions.dart';
+import '../helpers/routes.dart';
+import '../widgets/bills_tab_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: JPAppBar(title: 'Já Paguei'),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.pushNamed(Routes.newBill),
+        onPressed: () => context.pushNamed(Routes.bill),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: tabIndex,

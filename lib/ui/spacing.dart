@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/ui/const.dart';
+
+import 'const.dart';
 
 class JPSpacingVertical {
   static SizedBox xxs = SizedBox(height: JPConst.xxs);

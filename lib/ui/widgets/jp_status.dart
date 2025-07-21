@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/ui/spacing.dart';
-import 'package:ja_paguei/ui/widgets/jp_text.dart';
+
+import '../spacing.dart';
+import 'jp_text.dart';
 
 enum JPStatusEnum {
   positive(color: Colors.green),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/src/enums/loading_status_enum.dart';
-import 'package:ja_paguei/src/helpers/bills_database.dart';
-import 'package:ja_paguei/src/models/bill_model.dart';
+
+import '../enums/loading_status_enum.dart';
+import '../helpers/bills_database.dart';
+import '../models/bill_model.dart';
 
 class DataBaseViewModel with ChangeNotifier {
   final BillsDatabase billsDatabase;

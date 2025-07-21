@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:ja_paguei/src/enums/bill_payment_method_enum.dart';
 
+import '../enums/bill_payment_method_enum.dart';
 import '../enums/bill_status.dart';
-import '../helpers/bill_fields.dart';
+import '../helpers/bills_database.dart';
 
 class BillModel extends Equatable {
   final int? id;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ja_paguei/src/view_models/database_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../ui.dart';
+import '../view_models/database_view_model.dart';
 
 class BillsTabWidget extends StatelessWidget {
   const BillsTabWidget({super.key});
