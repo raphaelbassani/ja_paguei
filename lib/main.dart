@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ja_paguei/src/pages/home_page.dart';
+import 'package:ja_paguei/src/pages/new_bill_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,12 +9,14 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Já Paguei',
-      home: const HomePage(),
+      routes: {
+        '/': (context) => const HomePage(),
+        '/new_bill': (context) => const NewBillPage(),
+      },
     );
   }
 }
