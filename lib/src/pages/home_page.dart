@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ja_paguei/src/helpers/navigator_extension.dart';
 import 'package:ja_paguei/src/helpers/routes.dart';
 import 'package:ja_paguei/src/widgets/bills_tab_widget.dart';
 
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: JPAppBar(title: 'Já Paguei'),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed(Routes.newBill),
+        onPressed: () => context.pushNamed(Routes.newBill),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: tabIndex,
