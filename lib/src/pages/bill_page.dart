@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../ui.dart';
+import '../../ui/widgets/jp_text_form_field.dart';
 import '../helpers/extensions.dart';
 import '../helpers/format.dart';
 import '../models/bill_model.dart';
@@ -37,16 +38,48 @@ class _BillPageState extends State<BillPage> {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Nome da conta',
+            child: Padding(
+              padding: JPPadding.all,
+              child: Column(
+                children: [
+                  JPTextFormField(
+                    controller: nameController,
+                    autoFocus: true,
+                    label: 'Nome da conta',
+                    hint: 'Conta de água',
+                    inputAction: TextInputAction.next,
+                    validator: (text) {
+                      if (text != null && text.isNotEmpty) {
+                        if (text.length < 3) {
+                          return 'Digite um nome valido';
+                        }
+                      }
+
+                      return null;
+                    },
                   ),
-                ),
-              ],
+                  JPSpacingVertical.l,
+                  JPTextFormField(
+                    controller: valueController,
+                    autoFocus: true,
+                    label: 'Valor da conta',
+                    hint: '${Format.brl} 100,00',
+                    inputFormatters: [Format.currencyInput],
+                    keyboardType: TextInputType.number,
+                    inputAction: TextInputAction.done,
+                    validator: (text) {
+                      if (text != null && text.isNotEmpty) {
+                        double value = Format.currencyIntoDouble(text);
+                        if (value == 0) {
+                          return 'Digite um nome valor valido';
+                        }
+                      }
+
+                      return null;
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

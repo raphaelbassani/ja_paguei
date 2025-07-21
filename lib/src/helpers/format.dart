@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:intl/intl.dart';
 
 class Format {
@@ -22,4 +23,11 @@ class Format {
 
     return double.parse(currency);
   }
+
+  static CurrencyTextInputFormatter currencyInput =
+      CurrencyTextInputFormatter.currency(
+        locale: 'pt_BR',
+        symbol: brl,
+        decimalDigits: 2,
+      );
 }
