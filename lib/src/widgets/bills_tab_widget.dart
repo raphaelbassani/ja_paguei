@@ -94,7 +94,7 @@ class _ItemWidget extends StatelessWidget {
               JPSpacingVertical.xs,
               JPStatus(text: bill.status.label, status: bill.status.jpStatus),
               JPSpacingVertical.s,
-              _Buttons(bill),
+              if (bill.status.isNotPayed) _Buttons(bill),
             ],
           ),
         ),
@@ -112,9 +112,7 @@ class _Buttons extends StatelessWidget {
   Widget build(BuildContext context) {
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
-    if (bill.status.isPayed) {
-      return SizedBox();
-    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

@@ -10,5 +10,5 @@ enum BillStatusEnum {
   final String label;
   final JPStatusEnum jpStatus;
 
-  bool get isPayed => this == payed;
+  bool get isNotPayed => this != payed;
 }
