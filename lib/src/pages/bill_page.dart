@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../ui.dart';
+import '../../ui/widgets/jp_modal_selection.dart';
 import '../../ui/widgets/jp_text_form_field.dart';
 import '../helpers/extensions.dart';
 import '../helpers/format.dart';
+import '../helpers/helper.dart';
 import '../models/bill_model.dart';
 
 class BillPage extends StatefulWidget {
@@ -16,8 +19,7 @@ class BillPage extends StatefulWidget {
 class _BillPageState extends State<BillPage> {
   late final TextEditingController nameController = TextEditingController();
   late final TextEditingController valueController = TextEditingController();
-  late final TextEditingController dataController = TextEditingController();
-  late BillModel? editBill;
+  BillModel? editBill;
 
   @override
   void initState() {
@@ -76,6 +78,27 @@ class _BillPageState extends State<BillPage> {
                       }
 
                       return null;
+                    },
+                  ),
+                  JPSpacingVertical.l,
+                  JPSelectionTile(
+                    title: 'Dia de vencimento',
+                    info: editBill != null
+                        ? editBill!.formattedDueDate
+                        : 'Selecione o dia dos vencimentos',
+                    onTap: () {
+                      showBarModalBottomSheet(
+                        context: context,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).scaffoldBackgroundColor,
+                        builder: (_) {
+                          return JPModalSelection(
+                            title: 'Dia de vencimento',
+                            items: Helper.daysOfMonth,
+                          );
+                        },
+                      );
                     },
                   ),
                 ],
