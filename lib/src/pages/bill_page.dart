@@ -243,7 +243,15 @@ class _BillPageState extends State<BillPage> {
                             isVariableValue: isVariableValue ?? false,
                           );
 
-                          dataBaseViewModel.createBill(newBillModel);
+                          bool hasCreated = dataBaseViewModel.createBill(
+                            newBillModel,
+                          );
+                          if (!hasCreated) {
+                            context.showSnackError(
+                              'Já existe uma conta com esse nome.',
+                            );
+                            return;
+                          }
                           context.showSnackSuccess('Conta criada com sucesso.');
                         }
                         context.popUntilIsRoot();

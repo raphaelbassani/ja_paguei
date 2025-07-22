@@ -6,34 +6,34 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 extension ContextExtensions on BuildContext {
   get navigator => Navigator.of(this);
 
-  get arguments => ModalRoute.of(this)?.settings.arguments;
+  Object? get arguments => ModalRoute.of(this)?.settings.arguments;
 
-  get backgroundColor => Theme.of(this).scaffoldBackgroundColor;
+  Color get backgroundColor => Theme.of(this).scaffoldBackgroundColor;
 
-  get textStyle => Theme.of(this).textTheme.bodyMedium;
+  TextStyle get textStyle => Theme.of(this).textTheme.bodyMedium!;
 
-  get height => MediaQuery.of(this).size.height;
+  double get height => MediaQuery.of(this).size.height;
 
-  get width => MediaQuery.of(this).size.width;
+  double get width => MediaQuery.of(this).size.width;
 
   get unfocus => FocusScope.of(this).requestFocus(FocusNode());
 
-  pop() {
+  void pop() {
     navigator.pop();
   }
 
-  pushNamed(String route, {Object? arguments}) {
+  void pushNamed(String route, {Object? arguments}) {
     navigator.pushNamed(route, arguments: arguments);
   }
 
-  popUntilIsRoot() {
+  void popUntilIsRoot() {
     navigator.popUntil(
       (route) =>
           (route.settings.name != null && route.settings.name.endsWith('/')),
     );
   }
 
-  showModal({required Widget child}) {
+  void showModal({required Widget child}) {
     showBarModalBottomSheet(
       context: this,
       backgroundColor: backgroundColor,
@@ -41,21 +41,21 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  showSnackInfo(String message) {
+  void showSnackInfo(String message) {
     showTopSnackBar(
       Overlay.of(this),
       CustomSnackBar.info(message: message, maxLines: 20),
     );
   }
 
-  showSnackSuccess(String message) {
+  void showSnackSuccess(String message) {
     showTopSnackBar(
       Overlay.of(this),
       CustomSnackBar.success(message: message, maxLines: 20),
     );
   }
 
-  showSnackError(String message) {
+  void showSnackError(String message) {
     showTopSnackBar(
       Overlay.of(this),
       CustomSnackBar.error(message: message, maxLines: 20),
