@@ -16,6 +16,8 @@ extension ContextExtensions on BuildContext {
 
   get width => MediaQuery.of(this).size.width;
 
+  get unfocus => FocusScope.of(this).requestFocus(FocusNode());
+
   pop() {
     navigator.pop();
   }
