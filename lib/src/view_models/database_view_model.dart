@@ -1,17 +1,17 @@
 import '../enums/loading_status_enum.dart';
 import '../helpers/bills_database.dart';
-import '../helpers/payment_history_database.dart';
+import '../helpers/payments_history_database.dart';
 import '../models/bill_model.dart';
 import 'view_model.dart';
 
 class DataBaseViewModel extends ViewModel {
   final BillsDatabase _billsDatabase;
-  final PaymentHistoryDatabase _paymentHistoryDatabase;
+  final PaymentsHistoryDatabase _paymentsHistoryDatabase;
 
   DataBaseViewModel({
     required BillsDatabase billsDatabase,
-    required PaymentHistoryDatabase paymentHistoryDatabase,
-  }) : _paymentHistoryDatabase = paymentHistoryDatabase,
+    required PaymentsHistoryDatabase paymentHistoryDatabase,
+  }) : _paymentsHistoryDatabase = paymentHistoryDatabase,
        _billsDatabase = billsDatabase;
 
   StatusEnum status = StatusEnum.idle;
@@ -55,7 +55,7 @@ class DataBaseViewModel extends ViewModel {
   void refreshHistory() async {
     status = StatusEnum.loading;
     safeNotify();
-    await _paymentHistoryDatabase.readAll().then((value) {
+    await _paymentsHistoryDatabase.readAll().then((value) {
       payments = value;
     });
     status = StatusEnum.loaded;
@@ -63,13 +63,13 @@ class DataBaseViewModel extends ViewModel {
   }
 
   bool createPayment(BillModel bill) {
-    _paymentHistoryDatabase.create(bill.copyWithNullId());
+    _paymentsHistoryDatabase.create(bill.copyWithNullId());
     refreshHistory();
     return true;
   }
 
   void deletePayment(BillModel bill) {
-    _paymentHistoryDatabase.delete(bill.id!);
+    _paymentsHistoryDatabase.delete(bill.id!);
     refreshHistory();
   }
 }

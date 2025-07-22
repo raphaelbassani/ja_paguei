@@ -4,6 +4,7 @@ import '../../ui.dart';
 import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
 import '../widgets/bills_tab_widget.dart';
+import '../widgets/history_tab_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,17 +17,24 @@ class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
   final List<Widget> tabPages = [
     BillsTabWidget(),
-    _BaseScreenWidget(title: 'Meus pedidos'),
+    HistoryTabWidget(),
     _BaseScreenWidget(title: 'Balanço'),
   ];
+
+  final List<String> tabTitle = ['Contas', 'Histórico', ''];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JPAppBar(title: 'Já Paguei'),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.pushNamed(Routes.bill),
-      ),
+      appBar: JPAppBar(title: tabTitle[tabIndex]),
+      floatingActionButton: tabIndex == 0
+          ? FloatingActionButton.extended(
+              label: const JPText('Conta'),
+              backgroundColor: Colors.green,
+              icon: const Icon(Icons.add),
+              onPressed: () => context.pushNamed(Routes.bill),
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: tabIndex,
         onTap: onTabTapped,

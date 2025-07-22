@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'src/helpers/bills_database.dart';
-import 'src/helpers/payment_history_database.dart';
+import 'src/helpers/payments_history_database.dart';
 import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
 import 'src/pages/bill_variable_value_page.dart';
@@ -12,8 +12,8 @@ import 'src/view_models/theme_view_model.dart';
 
 void main() {
   BillsDatabase billsDatabase = BillsDatabase.instance;
-  PaymentHistoryDatabase paymentHistoryDatabase =
-      PaymentHistoryDatabase.instance;
+  PaymentsHistoryDatabase paymentHistoryDatabase =
+      PaymentsHistoryDatabase.instance;
 
   runApp(
     MultiProvider(

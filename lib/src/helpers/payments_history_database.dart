@@ -3,13 +3,13 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/bill_model.dart';
 
-class PaymentHistoryDatabase {
-  static final PaymentHistoryDatabase instance =
-      PaymentHistoryDatabase._internal();
+class PaymentsHistoryDatabase {
+  static final PaymentsHistoryDatabase instance =
+      PaymentsHistoryDatabase._internal();
 
   static Database? _database;
 
-  PaymentHistoryDatabase._internal();
+  PaymentsHistoryDatabase._internal();
 
   Future<Database> get database async {
     if (_database != null) {
@@ -101,7 +101,7 @@ class PaymentHistoryDatabase {
 }
 
 class PaymentHistoryFields {
-  static const String tableName = 'payment_history';
+  static const String tableName = 'payments_history';
   static const String idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
   static const String textType = 'TEXT NOT NULL';
   static const String id = '_id';
