@@ -5,6 +5,7 @@ import 'src/helpers/bills_database.dart';
 import 'src/helpers/payment_history_database.dart';
 import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
+import 'src/pages/bill_variable_value_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/view_models/database_view_model.dart';
 import 'src/view_models/theme_view_model.dart';
@@ -25,28 +26,28 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
       ],
-      child: MyApp(billsDatabase: billsDatabase),
+      child: JaPagueiApp(billsDatabase: billsDatabase),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
+class JaPagueiApp extends StatefulWidget {
   final BillsDatabase billsDatabase;
 
-  const MyApp({required this.billsDatabase, super.key});
+  const JaPagueiApp({required this.billsDatabase, super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<JaPagueiApp> createState() => _JaPagueiAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _JaPagueiAppState extends State<JaPagueiApp> {
   @override
   void initState() {
+    super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DataBaseViewModel>().refreshBills();
     });
-
-    super.initState();
   }
 
   @override
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),
+        Routes.billVariableValue: (context) => const BillVariableValuePage(),
       },
     );
   }

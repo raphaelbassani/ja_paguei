@@ -33,8 +33,8 @@ class _JPSelectionModalState extends State<JPSelectionModal> {
 
   @override
   void initState() {
-    selectedValue = widget.preSelectedValue;
     super.initState();
+    selectedValue = widget.preSelectedValue;
   }
 
   @override

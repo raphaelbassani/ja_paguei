@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../ui.dart';
+import '../enums/bill_status.dart';
 import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
 import '../models/bill_model.dart';
@@ -13,9 +14,9 @@ class BillsTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeViewModel themeViewModel = context.watch<ThemeViewModel>();
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
-    final ThemeViewModel themeViewModel = context.watch<ThemeViewModel>();
 
     return CustomScrollView(
       slivers: [
@@ -52,6 +53,8 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DataBaseViewModel dataBaseViewModel = context
+        .watch<DataBaseViewModel>();
     return Padding(
       padding: JPPadding.horizontal + JPPadding.bottom,
       child: Container(
@@ -89,7 +92,34 @@ class _ItemWidget extends StatelessWidget {
               JPSpacingVertical.s,
               Row(
                 children: [
-                  JPPrimaryButtonSmall(label: 'Pagar', onTap: () {}),
+                  JPPrimaryButtonSmall(
+                    label: 'Pagar',
+                    onTap: () {
+                      if (bill.isVariableValue) {
+                        context.pushNamed(
+                          Routes.billVariableValue,
+                          arguments: bill,
+                        );
+                        return;
+                      }
+                      context.showModal(
+                        child: JPConfirmationModal(
+                          title: 'Deseja pagar essa conta?',
+                          primaryButtonLabel: 'Pagar',
+                          onTapPrimaryButton: () {
+                            BillModel updatedBill = bill.copyWith(
+                              paymentDateTime: DateTime.now(),
+                              status: BillStatusEnum.payed,
+                            );
+                            dataBaseViewModel.updateBill(updatedBill);
+                            dataBaseViewModel.createPayment(updatedBill);
+                            context.pop();
+                            context.showSnackSuccess('Conta paga!');
+                          },
+                        ),
+                      );
+                    },
+                  ),
                   JPSecondaryButtonSmall(
                     label: 'Editar',
                     onTap: () {

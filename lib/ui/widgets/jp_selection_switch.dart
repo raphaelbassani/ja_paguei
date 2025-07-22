@@ -23,8 +23,8 @@ class _JPSelectionSwitchState extends State<JPSelectionSwitch> {
 
   @override
   void initState() {
-    isSelected = widget.isSelected;
     super.initState();
+    isSelected = widget.isSelected;
   }
 
   @override

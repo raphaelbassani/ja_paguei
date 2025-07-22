@@ -27,6 +27,8 @@ class _BillPageState extends State<BillPage> {
 
   @override
   void initState() {
+    super.initState();
+
     nameController.addListener(_updateListener);
     valueController.addListener(_updateListener);
     dueDayController.addListener(_updateListener);
@@ -43,7 +45,6 @@ class _BillPageState extends State<BillPage> {
         isVariableValue = editBill!.isVariableValue;
       }
     });
-    super.initState();
   }
 
   void _updateListener() {
@@ -196,7 +197,7 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   JPSelectionSwitch(
-                    label: 'Esta conta tem valor variável?',
+                    label: 'Essa conta tem valor variável?',
                     isSelected: isVariableValue ?? false,
                     onTap: (newVariableValue) {
                       isVariableValue = newVariableValue;
@@ -213,6 +214,7 @@ class _BillPageState extends State<BillPage> {
               padding: JPPadding.all,
               child: Column(
                 children: [
+                  Spacer(),
                   JPActionButtons(
                     primaryButtonLabel: mainLabel,
                     onTapPrimaryButton: () {
@@ -273,7 +275,6 @@ class _BillPageState extends State<BillPage> {
                             primaryButtonLabel: 'Cancelar',
                             onTapPrimaryButton: context.popUntilIsRoot,
                             secondaryButtonLabel: cancelModalButtonLabel,
-                            onTapSecondaryButton: context.pop,
                           ),
                         );
                         return;

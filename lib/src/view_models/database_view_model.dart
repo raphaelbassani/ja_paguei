@@ -5,13 +5,14 @@ import '../models/bill_model.dart';
 import 'view_model.dart';
 
 class DataBaseViewModel extends ViewModel {
-  final BillsDatabase billsDatabase;
-  final PaymentHistoryDatabase paymentHistoryDatabase;
+  final BillsDatabase _billsDatabase;
+  final PaymentHistoryDatabase _paymentHistoryDatabase;
 
   DataBaseViewModel({
-    required this.billsDatabase,
-    required this.paymentHistoryDatabase,
-  });
+    required BillsDatabase billsDatabase,
+    required PaymentHistoryDatabase paymentHistoryDatabase,
+  }) : _paymentHistoryDatabase = paymentHistoryDatabase,
+       _billsDatabase = billsDatabase;
 
   StatusEnum status = StatusEnum.idle;
   List<BillModel> bills = [];
@@ -19,7 +20,7 @@ class DataBaseViewModel extends ViewModel {
   void refreshBills() async {
     status = StatusEnum.loading;
     safeNotify();
-    await billsDatabase.readAll().then((value) {
+    await _billsDatabase.readAll().then((value) {
       bills = value;
     });
     status = StatusEnum.loaded;
@@ -32,18 +33,18 @@ class DataBaseViewModel extends ViewModel {
       return false;
     }
 
-    billsDatabase.create(bill);
+    _billsDatabase.create(bill);
     refreshBills();
     return true;
   }
 
   void updateBill(BillModel bill) {
-    billsDatabase.update(bill);
+    _billsDatabase.update(bill);
     refreshBills();
   }
 
   void deleteBill(BillModel bill) {
-    billsDatabase.delete(bill.id!);
+    _billsDatabase.delete(bill.id!);
     refreshBills();
   }
 
@@ -54,7 +55,7 @@ class DataBaseViewModel extends ViewModel {
   void refreshHistory() async {
     status = StatusEnum.loading;
     safeNotify();
-    await paymentHistoryDatabase.readAll().then((value) {
+    await _paymentHistoryDatabase.readAll().then((value) {
       payments = value;
     });
     status = StatusEnum.loaded;
@@ -62,13 +63,13 @@ class DataBaseViewModel extends ViewModel {
   }
 
   bool createPayment(BillModel bill) {
-    paymentHistoryDatabase.create(bill);
+    _paymentHistoryDatabase.create(bill);
     refreshHistory();
     return true;
   }
 
   void deletePayment(BillModel bill) {
-    paymentHistoryDatabase.delete(bill.id!);
+    _paymentHistoryDatabase.delete(bill.id!);
     refreshHistory();
   }
 }

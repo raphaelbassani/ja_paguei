@@ -5,7 +5,7 @@ import 'jp_title_modal.dart';
 
 class JPConfirmationModal extends StatelessWidget {
   final String title;
-  final String info;
+  final String? info;
   final String? primaryButtonLabel;
   final Function()? onTapPrimaryButton;
   final String? secondaryButtonLabel;
@@ -13,7 +13,7 @@ class JPConfirmationModal extends StatelessWidget {
 
   const JPConfirmationModal({
     required this.title,
-    required this.info,
+    this.info,
     this.primaryButtonLabel,
     this.onTapPrimaryButton,
     this.secondaryButtonLabel,
@@ -31,8 +31,7 @@ class JPConfirmationModal extends StatelessWidget {
           children: [
             JPSpacingVertical.m,
             JPTitleModal(title: title),
-            JPSpacingVertical.m,
-            JPText(info),
+            if (info != null) ...[JPSpacingVertical.m, JPText(info!)],
             JPSpacingVertical.xl,
             JPActionButtons(
               primaryButtonLabel: primaryButtonLabel,

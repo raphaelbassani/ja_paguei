@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../src/helpers/extensions.dart';
 import '../../ui.dart';
 
 class JPActionButtons extends StatelessWidget {
@@ -26,7 +27,7 @@ class JPActionButtons extends StatelessWidget {
         ),
         JPSpacingVertical.s,
         JPSecondaryButton(
-          onTap: onTapSecondaryButton ?? () {},
+          onTap: onTapSecondaryButton ?? () => context.pop,
           label: secondaryButtonLabel ?? 'Cancelar',
         ),
       ],
