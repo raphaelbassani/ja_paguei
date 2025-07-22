@@ -15,9 +15,9 @@ class BillPage extends StatefulWidget {
 }
 
 class _BillPageState extends State<BillPage> {
-  late final TextEditingController nameController = TextEditingController();
-  late final TextEditingController valueController = TextEditingController();
-  late final TextEditingController dueDayController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController valueController = TextEditingController();
+  final TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
   BillPaymentMethodEnum? paymentMethod;
   bool? isVariableValue;
@@ -25,6 +25,10 @@ class _BillPageState extends State<BillPage> {
 
   @override
   void initState() {
+    nameController.addListener(_updateListener);
+    valueController.addListener(_updateListener);
+    dueDayController.addListener(_updateListener);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       editBill = context.arguments as BillModel?;
       if (isEdition) {
@@ -36,6 +40,18 @@ class _BillPageState extends State<BillPage> {
       }
     });
     super.initState();
+  }
+
+  void _updateListener() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    valueController.dispose();
+    dueDayController.dispose();
+    super.dispose();
   }
 
   bool get isEdition => editBill != null;
@@ -52,7 +68,8 @@ class _BillPageState extends State<BillPage> {
   String get cancelModalButtonLabel =>
       isEdition ? 'Continuar edição' : 'Continuar criação';
 
-  bool get hasEditedName => nameController.text.isNotEmpty;
+  bool get hasEditedName =>
+      nameController.text.isNotEmpty && nameController.text.length > 2;
 
   bool get hasEditedValue => valueController.text.isNotEmpty;
 
@@ -102,7 +119,6 @@ class _BillPageState extends State<BillPage> {
                           return 'Digite um nome valido';
                         }
                       }
-
                       return null;
                     },
                   ),

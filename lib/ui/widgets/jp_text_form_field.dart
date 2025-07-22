@@ -12,6 +12,7 @@ class JPTextFormField extends StatelessWidget {
   final TextInputAction? inputAction;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final Function()? onSaved;
 
   const JPTextFormField({
     required this.controller,
@@ -22,6 +23,7 @@ class JPTextFormField extends StatelessWidget {
     this.inputFormatters,
     this.keyboardType,
     this.autoFocus = false,
+    this.onSaved,
     super.key,
   });
 

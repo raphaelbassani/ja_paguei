@@ -27,6 +27,8 @@ class _JPAppBarState extends State<JPAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
+      forceMaterialTransparency: true,
+      scrolledUnderElevation: 0,
       centerTitle: true,
       title: JPText(widget.title, type: JPTextTypeEnum.l),
       actions: widget.hasTrailing
