@@ -21,6 +21,7 @@ class _BillPageState extends State<BillPage> {
   BillModel? editBill;
   BillPaymentMethodEnum? paymentMethod;
   bool? isVariableValue;
+  bool hasTriedToSendWithPending = false;
 
   @override
   void initState() {
@@ -55,7 +56,7 @@ class _BillPageState extends State<BillPage> {
 
   bool get hasEditedValue => valueController.text.isNotEmpty;
 
-  bool get hasEditedDueDayValue => dueDayController.text.isNotEmpty;
+  bool get hasEditedDueDay => dueDayController.text.isNotEmpty;
 
   bool get hasEditedPaymentMethod => paymentMethod != null;
 
@@ -64,7 +65,7 @@ class _BillPageState extends State<BillPage> {
   bool get hasEditedAnyInfo => [
     hasEditedName,
     hasEditedValue,
-    hasEditedDueDayValue,
+    hasEditedDueDay,
     hasEditedPaymentMethod,
     hasEditedIsVariableValue,
   ].any((e) => e);
@@ -72,7 +73,7 @@ class _BillPageState extends State<BillPage> {
   bool get hasEditedAllInfo => ![
     hasEditedName,
     hasEditedValue,
-    hasEditedDueDayValue,
+    hasEditedDueDay,
     hasEditedPaymentMethod,
   ].any((e) => !e);
 
@@ -86,7 +87,10 @@ class _BillPageState extends State<BillPage> {
             child: Padding(
               padding: JPPadding.all,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (!hasEditedName && hasTriedToSendWithPending)
+                    _JPTextError('Preencha o nome da conta'),
                   JPTextFormField(
                     controller: nameController,
                     label: 'Nome da conta',
@@ -103,6 +107,8 @@ class _BillPageState extends State<BillPage> {
                     },
                   ),
                   JPSpacingVertical.l,
+                  if (!hasEditedValue && hasTriedToSendWithPending)
+                    _JPTextError('Preencha o valor da conta'),
                   JPTextFormField(
                     controller: valueController,
                     label: 'Valor da conta',
@@ -122,6 +128,8 @@ class _BillPageState extends State<BillPage> {
                     },
                   ),
                   JPSpacingVertical.l,
+                  if (!hasEditedDueDay && hasTriedToSendWithPending)
+                    _JPTextError('Preencha o dia de vencimento'),
                   JPTextFormField(
                     controller: dueDayController,
                     label: 'Dia de vencimento',
@@ -141,6 +149,8 @@ class _BillPageState extends State<BillPage> {
                     },
                   ),
                   JPSpacingVertical.l,
+                  if (!hasEditedPaymentMethod && hasTriedToSendWithPending)
+                    _JPTextError('Preencha o método de pagamento'),
                   JPSelectionTile(
                     title: 'Método de pagamento',
                     info: paymentMethod != null
@@ -183,11 +193,14 @@ class _BillPageState extends State<BillPage> {
                     primaryButtonLabel: mainLabel,
                     onTapPrimaryButton: () {
                       if (hasEditedAllInfo) {
+                        hasTriedToSendWithPending = false;
                       } else {
+                        hasTriedToSendWithPending = true;
                         context.showSnackError(
                           'Por favor preencha todos os dados',
                         );
                       }
+                      setState(() {});
                     },
                     onTapSecondaryButton: () {
                       if (hasEditedAnyInfo) {
@@ -212,6 +225,29 @@ class _BillPageState extends State<BillPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _JPTextError extends StatelessWidget {
+  final String text;
+
+  const _JPTextError(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.error, color: Colors.red, size: 12),
+            JPSpacingHorizontal.xxs,
+            JPText(text, color: Colors.red, type: JPTextTypeEnum.s),
+          ],
+        ),
+        JPSpacingVertical.xs,
+      ],
     );
   }
 }

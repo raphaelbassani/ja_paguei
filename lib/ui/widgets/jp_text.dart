@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../src/helpers/extensions.dart';
 
 enum JPTextTypeEnum {
-  xxs(fontSize: 4),
-  xs(fontSize: 8),
+  xxs(fontSize: 8),
+  xs(fontSize: 10),
   s(fontSize: 12),
   m(fontSize: 14),
   l(fontSize: 20),

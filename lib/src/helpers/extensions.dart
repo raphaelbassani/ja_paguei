@@ -42,6 +42,9 @@ extension ContextExtensions on BuildContext {
   }
 
   showSnackError(String message) {
-    showTopSnackBar(Overlay.of(this), CustomSnackBar.error(message: message));
+    showTopSnackBar(
+      Overlay.of(this),
+      CustomSnackBar.error(message: message, maxLines: 20),
+    );
   }
 }
