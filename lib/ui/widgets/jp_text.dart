@@ -7,9 +7,9 @@ enum JPTextTypeEnum {
   xs(fontSize: 10),
   s(fontSize: 12),
   m(fontSize: 14),
-  l(fontSize: 20),
-  xl(fontSize: 24),
-  xxl(fontSize: 32);
+  l(fontSize: 18),
+  xl(fontSize: 20),
+  xxl(fontSize: 24);
 
   const JPTextTypeEnum({this.fontSize});
 

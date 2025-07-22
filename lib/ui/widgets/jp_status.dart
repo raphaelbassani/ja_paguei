@@ -23,15 +23,31 @@ class JPStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.none,
-      decoration: BoxDecoration(
-        color: status.color,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [JPSpacingHorizontal.s, JPText(text), JPSpacingHorizontal.s],
-      ),
+    return Row(
+      children: [
+        Container(
+          clipBehavior: Clip.none,
+          decoration: BoxDecoration(
+            color: status.color,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              JPSpacingVertical.xxs,
+              Row(
+                children: [
+                  JPSpacingHorizontal.s,
+                  JPText(text, color: Colors.white, type: JPTextTypeEnum.s),
+                  JPSpacingHorizontal.s,
+                ],
+              ),
+              JPSpacingVertical.xxs,
+            ],
+          ),
+        ),
+        Spacer(),
+      ],
     );
   }
 }

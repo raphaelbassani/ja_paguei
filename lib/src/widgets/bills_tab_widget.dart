@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../ui.dart';
+import '../helpers/extensions.dart';
+import '../helpers/routes.dart';
+import '../models/bill_model.dart';
 import '../view_models/database_view_model.dart';
 import '../view_models/theme_view_model.dart';
 
@@ -10,7 +13,8 @@ class BillsTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DataBaseViewModel viewModel = context.watch<DataBaseViewModel>();
+    final DataBaseViewModel dataBaseViewModel = context
+        .watch<DataBaseViewModel>();
     final ThemeViewModel themeViewModel = context.watch<ThemeViewModel>();
 
     return CustomScrollView(
@@ -29,9 +33,10 @@ class BillsTabWidget extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: viewModel.bills.length,
+            childCount: dataBaseViewModel.bills.length,
             (_, index) {
-              return _ItemWidget();
+              final BillModel bill = dataBaseViewModel.bills[index];
+              return _ItemWidget(bill);
             },
           ),
         ),
@@ -41,27 +46,61 @@ class BillsTabWidget extends StatelessWidget {
 }
 
 class _ItemWidget extends StatelessWidget {
-  const _ItemWidget();
+  final BillModel bill;
+
+  const _ItemWidget(this.bill);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: JPPadding.horizontal + JPPadding.bottom,
-      child: Row(
-        children: [
-          Column(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Padding(
+          padding: JPPadding.all,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              JPText('Name', type: JPTextTypeEnum.l),
-              JPText('Value', hasDefaultOpacity: true),
-              JPText('Date'),
-              JPStatus(text: 'Teste', status: JPStatusEnum.warning),
+              JPText(bill.name, type: JPTextTypeEnum.l),
+              JPSpacingVertical.xxs,
+              Row(
+                children: [
+                  JPText(bill.formattedValue),
+                  if (bill.isVariableValue) ...[
+                    JPSpacingHorizontal.xs,
+                    JPText(
+                      '(Valor variável)',
+                      type: JPTextTypeEnum.s,
+                      hasDefaultOpacity: true,
+                    ),
+                  ],
+                ],
+              ),
+              JPSpacingVertical.xxs,
+              JPText(
+                'Vencimento: Todo dia ${bill.formattedDueDay}',
+                hasDefaultOpacity: true,
+              ),
+              JPSpacingVertical.xs,
+              JPStatus(text: bill.status.label, status: JPStatusEnum.warning),
+              JPSpacingVertical.s,
+              Row(
+                children: [
+                  JPPrimaryButtonSmall(label: 'Pagar', onTap: () {}),
+                  JPSecondaryButtonSmall(
+                    label: 'Editar',
+                    onTap: () {
+                      context.pushNamed(Routes.bill, arguments: bill);
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
-          Spacer(),
-          JPSpacingHorizontal.s,
-          Icon(Icons.chevron_right),
-        ],
+        ),
       ),
     );
   }

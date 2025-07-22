@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../ui.dart';
 import '../enums/bill_payment_method_enum.dart';
@@ -6,6 +7,7 @@ import '../helpers/extensions.dart';
 import '../helpers/format.dart';
 import '../helpers/helper.dart';
 import '../models/bill_model.dart';
+import '../view_models/database_view_model.dart';
 
 class BillPage extends StatefulWidget {
   const BillPage({super.key});
@@ -15,9 +17,9 @@ class BillPage extends StatefulWidget {
 }
 
 class _BillPageState extends State<BillPage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController valueController = TextEditingController();
-  final TextEditingController dueDayController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController valueController = TextEditingController();
+  TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
   BillPaymentMethodEnum? paymentMethod;
   bool? isVariableValue;
@@ -33,7 +35,9 @@ class _BillPageState extends State<BillPage> {
       editBill = context.arguments as BillModel?;
       if (isEdition) {
         nameController.text = editBill!.name;
-        valueController.text = Format.currencyIntoString(editBill!.value);
+        valueController.text = Format.currencyInput.formatString(
+          editBill!.value.toStringAsFixed(2),
+        );
         dueDayController.text = editBill!.dueDay.toString();
         paymentMethod = editBill!.paymentMethod;
         isVariableValue = editBill!.isVariableValue;
@@ -96,6 +100,9 @@ class _BillPageState extends State<BillPage> {
 
   @override
   Widget build(BuildContext context) {
+    final DataBaseViewModel dataBaseViewModel = context
+        .read<DataBaseViewModel>();
+
     return Scaffold(
       appBar: JPAppBar(title: mainLabel, hasTrailing: true),
       body: CustomScrollView(
@@ -176,6 +183,7 @@ class _BillPageState extends State<BillPage> {
                       context.showModal(
                         child: JPSelectionModal(
                           title: 'Método de pagamento',
+                          preSelectedValue: paymentMethod?.label,
                           items: Helper.paymentMethods,
                           onTapPrimaryButton: (newPaymentMethod) {
                             paymentMethod = BillPaymentMethodEnum.values
@@ -210,6 +218,36 @@ class _BillPageState extends State<BillPage> {
                     onTapPrimaryButton: () {
                       if (hasEditedAllInfo) {
                         hasTriedToSendWithPending = false;
+                        if (isEdition) {
+                          BillModel newBillModel = editBill!.copyWith(
+                            name: nameController.text,
+                            value: Format.currencyIntoDouble(
+                              valueController.text,
+                            ),
+                            dueDay: int.parse(dueDayController.text),
+                            paymentMethod: paymentMethod,
+                            isVariableValue: isVariableValue,
+                          );
+
+                          dataBaseViewModel.updateBill(newBillModel);
+                          context.showSnackInfo('Conta editada com sucesso.');
+                        } else {
+                          BillModel newBillModel = BillModel(
+                            id: null,
+                            name: nameController.text,
+                            value: Format.currencyIntoDouble(
+                              valueController.text,
+                            ),
+                            dueDay: int.parse(dueDayController.text),
+                            paymentMethod: paymentMethod!,
+                            isVariableValue: isVariableValue ?? false,
+                          );
+
+                          dataBaseViewModel.createBill(newBillModel);
+                          context.showSnackSuccess('Conta criada com sucesso.');
+                        }
+                        context.popUntilIsRoot();
+                        return;
                       } else {
                         hasTriedToSendWithPending = true;
                         context.showSnackError(

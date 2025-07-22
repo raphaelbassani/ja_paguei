@@ -20,4 +20,19 @@ class DataBaseViewModel extends ViewModel {
     status = StatusEnum.loaded;
     safeNotify();
   }
+
+  createBill(BillModel bill) {
+    billsDatabase.create(bill);
+    refreshNotes();
+  }
+
+  updateBill(BillModel bill) {
+    billsDatabase.update(bill);
+    refreshNotes();
+  }
+
+  deleteBill(BillModel bill) {
+    billsDatabase.delete(bill.id!);
+    refreshNotes();
+  }
 }

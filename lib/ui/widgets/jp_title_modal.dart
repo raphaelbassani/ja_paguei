@@ -12,7 +12,7 @@ class JPTitleModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        JPText(title, type: JPTextTypeEnum.l),
+        JPText(title, type: JPTextTypeEnum.xl),
         Spacer(),
         JPGestureDetector(onTap: context.pop, child: Icon(Icons.close)),
       ],

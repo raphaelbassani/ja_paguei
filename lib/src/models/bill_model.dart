@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../enums/bill_payment_method_enum.dart';
 import '../enums/bill_status.dart';
 import '../helpers/bills_database.dart';
+import '../helpers/format.dart';
 
 class BillModel extends Equatable {
   final int? id;
@@ -29,18 +30,20 @@ class BillModel extends Equatable {
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
+  String get formattedValue => Format.currencyIntoString(value);
+
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,
-    name: json[BillFields.name] as String,
-    value: double.parse(json[BillFields.value] as String),
+    name: json[BillFields.name].toString(),
+    value: double.parse(json[BillFields.value].toString()),
     paymentMethod: BillPaymentMethodEnum.values.byName(
-      json[BillFields.paymentMethod] as String,
+      json[BillFields.paymentMethod].toString(),
     ),
-    dueDay: json[BillFields.dueDay] as int,
+    dueDay: int.parse(json[BillFields.dueDay].toString()),
     isVariableValue: json[BillFields.isVariableValue] as String == '1',
-    paymentDateTime: DateTime.tryParse(
-      json[BillFields.paymentDateTime] as String? ?? '',
-    ),
+    paymentDateTime: json[BillFields.paymentDateTime] != null
+        ? DateTime.tryParse(json[BillFields.paymentDateTime].toString())
+        : null,
   );
 
   BillModel copyWith({
@@ -66,12 +69,12 @@ class BillModel extends Equatable {
   Map<String, Object?> toJson() => {
     BillFields.id: id,
     BillFields.name: name,
-    BillFields.value: value,
+    BillFields.value: value.toStringAsFixed(2),
     BillFields.paymentMethod: paymentMethod.name,
     BillFields.dueDay: dueDay.toString(),
     BillFields.status: status.name,
     BillFields.isVariableValue: isVariableValue ? '1' : '0',
-    BillFields.paymentDateTime: paymentDateTime?.toIso8601String(),
+    BillFields.paymentDateTime: paymentDateTime?.toIso8601String() ?? '',
   };
 
   @override

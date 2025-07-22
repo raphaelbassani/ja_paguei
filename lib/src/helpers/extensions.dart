@@ -22,8 +22,8 @@ extension ContextExtensions on BuildContext {
     navigator.pop();
   }
 
-  pushNamed(String route) {
-    navigator.pushNamed(route);
+  pushNamed(String route, {Object? arguments}) {
+    navigator.pushNamed(route, arguments: arguments);
   }
 
   popUntilIsRoot() {
@@ -38,6 +38,20 @@ extension ContextExtensions on BuildContext {
       context: this,
       backgroundColor: backgroundColor,
       builder: (_) => child,
+    );
+  }
+
+  showSnackInfo(String message) {
+    showTopSnackBar(
+      Overlay.of(this),
+      CustomSnackBar.info(message: message, maxLines: 20),
+    );
+  }
+
+  showSnackSuccess(String message) {
+    showTopSnackBar(
+      Overlay.of(this),
+      CustomSnackBar.success(message: message, maxLines: 20),
     );
   }
 
