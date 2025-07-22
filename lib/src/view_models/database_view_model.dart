@@ -63,7 +63,7 @@ class DataBaseViewModel extends ViewModel {
   }
 
   bool createPayment(BillModel bill) {
-    _paymentHistoryDatabase.create(bill);
+    _paymentHistoryDatabase.create(bill.copyWithNullId());
     refreshHistory();
     return true;
   }

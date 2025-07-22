@@ -32,6 +32,9 @@ class BillModel extends Equatable {
 
   String get formattedValue => Format.currencyIntoString(value);
 
+  String get formattedPaymentDate =>
+      paymentDateTime != null ? Format.ddMMyyyy(paymentDateTime!) : '';
+
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,
     name: json[BillFields.name].toString(),
@@ -39,6 +42,7 @@ class BillModel extends Equatable {
     paymentMethod: BillPaymentMethodEnum.values.byName(
       json[BillFields.paymentMethod].toString(),
     ),
+    status: BillStatusEnum.values.byName(json[BillFields.status].toString()),
     dueDay: int.parse(json[BillFields.dueDay].toString()),
     isVariableValue: json[BillFields.isVariableValue] as String == '1',
     paymentDateTime: json[BillFields.paymentDateTime] != null
@@ -64,6 +68,17 @@ class BillModel extends Equatable {
     status: status ?? this.status,
     isVariableValue: isVariableValue ?? this.isVariableValue,
     paymentDateTime: paymentDateTime ?? this.paymentDateTime,
+  );
+
+  BillModel copyWithNullId() => BillModel(
+    id: null,
+    name: name,
+    value: value,
+    paymentMethod: paymentMethod,
+    dueDay: dueDay,
+    status: status,
+    isVariableValue: isVariableValue,
+    paymentDateTime: paymentDateTime,
   );
 
   Map<String, Object?> toJson() => {

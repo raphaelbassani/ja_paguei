@@ -31,4 +31,10 @@ class Format {
         decimalDigits: 0,
         maxValue: 31,
       );
+
+  static String ddMMyyyy(DateTime date, {String slash = '/'}) {
+    return '${date.day.toString().padLeft(2, '0')}'
+        '$slash${date.month.toString().padLeft(2, '0')}'
+        '$slash${date.year}';
+  }
 }

@@ -53,8 +53,6 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DataBaseViewModel dataBaseViewModel = context
-        .watch<DataBaseViewModel>();
     return Padding(
       padding: JPPadding.horizontal + JPPadding.bottom,
       child: Container(
@@ -88,50 +86,70 @@ class _ItemWidget extends StatelessWidget {
                 hasDefaultOpacity: true,
               ),
               JPSpacingVertical.xs,
-              JPStatus(text: bill.status.label, status: JPStatusEnum.warning),
-              JPSpacingVertical.s,
-              Row(
-                children: [
-                  JPPrimaryButtonSmall(
-                    label: 'Pagar',
-                    onTap: () {
-                      if (bill.isVariableValue) {
-                        context.pushNamed(
-                          Routes.billVariableValue,
-                          arguments: bill,
-                        );
-                        return;
-                      }
-                      context.showModal(
-                        child: JPConfirmationModal(
-                          title: 'Deseja pagar essa conta?',
-                          primaryButtonLabel: 'Pagar',
-                          onTapPrimaryButton: () {
-                            BillModel updatedBill = bill.copyWith(
-                              paymentDateTime: DateTime.now(),
-                              status: BillStatusEnum.payed,
-                            );
-                            dataBaseViewModel.updateBill(updatedBill);
-                            dataBaseViewModel.createPayment(updatedBill);
-                            context.pop();
-                            context.showSnackSuccess('Conta paga!');
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                  JPSecondaryButtonSmall(
-                    label: 'Editar',
-                    onTap: () {
-                      context.pushNamed(Routes.bill, arguments: bill);
-                    },
-                  ),
-                ],
+              JPText(
+                'Pago em: ${bill.formattedPaymentDate}',
+                hasDefaultOpacity: true,
+                type: JPTextTypeEnum.s,
               ),
+              JPSpacingVertical.xs,
+              JPStatus(text: bill.status.label, status: bill.status.jpStatus),
+              JPSpacingVertical.s,
+              _Buttons(bill),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Buttons extends StatelessWidget {
+  final BillModel bill;
+
+  const _Buttons(this.bill);
+
+  @override
+  Widget build(BuildContext context) {
+    final DataBaseViewModel dataBaseViewModel = context
+        .watch<DataBaseViewModel>();
+    if (bill.status.isPayed) {
+      return SizedBox();
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        JPPrimaryButtonSmall(
+          label: 'Pagar',
+          onTap: () {
+            if (bill.isVariableValue) {
+              context.pushNamed(Routes.billVariableValue, arguments: bill);
+              return;
+            }
+            context.showModal(
+              child: JPConfirmationModal(
+                title: 'Deseja pagar essa conta?',
+                primaryButtonLabel: 'Pagar',
+                onTapPrimaryButton: () {
+                  BillModel updatedBill = bill.copyWith(
+                    paymentDateTime: DateTime.now(),
+                    status: BillStatusEnum.payed,
+                  );
+                  dataBaseViewModel.updateBill(updatedBill);
+                  dataBaseViewModel.createPayment(updatedBill);
+                  context.pop();
+                  context.showSnackSuccess('Conta paga!');
+                },
+              ),
+            );
+          },
+        ),
+        JPSecondaryButtonSmall(
+          label: 'Editar',
+          onTap: () {
+            context.pushNamed(Routes.bill, arguments: bill);
+          },
+        ),
+      ],
     );
   }
 }

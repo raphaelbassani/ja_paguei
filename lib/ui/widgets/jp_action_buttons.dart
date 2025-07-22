@@ -27,7 +27,7 @@ class JPActionButtons extends StatelessWidget {
         ),
         JPSpacingVertical.s,
         JPSecondaryButton(
-          onTap: onTapSecondaryButton ?? () => context.pop,
+          onTap: onTapSecondaryButton ?? () => context.pop(),
           label: secondaryButtonLabel ?? 'Cancelar',
         ),
       ],
