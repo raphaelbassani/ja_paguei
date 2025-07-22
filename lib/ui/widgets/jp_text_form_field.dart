@@ -40,7 +40,7 @@ class JPTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.green),
         ),
-        labelStyle: TextStyle(color: Colors.black),
+        labelStyle: TextStyle(color: context.textStyle.color),
         labelText: label,
         hintText: hint,
         hintStyle: TextStyle(color: context.textStyle.color?.withAlpha(150)),

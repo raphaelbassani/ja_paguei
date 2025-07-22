@@ -20,7 +20,7 @@ class _BillPageState extends State<BillPage> {
   late final TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
   BillPaymentMethodEnum? paymentMethod;
-  bool isVariableValue = false;
+  bool? isVariableValue;
 
   @override
   void initState() {
@@ -38,6 +38,24 @@ class _BillPageState extends State<BillPage> {
   }
 
   String get mainLabel => editBill != null ? 'Editar conta' : 'Criar conta';
+
+  bool get hasEditedName => nameController.text.isNotEmpty;
+
+  bool get hasEditedValue => valueController.text.isNotEmpty;
+
+  bool get hasEditedDueDayValue => dueDayController.text.isNotEmpty;
+
+  bool get hasEditedPaymentMethod => paymentMethod != null;
+
+  bool get hasEditedIsVariableValue => isVariableValue != null;
+
+  bool get hasEditedAnyInfo => [
+    hasEditedName,
+    hasEditedValue,
+    hasEditedDueDayValue,
+    hasEditedPaymentMethod,
+    hasEditedIsVariableValue,
+  ].any((e) => e);
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +144,7 @@ class _BillPageState extends State<BillPage> {
                   JPSpacingVertical.l,
                   JPSelectionSwitch(
                     label: 'Esta conta tem valor variável?',
-                    isSelected: isVariableValue,
+                    isSelected: isVariableValue ?? false,
                     onTap: (newVariableValue) {
                       isVariableValue = newVariableValue;
                       setState(() {});
@@ -145,7 +163,9 @@ class _BillPageState extends State<BillPage> {
                   JPActionButtons(
                     primaryButtonLabel: mainLabel,
                     onTapPrimaryButton: () {},
-                    onTapSecondaryButton: () {},
+                    onTapSecondaryButton: () {
+                      context.pop();
+                    },
                   ),
                 ],
               ),
