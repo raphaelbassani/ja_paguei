@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
 import '../enums/loading_status_enum.dart';
 import '../helpers/bills_database.dart';
 import '../models/bill_model.dart';
+import 'view_model.dart';
 
-class DataBaseViewModel with ChangeNotifier {
+class DataBaseViewModel extends ViewModel {
   final BillsDatabase billsDatabase;
 
   DataBaseViewModel(this.billsDatabase);
@@ -14,11 +13,11 @@ class DataBaseViewModel with ChangeNotifier {
 
   refreshNotes() async {
     status = StatusEnum.loading;
-    notifyListeners();
+    safeNotify();
     await billsDatabase.readAll().then((value) {
       bills = value;
     });
     status = StatusEnum.loaded;
-    notifyListeners();
+    safeNotify();
   }
 }

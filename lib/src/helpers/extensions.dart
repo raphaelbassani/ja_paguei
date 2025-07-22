@@ -5,6 +5,8 @@ extension ContextExtensions on BuildContext {
 
   get arguments => ModalRoute.of(this)?.settings.arguments;
 
+  get backgroundColor => Theme.of(this).scaffoldBackgroundColor;
+
   pop() {
     navigator.pop();
   }

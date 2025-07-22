@@ -6,6 +6,7 @@ import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/view_models/database_view_model.dart';
+import 'src/view_models/theme_view_model.dart';
 
 void main() {
   BillsDatabase billsDatabase = BillsDatabase.instance;
@@ -14,6 +15,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DataBaseViewModel(billsDatabase)),
+        ChangeNotifierProvider(create: (_) => ThemeViewModel()),
       ],
       child: MyApp(billsDatabase: billsDatabase),
     ),
@@ -30,8 +32,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode themeMode = ThemeMode.system;
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
-      themeMode: themeMode,
+      themeMode: context.watch<ThemeViewModel>().currentTheme,
       title: 'Já Paguei',
       routes: {
         Routes.home: (context) => const HomePage(),

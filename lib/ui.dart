@@ -4,6 +4,8 @@ export 'package:ja_paguei/ui/spacing.dart';
 export 'package:ja_paguei/ui/widgets/jp_app_bar.dart';
 export 'package:ja_paguei/ui/widgets/jp_gesture_detector.dart';
 export 'package:ja_paguei/ui/widgets/jp_modal_selection.dart';
+export 'package:ja_paguei/ui/widgets/jp_primary_button.dart';
+export 'package:ja_paguei/ui/widgets/jp_secondary_button.dart';
 export 'package:ja_paguei/ui/widgets/jp_selection_switch.dart';
 export 'package:ja_paguei/ui/widgets/jp_selection_tile.dart';
 export 'package:ja_paguei/ui/widgets/jp_status.dart';

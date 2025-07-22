@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../ui.dart';
+import '../enums/bill_payment_method_enum.dart';
 import '../helpers/extensions.dart';
 import '../helpers/format.dart';
 import '../helpers/helper.dart';
@@ -19,6 +20,7 @@ class _BillPageState extends State<BillPage> {
   late final TextEditingController valueController = TextEditingController();
   late final TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
+  BillPaymentMethodEnum? paymentMethod;
 
   @override
   void initState() {
@@ -109,10 +111,15 @@ class _BillPageState extends State<BillPage> {
                     onTap: () {
                       showBarModalBottomSheet(
                         context: context,
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: context.backgroundColor,
                         builder: (context) => JPModalSelection(
                           title: 'Método de pagamento',
                           items: Helper.paymentMethods,
+                          onTapPrimaryButton: (newPaymentMethod) {
+                            paymentMethod = BillPaymentMethodEnum.values
+                                .firstWhere((e) => e.label == newPaymentMethod);
+                            setState(() {});
+                          },
                         ),
                       );
                     },
