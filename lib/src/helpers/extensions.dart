@@ -8,6 +8,8 @@ extension ContextExtensions on BuildContext {
 
   get backgroundColor => Theme.of(this).scaffoldBackgroundColor;
 
+  get textStyle => Theme.of(this).textTheme.bodyMedium;
+
   pop() {
     navigator.pop();
   }

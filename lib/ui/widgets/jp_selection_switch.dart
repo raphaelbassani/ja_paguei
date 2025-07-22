@@ -20,7 +20,7 @@ class JPSelectionSwitch extends StatelessWidget {
       children: [
         JPText(label),
         Spacer(),
-        Switch(value: isSelected, onChanged: onTap),
+        Switch(value: isSelected, onChanged: onTap, activeColor: Colors.green),
       ],
     );
   }

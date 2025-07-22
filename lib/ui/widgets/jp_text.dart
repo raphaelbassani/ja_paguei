@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../src/helpers/extensions.dart';
+
 enum JPTextTypeEnum {
   xxs(fontSize: 4),
   xs(fontSize: 8),
@@ -30,14 +32,11 @@ class JPText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle bodyMedium =
-        Theme.of(context).textTheme.bodyMedium ?? TextStyle();
-
     return Text(
       text,
-      style: bodyMedium.copyWith(
+      style: context.textStyle.copyWith(
         fontSize: type.fontSize ?? JPTextTypeEnum.m.fontSize,
-        color: (color ?? bodyMedium.color)!.withAlpha(
+        color: (color ?? context.textStyle.color)!.withAlpha(
           hasDefaultOpacity ? 155 : 255,
         ),
       ),

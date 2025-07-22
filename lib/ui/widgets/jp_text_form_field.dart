@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../src/helpers/extensions.dart';
+
 class JPTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
@@ -25,9 +27,6 @@ class JPTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle bodyMedium =
-        Theme.of(context).textTheme.bodyMedium ?? TextStyle();
-
     return TextFormField(
       controller: controller,
       autofocus: autoFocus,
@@ -38,9 +37,13 @@ class JPTextFormField extends StatelessWidget {
       onChanged: validator,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.green),
+        ),
+        labelStyle: TextStyle(color: Colors.black),
         labelText: label,
         hintText: hint,
-        hintStyle: TextStyle(color: bodyMedium.color?.withAlpha(150)),
+        hintStyle: TextStyle(color: context.textStyle.color?.withAlpha(150)),
       ),
       validator: validator,
     );

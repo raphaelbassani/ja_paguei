@@ -20,6 +20,7 @@ class _BillPageState extends State<BillPage> {
   late final TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
   BillPaymentMethodEnum? paymentMethod;
+  bool isVariableValue = false;
 
   @override
   void initState() {
@@ -30,18 +31,18 @@ class _BillPageState extends State<BillPage> {
         valueController.text = Format.currencyIntoString(editBill!.value);
         dueDayController.text = editBill!.dueDay.toString();
         paymentMethod = editBill!.paymentMethod;
+        isVariableValue = editBill!.isVariableValue;
       }
     });
     super.initState();
   }
 
+  String get mainLabel => editBill != null ? 'Editar conta' : 'Criar conta';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JPAppBar(
-        title: editBill != null ? 'Editar conta' : 'Criar conta',
-        hasTrailing: true,
-      ),
+      appBar: JPAppBar(title: mainLabel, hasTrailing: true),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -121,6 +122,30 @@ class _BillPageState extends State<BillPage> {
                         ),
                       );
                     },
+                  ),
+                  JPSpacingVertical.l,
+                  JPSelectionSwitch(
+                    label: 'Esta conta tem valor variável?',
+                    isSelected: isVariableValue,
+                    onTap: (newVariableValue) {
+                      isVariableValue = newVariableValue;
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: JPPadding.all,
+              child: Column(
+                children: [
+                  JPActionButtons(
+                    primaryButtonLabel: mainLabel,
+                    onTapPrimaryButton: () {},
+                    onTapSecondaryButton: () {},
                   ),
                 ],
               ),
