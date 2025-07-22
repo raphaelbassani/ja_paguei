@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../ui.dart';
-import '../../ui/widgets/jp_modal_selection.dart';
-import '../../ui/widgets/jp_text_form_field.dart';
 import '../helpers/extensions.dart';
 import '../helpers/format.dart';
 import '../helpers/helper.dart';
@@ -19,6 +17,7 @@ class BillPage extends StatefulWidget {
 class _BillPageState extends State<BillPage> {
   late final TextEditingController nameController = TextEditingController();
   late final TextEditingController valueController = TextEditingController();
+  late final TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
 
   @override
@@ -28,6 +27,7 @@ class _BillPageState extends State<BillPage> {
       if (editBill != null) {
         nameController.text = editBill!.name;
         valueController.text = Format.currencyIntoString(editBill!.value);
+        dueDayController.text = editBill!.dueDay.toString();
       }
     });
     super.initState();
@@ -68,12 +68,32 @@ class _BillPageState extends State<BillPage> {
                     hint: '${Format.brl} 100,00',
                     inputFormatters: [Format.currencyInput],
                     keyboardType: TextInputType.number,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
                         double value = Format.currencyIntoDouble(text);
                         if (value == 0) {
-                          return 'Digite um nome valor valido';
+                          return 'Digite um valor valido';
+                        }
+                      }
+
+                      return null;
+                    },
+                  ),
+                  JPSpacingVertical.l,
+                  JPTextFormField(
+                    controller: dueDayController,
+                    autoFocus: true,
+                    label: 'Dia de vencimento',
+                    hint: '01',
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [Format.dueDayInput],
+                    inputAction: TextInputAction.done,
+                    validator: (text) {
+                      if (text != null && text.isNotEmpty) {
+                        int value = int.parse(text);
+                        if (value > 31 || (value == 0 && text.length == 2)) {
+                          return 'Digite um dia valido';
                         }
                       }
 
@@ -82,22 +102,18 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   JPSelectionTile(
-                    title: 'Dia de vencimento',
-                    info: editBill != null
-                        ? editBill!.formattedDueDate
-                        : 'Selecione o dia dos vencimentos',
+                    title: 'Método de pagamento',
+                    info: editBill?.paymentMethod != null
+                        ? ''
+                        : 'Selecione o método de pagamento',
                     onTap: () {
                       showBarModalBottomSheet(
                         context: context,
-                        backgroundColor: Theme.of(
-                          context,
-                        ).scaffoldBackgroundColor,
-                        builder: (_) {
-                          return JPModalSelection(
-                            title: 'Dia de vencimento',
-                            items: Helper.daysOfMonth,
-                          );
-                        },
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => JPModalSelection(
+                          title: 'Método de pagamento',
+                          items: Helper.paymentMethods,
+                        ),
                       );
                     },
                   ),

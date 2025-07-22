@@ -99,7 +99,7 @@ class _Item extends StatelessWidget {
             padding: JPPadding.horizontal,
             child: Row(
               children: [
-                JPText('Todo dia $label'),
+                JPText(label),
                 Spacer(),
                 Radio<String>(
                   value: label,

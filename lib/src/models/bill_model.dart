@@ -25,7 +25,9 @@ class BillModel extends Equatable {
     this.paymentDateTime,
   });
 
-  String get formattedDueDate => 'Todo dia $dueDay';
+  String get labelWithDueDate => 'Todo dia $formattedDueDay';
+
+  String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,

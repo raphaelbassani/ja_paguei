@@ -30,4 +30,12 @@ class Format {
         symbol: brl,
         decimalDigits: 2,
       );
+
+  static CurrencyTextInputFormatter dueDayInput =
+      CurrencyTextInputFormatter.currency(
+        locale: 'pt_BR',
+        symbol: '',
+        decimalDigits: 0,
+        maxValue: 31,
+      );
 }
