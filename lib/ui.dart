@@ -1,6 +1,7 @@
 export 'package:ja_paguei/ui/const.dart';
 export 'package:ja_paguei/ui/padding.dart';
 export 'package:ja_paguei/ui/spacing.dart';
+export 'package:ja_paguei/ui/widgets/jp_action_buttons.dart';
 export 'package:ja_paguei/ui/widgets/jp_app_bar.dart';
 export 'package:ja_paguei/ui/widgets/jp_gesture_detector.dart';
 export 'package:ja_paguei/ui/widgets/jp_modal_selection.dart';

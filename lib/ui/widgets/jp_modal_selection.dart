@@ -75,19 +75,17 @@ class _JPModalSelectionState extends State<JPModalSelection> {
               },
             ),
             JPSpacingVertical.s,
-            JPPrimaryButton(
-              onTap: () {
+            JPActionButtons(
+              primaryButtonLabel: widget.primaryButtonLabel,
+              onTapPrimaryButton: () {
                 if (widget.onTapPrimaryButton != null) {
                   widget.onTapPrimaryButton!(selectedValue);
+                  context.pop();
                   return;
                 }
               },
-              label: widget.primaryButtonLabel ?? 'Salvar',
-            ),
-            JPSpacingVertical.s,
-            JPSecondaryButton(
-              onTap: widget.onTapSecondaryButton ?? context.pop,
-              label: widget.secondaryButtonLabel ?? 'Cancelar',
+              secondaryButtonLabel: widget.secondaryButtonLabel,
+              onTapSecondaryButton: widget.onTapSecondaryButton ?? context.pop,
             ),
             JPSpacingVertical.xl,
           ],

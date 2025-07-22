@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../ui.dart';
 import '../enums/bill_payment_method_enum.dart';
@@ -30,6 +29,7 @@ class _BillPageState extends State<BillPage> {
         nameController.text = editBill!.name;
         valueController.text = Format.currencyIntoString(editBill!.value);
         dueDayController.text = editBill!.dueDay.toString();
+        paymentMethod = editBill!.paymentMethod;
       }
     });
     super.initState();
@@ -38,7 +38,10 @@ class _BillPageState extends State<BillPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JPAppBar(title: 'Criar conta', hasTrailing: true),
+      appBar: JPAppBar(
+        title: editBill != null ? 'Editar conta' : 'Criar conta',
+        hasTrailing: true,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -48,7 +51,6 @@ class _BillPageState extends State<BillPage> {
                 children: [
                   JPTextFormField(
                     controller: nameController,
-                    autoFocus: true,
                     label: 'Nome da conta',
                     hint: 'Conta de água',
                     inputAction: TextInputAction.next,
@@ -65,7 +67,6 @@ class _BillPageState extends State<BillPage> {
                   JPSpacingVertical.l,
                   JPTextFormField(
                     controller: valueController,
-                    autoFocus: true,
                     label: 'Valor da conta',
                     hint: '${Format.brl} 100,00',
                     inputFormatters: [Format.currencyInput],
@@ -85,7 +86,6 @@ class _BillPageState extends State<BillPage> {
                   JPSpacingVertical.l,
                   JPTextFormField(
                     controller: dueDayController,
-                    autoFocus: true,
                     label: 'Dia de vencimento',
                     hint: '01',
                     keyboardType: TextInputType.number,
@@ -105,14 +105,12 @@ class _BillPageState extends State<BillPage> {
                   JPSpacingVertical.l,
                   JPSelectionTile(
                     title: 'Método de pagamento',
-                    info: editBill?.paymentMethod != null
-                        ? ''
+                    info: paymentMethod != null
+                        ? paymentMethod!.label
                         : 'Selecione o método de pagamento',
                     onTap: () {
-                      showBarModalBottomSheet(
-                        context: context,
-                        backgroundColor: context.backgroundColor,
-                        builder: (context) => JPModalSelection(
+                      context.showModal(
+                        child: JPModalSelection(
                           title: 'Método de pagamento',
                           items: Helper.paymentMethods,
                           onTapPrimaryButton: (newPaymentMethod) {

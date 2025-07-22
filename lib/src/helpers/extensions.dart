@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 extension ContextExtensions on BuildContext {
   get navigator => Navigator.of(this);
@@ -19,6 +20,14 @@ extension ContextExtensions on BuildContext {
     navigator.popUntil(
       (route) =>
           (route.settings.name != null && route.settings.name.endsWith('/')),
+    );
+  }
+
+  showModal({required Widget child}) {
+    showBarModalBottomSheet(
+      context: this,
+      backgroundColor: backgroundColor,
+      builder: (_) => child,
     );
   }
 }
