@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../src/helpers/extensions.dart';
 import '../../ui.dart';
+import 'jp_title_modal.dart';
 
-class JPModalSelection extends StatefulWidget {
+class JPSelectionModal extends StatefulWidget {
   final String title;
   final List<String> items;
   final String? preSelectedValue;
@@ -12,7 +13,7 @@ class JPModalSelection extends StatefulWidget {
   final String? secondaryButtonLabel;
   final Function()? onTapSecondaryButton;
 
-  const JPModalSelection({
+  const JPSelectionModal({
     required this.title,
     required this.items,
     this.preSelectedValue,
@@ -24,10 +25,10 @@ class JPModalSelection extends StatefulWidget {
   });
 
   @override
-  State<JPModalSelection> createState() => _JPModalSelectionState();
+  State<JPSelectionModal> createState() => _JPSelectionModalState();
 }
 
-class _JPModalSelectionState extends State<JPModalSelection> {
+class _JPSelectionModalState extends State<JPSelectionModal> {
   String? selectedValue;
 
   @override
@@ -46,13 +47,7 @@ class _JPModalSelectionState extends State<JPModalSelection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             JPSpacingVertical.m,
-            Row(
-              children: [
-                JPText(widget.title, type: JPTextTypeEnum.l),
-                Spacer(),
-                JPGestureDetector(onTap: context.pop, child: Icon(Icons.close)),
-              ],
-            ),
+            JPTitleModal(title: widget.title),
             JPSpacingVertical.m,
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),

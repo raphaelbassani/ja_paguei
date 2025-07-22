@@ -18,6 +18,7 @@ dependencies:
   intl: 0.20.2
   currency_text_input_formatter: 2.3.0
   modal_bottom_sheet: 3.0.0
+  top_snackbar_flutter: 3.3.0
 
 dev_dependencies:
   flutter_test:

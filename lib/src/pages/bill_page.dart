@@ -26,7 +26,7 @@ class _BillPageState extends State<BillPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       editBill = context.arguments as BillModel?;
-      if (editBill != null) {
+      if (isEdition) {
         nameController.text = editBill!.name;
         valueController.text = Format.currencyIntoString(editBill!.value);
         dueDayController.text = editBill!.dueDay.toString();
@@ -37,7 +37,19 @@ class _BillPageState extends State<BillPage> {
     super.initState();
   }
 
-  String get mainLabel => editBill != null ? 'Editar conta' : 'Criar conta';
+  bool get isEdition => editBill != null;
+
+  String get mainLabel => isEdition ? 'Editar conta' : 'Criar conta';
+
+  String get cancelModalTitle =>
+      isEdition ? 'Deseja cancelar edição?' : 'Deseja cancelar?';
+
+  String get cancelModalInfo => isEdition
+      ? 'Ao confirmar você perderá todas as informações editadas.'
+      : 'Ao confirmar você perderá todas as informações criadas.';
+
+  String get cancelModalButtonLabel =>
+      isEdition ? 'Continuar edição' : 'Continuar criação';
 
   bool get hasEditedName => nameController.text.isNotEmpty;
 
@@ -56,6 +68,13 @@ class _BillPageState extends State<BillPage> {
     hasEditedPaymentMethod,
     hasEditedIsVariableValue,
   ].any((e) => e);
+
+  bool get hasEditedAllInfo => ![
+    hasEditedName,
+    hasEditedValue,
+    hasEditedDueDayValue,
+    hasEditedPaymentMethod,
+  ].any((e) => !e);
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +148,7 @@ class _BillPageState extends State<BillPage> {
                         : 'Selecione o método de pagamento',
                     onTap: () {
                       context.showModal(
-                        child: JPModalSelection(
+                        child: JPSelectionModal(
                           title: 'Método de pagamento',
                           items: Helper.paymentMethods,
                           onTapPrimaryButton: (newPaymentMethod) {
@@ -162,8 +181,28 @@ class _BillPageState extends State<BillPage> {
                 children: [
                   JPActionButtons(
                     primaryButtonLabel: mainLabel,
-                    onTapPrimaryButton: () {},
+                    onTapPrimaryButton: () {
+                      if (hasEditedAllInfo) {
+                      } else {
+                        context.showSnackError(
+                          'Por favor preencha todos os dados',
+                        );
+                      }
+                    },
                     onTapSecondaryButton: () {
+                      if (hasEditedAnyInfo) {
+                        context.showModal(
+                          child: JPConfirmationModal(
+                            title: cancelModalTitle,
+                            info: cancelModalInfo,
+                            primaryButtonLabel: 'Cancelar',
+                            onTapPrimaryButton: context.popUntilIsRoot,
+                            secondaryButtonLabel: cancelModalButtonLabel,
+                            onTapSecondaryButton: context.pop,
+                          ),
+                        );
+                        return;
+                      }
                       context.pop();
                     },
                   ),
