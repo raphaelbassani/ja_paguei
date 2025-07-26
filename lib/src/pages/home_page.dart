@@ -28,12 +28,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: JPAppBar(title: tabTitle[tabIndex]),
       floatingActionButton: tabIndex == 0
-          ? FloatingActionButton.extended(
-              label: const JPText('Conta'),
-              backgroundColor: Colors.green,
-              icon: const Icon(Icons.add),
-              onPressed: () => context.pushNamed(Routes.bill),
-            )
+          ? JPFab(label: 'Conta', onTap: () => context.pushNamed(Routes.bill))
           : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: tabIndex,

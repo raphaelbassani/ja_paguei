@@ -26,15 +26,23 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
       ],
-      child: JaPagueiApp(billsDatabase: billsDatabase),
+      child: JaPagueiApp(
+        billsDatabase: billsDatabase,
+        paymentHistoryDatabase: paymentHistoryDatabase,
+      ),
     ),
   );
 }
 
 class JaPagueiApp extends StatefulWidget {
   final BillsDatabase billsDatabase;
+  final PaymentsHistoryDatabase paymentHistoryDatabase;
 
-  const JaPagueiApp({required this.billsDatabase, super.key});
+  const JaPagueiApp({
+    required this.billsDatabase,
+    required this.paymentHistoryDatabase,
+    super.key,
+  });
 
   @override
   State<JaPagueiApp> createState() => _JaPagueiAppState();
@@ -47,12 +55,14 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DataBaseViewModel>().refreshBills();
+      context.read<DataBaseViewModel>().refreshHistory();
     });
   }
 
   @override
   dispose() {
     widget.billsDatabase.close();
+    widget.paymentHistoryDatabase.close();
     super.dispose();
   }
 
