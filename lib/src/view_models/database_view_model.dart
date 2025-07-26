@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+
+import '../enums/bill_status.dart';
 import '../enums/loading_status_enum.dart';
 import '../helpers/bills_database.dart';
 import '../helpers/payments_history_database.dart';
@@ -20,11 +23,39 @@ class DataBaseViewModel extends ViewModel {
   void refreshBills() async {
     status = StatusEnum.loading;
     safeNotify();
-    await _billsDatabase.readAll().then((value) {
-      bills = value;
+    await _billsDatabase.readAll().then((savedBills) {
+      _resetBillIfNeeded(savedBills);
     });
     status = StatusEnum.loaded;
     safeNotify();
+  }
+
+  void _resetBillIfNeeded(List<BillModel> savedBills) {
+    List<BillModel> updatedBills = [];
+
+    for (BillModel bill in savedBills) {
+      BillModel? newBill;
+      DateTime now = DateUtils.dateOnly(DateTime.now());
+
+      if (bill.paymentDateTime != null) {
+        if (now.isAfter(bill.paymentDateTime!.add(Duration(days: 20)))) {
+          newBill = bill.copyWithCleaningPayment();
+        }
+
+        if (now.isAfter(bill.paymentDateTime!) && bill.isNotPayed) {
+          newBill = bill.copyWith(status: BillStatusEnum.overdue);
+        }
+      } else {
+        if (now.isAfter(DateTime(now.year, now.month, bill.dueDay)) &&
+            bill.isNotPayed) {
+          newBill = bill.copyWith(status: BillStatusEnum.overdue);
+        }
+      }
+
+      updatedBills.add(newBill ?? bill);
+    }
+
+    bills = updatedBills;
   }
 
   bool createBill(BillModel bill) {

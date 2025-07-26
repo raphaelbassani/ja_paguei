@@ -38,6 +38,8 @@ class BillModel extends Equatable {
   String get formattedPaymentDate =>
       paymentDateTime != null ? Format.ddMMyyyy(paymentDateTime!) : '';
 
+  bool get isNotPayed => status.isNotPayed;
+
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,
     name: json[BillFields.name].toString(),
@@ -82,6 +84,17 @@ class BillModel extends Equatable {
     status: status,
     isVariableValue: isVariableValue,
     paymentDateTime: paymentDateTime,
+  );
+
+  BillModel copyWithCleaningPayment() => BillModel(
+    id: null,
+    name: name,
+    value: value,
+    paymentMethod: paymentMethod,
+    dueDay: dueDay,
+    isVariableValue: isVariableValue,
+    status: BillStatusEnum.pending,
+    paymentDateTime: null,
   );
 
   Map<String, Object?> toJson() => {

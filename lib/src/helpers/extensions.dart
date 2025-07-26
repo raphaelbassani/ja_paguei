@@ -20,7 +20,7 @@ extension ContextExtensions on BuildContext {
 
   get unfocus => FocusScope.of(this).requestFocus(FocusNode());
 
-  DateTime get now => DateTime.now();
+  DateTime get now => DateUtils.dateOnly(DateTime.now());
 
   void pop() {
     navigator.pop();

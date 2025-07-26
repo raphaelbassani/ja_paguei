@@ -92,7 +92,7 @@ class _ItemWidget extends StatelessWidget {
               JPSpacingVertical.xs,
               JPStatus(text: bill.status.label, status: bill.status.jpStatus),
               JPSpacingVertical.s,
-              if (bill.status.isNotPayed) _Buttons(bill),
+              if (bill.isNotPayed) _Buttons(bill),
             ],
           ),
         ),
