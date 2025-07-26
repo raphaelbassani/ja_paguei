@@ -94,7 +94,7 @@ class BillModel extends Equatable {
   );
 
   BillModel copyWithCleaningPayment() => BillModel(
-    id: null,
+    id: id,
     name: name,
     value: value,
     paymentMethod: paymentMethod,

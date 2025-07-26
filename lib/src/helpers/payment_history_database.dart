@@ -3,13 +3,13 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/bill_model.dart';
 
-class PaymentsHistoryDatabase {
-  static final PaymentsHistoryDatabase instance =
-      PaymentsHistoryDatabase._internal();
+class PaymentHistoryDatabase {
+  static final PaymentHistoryDatabase instance =
+      PaymentHistoryDatabase._internal();
 
   static Database? _database;
 
-  PaymentsHistoryDatabase._internal();
+  PaymentHistoryDatabase._internal();
 
   Future<Database> get database async {
     if (_database != null) {
@@ -31,18 +31,18 @@ class PaymentsHistoryDatabase {
     return await db.execute('''
         CREATE TABLE ${PaymentHistoryFields.tableName} (
           ${PaymentHistoryFields.id} ${PaymentHistoryFields.idType},
+          ${PaymentHistoryFields.billId} ${PaymentHistoryFields.textType},
           ${PaymentHistoryFields.name} ${PaymentHistoryFields.textType},
           ${PaymentHistoryFields.value} ${PaymentHistoryFields.textType},
           ${PaymentHistoryFields.paymentMethod} ${PaymentHistoryFields.textType},
           ${PaymentHistoryFields.dueDay} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.status} ${PaymentHistoryFields.textType},
           ${PaymentHistoryFields.isVariableValue} ${PaymentHistoryFields.textType},
           ${PaymentHistoryFields.paymentDateTime} ${PaymentHistoryFields.textType}
         )
       ''');
   }
 
-  Future<BillModel> create(BillModel bill) async {
+  Future<BillModel> save(BillModel bill) async {
     final db = await instance.database;
     final id = await db.insert(PaymentHistoryFields.tableName, bill.toJson());
     return bill.copyWith(id: id);
@@ -101,15 +101,15 @@ class PaymentsHistoryDatabase {
 }
 
 class PaymentHistoryFields {
-  static const String tableName = 'payments_history';
+  static const String tableName = 'payment_history';
   static const String idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
   static const String textType = 'TEXT NOT NULL';
   static const String id = '_id';
+  static const String billId = 'billId';
   static const String name = 'name';
   static const String value = 'value';
   static const String paymentMethod = 'paymentMethod';
   static const String dueDay = 'dueDay';
-  static const String status = 'status';
   static const String isVariableValue = 'isVariableValue';
   static const String paymentDateTime = 'paymentDateTime';
 
@@ -119,7 +119,6 @@ class PaymentHistoryFields {
     value,
     paymentMethod,
     dueDay,
-    status,
     isVariableValue,
     paymentDateTime,
   ];

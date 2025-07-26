@@ -204,6 +204,28 @@ class _BillPageState extends State<BillPage> {
                       setState(() {});
                     },
                   ),
+                  if (isEdition) ...[
+                    JPSpacingVertical.m,
+                    JPSelectionTile(
+                      title: 'Não tem mais essa conta?',
+                      info: 'Deletar conta',
+                      onTap: () {
+                        context.showModal(
+                          child: JPConfirmationModal(
+                            title: 'Deseja deletar essa conta?',
+                            primaryButtonLabel: 'Deletar',
+                            onTapPrimaryButton: () {
+                              dataBaseViewModel.deleteBill(editBill!);
+                              context.popUntilIsRoot();
+                              context.showSnackInfo(
+                                'Conta deletada com sucesso.',
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ],
               ),
             ),

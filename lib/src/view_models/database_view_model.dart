@@ -3,31 +3,45 @@ import 'package:flutter/material.dart';
 import '../enums/bill_status.dart';
 import '../enums/loading_status_enum.dart';
 import '../helpers/bills_database.dart';
-import '../helpers/payments_history_database.dart';
+import '../helpers/payment_history_database.dart';
 import '../models/bill_model.dart';
 import 'view_model.dart';
 
 class DataBaseViewModel extends ViewModel {
+  final PaymentHistoryDatabase _paymentHistoryDatabase;
   final BillsDatabase _billsDatabase;
-  final PaymentsHistoryDatabase _paymentsHistoryDatabase;
 
   DataBaseViewModel({
+    required PaymentHistoryDatabase paymentHistoryDatabase,
     required BillsDatabase billsDatabase,
-    required PaymentsHistoryDatabase paymentHistoryDatabase,
-  }) : _paymentsHistoryDatabase = paymentHistoryDatabase,
+  }) : _paymentHistoryDatabase = paymentHistoryDatabase,
        _billsDatabase = billsDatabase;
 
   StatusEnum status = StatusEnum.idle;
+  List<BillModel> paymentHistory = [];
   List<BillModel> bills = [];
 
-  void refreshBills() async {
+  Future<void> loadData() async {
     status = StatusEnum.loading;
     safeNotify();
+
+    await _refreshPaymentHistory();
+    await _refreshBills();
+
+    status = StatusEnum.loaded;
+    safeNotify();
+  }
+
+  Future<void> _refreshPaymentHistory() async {
+    await _paymentHistoryDatabase.readAll().then((value) {
+      paymentHistory = value;
+    });
+  }
+
+  Future<void> _refreshBills() async {
     await _billsDatabase.readAll().then((savedBills) {
       _resetBillIfNeeded(savedBills);
     });
-    status = StatusEnum.loaded;
-    safeNotify();
   }
 
   void _resetBillIfNeeded(List<BillModel> savedBills) {
@@ -66,42 +80,28 @@ class DataBaseViewModel extends ViewModel {
     }
 
     _billsDatabase.create(bill);
-    refreshBills();
+    _refreshBills();
     return true;
   }
 
   void updateBill(BillModel bill) {
     _billsDatabase.update(bill);
-    refreshBills();
+    _refreshBills();
   }
 
   void deleteBill(BillModel bill) {
     _billsDatabase.delete(bill.id!);
-    refreshBills();
+    _refreshBills();
   }
 
-  ///PaymentHistory Database
-
-  List<BillModel> payments = [];
-
-  void refreshHistory() async {
-    status = StatusEnum.loading;
-    safeNotify();
-    await _paymentsHistoryDatabase.readAll().then((value) {
-      payments = value;
-    });
-    status = StatusEnum.loaded;
-    safeNotify();
-  }
-
-  bool createPayment(BillModel bill) {
-    _paymentsHistoryDatabase.create(bill.copyWithNullId());
-    refreshHistory();
+  bool savePaymentIntoHistory(BillModel bill) {
+    _paymentHistoryDatabase.save(bill.copyWithNullId());
+    _refreshPaymentHistory();
     return true;
   }
 
-  void deletePayment(BillModel bill) {
-    _paymentsHistoryDatabase.delete(bill.id!);
-    refreshHistory();
+  void deletePaymentOfHistory(BillModel bill) {
+    _paymentHistoryDatabase.delete(bill.id!);
+    _refreshPaymentHistory();
   }
 }

@@ -5,8 +5,8 @@ import '../../../ui.dart';
 import '../../models/bill_model.dart';
 import '../../view_models/database_view_model.dart';
 
-class HistoryTabWidget extends StatelessWidget {
-  const HistoryTabWidget({super.key});
+class PaymentHistoryTabWidget extends StatelessWidget {
+  const PaymentHistoryTabWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class HistoryTabWidget extends StatelessWidget {
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: dataBaseViewModel.payments.length,
+            childCount: dataBaseViewModel.paymentHistory.length,
             (_, index) {
-              final BillModel bill = dataBaseViewModel.payments[index];
+              final BillModel bill = dataBaseViewModel.paymentHistory[index];
               return Padding(
                 padding: JPPadding.horizontal,
                 child: Column(

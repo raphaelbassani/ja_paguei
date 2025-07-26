@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'src/helpers/bills_database.dart';
-import 'src/helpers/payments_history_database.dart';
+import 'src/helpers/payment_history_database.dart';
 import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
 import 'src/pages/bill_payment_date_page.dart';
@@ -14,8 +14,8 @@ import 'src/view_models/theme_view_model.dart';
 
 void main() {
   BillsDatabase billsDatabase = BillsDatabase.instance;
-  PaymentsHistoryDatabase paymentHistoryDatabase =
-      PaymentsHistoryDatabase.instance;
+  PaymentHistoryDatabase paymentHistoryDatabase =
+      PaymentHistoryDatabase.instance;
 
   runApp(
     MultiProvider(
@@ -38,7 +38,7 @@ void main() {
 
 class JaPagueiApp extends StatefulWidget {
   final BillsDatabase billsDatabase;
-  final PaymentsHistoryDatabase paymentHistoryDatabase;
+  final PaymentHistoryDatabase paymentHistoryDatabase;
 
   const JaPagueiApp({
     required this.billsDatabase,
@@ -56,8 +56,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<DataBaseViewModel>().refreshBills();
-      context.read<DataBaseViewModel>().refreshHistory();
+      context.read<DataBaseViewModel>().loadData();
     });
   }
 

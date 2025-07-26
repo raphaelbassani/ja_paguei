@@ -37,7 +37,7 @@ class BillConfirmationModalWidget extends StatelessWidget {
           : null,
       onTapPrimaryButton: () {
         dataBaseViewModel.updateBill(updatedBill);
-        dataBaseViewModel.createPayment(updatedBill);
+        dataBaseViewModel.savePaymentIntoHistory(updatedBill);
         context.popUntilIsRoot();
         context.showSnackSuccess('Conta paga!');
       },
