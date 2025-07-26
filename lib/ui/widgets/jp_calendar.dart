@@ -66,8 +66,16 @@ class _JPCalendarState extends State<JPCalendar> {
         TableCalendar(
           onCalendarCreated: (controller) => _pageController = controller,
           headerVisible: false,
-          firstDay: context.now.subtract(Duration(days: 365)),
-          lastDay: context.now.add(Duration(days: 365)),
+          firstDay: DateTime(
+            context.now.year,
+            context.now.month - 1,
+            context.now.day,
+          ),
+          lastDay: DateTime(
+            context.now.year,
+            context.now.month + 1,
+            context.now.day,
+          ),
           locale: Helper.locale,
           daysOfWeekStyle: DaysOfWeekStyle(
             weekdayStyle: TextStyle(fontSize: 12.0),
@@ -80,6 +88,7 @@ class _JPCalendarState extends State<JPCalendar> {
             },
           ),
           calendarStyle: CalendarStyle(
+            disabledTextStyle: TextStyle(color: Colors.transparent),
             selectedDecoration: BoxDecoration(
               color: Colors.green,
               shape: BoxShape.circle,
