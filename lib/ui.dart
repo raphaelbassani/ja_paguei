@@ -3,6 +3,7 @@ export 'package:ja_paguei/ui/padding.dart';
 export 'package:ja_paguei/ui/spacing.dart';
 export 'package:ja_paguei/ui/widgets/jp_action_buttons.dart';
 export 'package:ja_paguei/ui/widgets/jp_app_bar.dart';
+export 'package:ja_paguei/ui/widgets/jp_calendar.dart';
 export 'package:ja_paguei/ui/widgets/jp_confirmation_modal.dart';
 export 'package:ja_paguei/ui/widgets/jp_fab.dart';
 export 'package:ja_paguei/ui/widgets/jp_gesture_detector.dart';

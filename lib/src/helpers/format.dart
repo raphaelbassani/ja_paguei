@@ -1,4 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:intl/intl.dart';
+
+import 'extensions.dart';
 
 class Format {
   static final brl = 'R\$';
@@ -36,5 +39,9 @@ class Format {
     return '${date.day.toString().padLeft(2, '0')}'
         '$slash${date.month.toString().padLeft(2, '0')}'
         '$slash${date.year}';
+  }
+
+  static String mmmmYYYY(DateTime date, {String slash = '/'}) {
+    return DateFormat.yMMMM('pt_BR').format(date).capitalizeFirstLetter();
   }
 }

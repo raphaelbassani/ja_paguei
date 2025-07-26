@@ -19,7 +19,7 @@ class BillConfirmationModalWidget extends StatelessWidget {
         .watch<DataBaseViewModel>();
 
     BillModel updatedBill = bill.copyWith(
-      paymentDateTime: DateTime.now(),
+      paymentDateTime: context.now,
       status: BillStatusEnum.payed,
     );
 

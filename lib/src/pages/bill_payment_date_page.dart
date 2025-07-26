@@ -24,7 +24,7 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
         .watch<DataBaseViewModel>();
 
     BillModel updatedBill = bill!.copyWith(
-      paymentDateTime: DateTime.now(),
+      paymentDateTime: context.now,
       status: BillStatusEnum.payed,
     );
 
@@ -45,6 +45,7 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
                   ),
                   JPSpacingVertical.m,
                   JPSpacingVertical.l,
+                  JPCalendar(),
                 ],
               ),
             ),

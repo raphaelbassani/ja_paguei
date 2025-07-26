@@ -12,11 +12,15 @@ extension ContextExtensions on BuildContext {
 
   TextStyle get textStyle => Theme.of(this).textTheme.bodyMedium!;
 
+  Color get textColor => textStyle.color!;
+
   double get height => MediaQuery.of(this).size.height;
 
   double get width => MediaQuery.of(this).size.width;
 
   get unfocus => FocusScope.of(this).requestFocus(FocusNode());
+
+  DateTime get now => DateTime.now();
 
   void pop() {
     navigator.pop();
@@ -65,5 +69,14 @@ extension ContextExtensions on BuildContext {
       Overlay.of(this),
       CustomSnackBar.error(message: message, maxLines: 20),
     );
+  }
+}
+
+extension StringExtensions on String {
+  String capitalizeFirstLetter() {
+    if (isEmpty) {
+      return this; // Return the empty string as is
+    }
+    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }

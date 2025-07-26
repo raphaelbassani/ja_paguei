@@ -88,7 +88,7 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(
                         value: Format.currencyIntoDouble(valueController.text),
-                        paymentDateTime: DateTime.now(),
+                        paymentDateTime: context.now,
                         status: BillStatusEnum.payed,
                       );
 

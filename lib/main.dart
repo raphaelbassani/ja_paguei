@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'src/helpers/bills_database.dart';
@@ -70,10 +71,19 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Já Paguei',
       theme: ThemeData(useMaterial3: true),
       darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       themeMode: context.watch<ThemeViewModel>().currentTheme,
-      title: 'Já Paguei',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('pt', 'BR'), // Portuguese (Brazil)
+      ],
       routes: {
         Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),

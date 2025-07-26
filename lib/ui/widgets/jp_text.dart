@@ -36,7 +36,7 @@ class JPText extends StatelessWidget {
       text,
       style: context.textStyle.copyWith(
         fontSize: type.fontSize ?? JPTextTypeEnum.m.fontSize,
-        color: (color ?? context.textStyle.color)!.withAlpha(
+        color: (color ?? context.textColor).withAlpha(
           hasDefaultOpacity ? 155 : 255,
         ),
       ),

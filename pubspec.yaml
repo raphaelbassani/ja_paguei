@@ -20,6 +20,7 @@ dependencies:
   modal_bottom_sheet: 3.0.0
   top_snackbar_flutter: 3.3.0
   table_calendar: 3.2.0
+  flutter_localization: 0.3.3
 
 dev_dependencies:
   flutter_test:

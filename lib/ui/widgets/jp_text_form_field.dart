@@ -43,10 +43,10 @@ class JPTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.green),
         ),
-        labelStyle: TextStyle(color: context.textStyle.color),
+        labelStyle: TextStyle(color: context.textColor),
         labelText: label,
         hintText: hint,
-        hintStyle: TextStyle(color: context.textStyle.color?.withAlpha(150)),
+        hintStyle: TextStyle(color: context.textColor.withAlpha(150)),
       ),
       validator: validator,
     );
