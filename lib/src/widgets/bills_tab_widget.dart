@@ -81,16 +81,14 @@ class _ItemWidget extends StatelessWidget {
                 ],
               ),
               JPSpacingVertical.xxs,
-              JPText(
-                'Vencimento: Todo dia ${bill.formattedDueDay}',
-                hasDefaultOpacity: true,
-              ),
+              JPText(bill.labelWithDueDate, hasDefaultOpacity: true),
               JPSpacingVertical.xs,
-              JPText(
-                'Pago em: ${bill.formattedPaymentDate}',
-                hasDefaultOpacity: true,
-                type: JPTextTypeEnum.s,
-              ),
+              if (bill.paymentDateTime != null)
+                JPText(
+                  bill.labelWithPaymentDate,
+                  hasDefaultOpacity: true,
+                  type: JPTextTypeEnum.s,
+                ),
               JPSpacingVertical.xs,
               JPStatus(text: bill.status.label, status: bill.status.jpStatus),
               JPSpacingVertical.s,
@@ -117,7 +115,7 @@ class _Buttons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         JPPrimaryButtonSmall(
-          label: 'Pagar',
+          label: 'Já paguei',
           onTap: () {
             if (bill.isVariableValue) {
               context.pushNamed(Routes.billVariableValue, arguments: bill);
@@ -125,8 +123,10 @@ class _Buttons extends StatelessWidget {
             }
             context.showModal(
               child: JPConfirmationModal(
-                title: 'Deseja pagar essa conta?',
-                primaryButtonLabel: 'Pagar',
+                title: 'Essa conta já foi paga?',
+                primaryButtonLabel: 'Sim, já foi paga',
+                secondaryButtonLabel: 'Não, ainda não',
+                customWidgetBody: _CustomWidgetBodyConfirmationModal(),
                 onTapPrimaryButton: () {
                   BillModel updatedBill = bill.copyWith(
                     paymentDateTime: DateTime.now(),
@@ -149,5 +149,14 @@ class _Buttons extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
+  const _CustomWidgetBodyConfirmationModal();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: []);
   }
 }

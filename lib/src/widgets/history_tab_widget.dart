@@ -20,7 +20,15 @@ class HistoryTabWidget extends StatelessWidget {
             childCount: dataBaseViewModel.payments.length,
             (_, index) {
               final BillModel bill = dataBaseViewModel.payments[index];
-              return _ItemWidget(bill);
+              return Padding(
+                padding: JPPadding.horizontal,
+                child: Column(
+                  children: [
+                    if (index != 0) ...[Divider(), JPSpacingVertical.xxs],
+                    _ItemWidget(bill),
+                  ],
+                ),
+              );
             },
           ),
         ),
@@ -36,40 +44,34 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: JPPadding.horizontal + JPPadding.bottom,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          JPText(bill.name, type: JPTextTypeEnum.l),
-          JPSpacingVertical.xxs,
-          Row(
-            children: [
-              JPText(bill.formattedValue),
-              if (bill.isVariableValue) ...[
-                JPSpacingHorizontal.xs,
-                JPText(
-                  '(Valor variável)',
-                  type: JPTextTypeEnum.s,
-                  hasDefaultOpacity: true,
-                ),
-              ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        JPText(bill.name, type: JPTextTypeEnum.l),
+        JPSpacingVertical.xxs,
+        Row(
+          children: [
+            JPText(bill.formattedValue),
+            if (bill.isVariableValue) ...[
+              JPSpacingHorizontal.xs,
+              JPText(
+                '(Valor variável)',
+                type: JPTextTypeEnum.s,
+                hasDefaultOpacity: true,
+              ),
             ],
-          ),
-          JPSpacingVertical.xxs,
-          JPText(
-            'Vencimento: Todo dia ${bill.formattedDueDay}',
-            hasDefaultOpacity: true,
-          ),
-          JPSpacingVertical.xs,
-          JPText(
-            'Pago em: ${bill.formattedPaymentDate}',
-            hasDefaultOpacity: true,
-            type: JPTextTypeEnum.s,
-          ),
-          JPSpacingVertical.s,
-        ],
-      ),
+          ],
+        ),
+        JPSpacingVertical.xxs,
+        JPText(bill.labelWithDueDate, hasDefaultOpacity: true),
+        JPSpacingVertical.xs,
+        JPText(
+          bill.labelWithPaymentDate,
+          hasDefaultOpacity: true,
+          type: JPTextTypeEnum.s,
+        ),
+        JPSpacingVertical.s,
+      ],
     );
   }
 }

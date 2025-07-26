@@ -10,6 +10,7 @@ class JPConfirmationModal extends StatelessWidget {
   final Function()? onTapPrimaryButton;
   final String? secondaryButtonLabel;
   final Function()? onTapSecondaryButton;
+  final Widget? customWidgetBody;
 
   const JPConfirmationModal({
     required this.title,
@@ -18,6 +19,7 @@ class JPConfirmationModal extends StatelessWidget {
     this.onTapPrimaryButton,
     this.secondaryButtonLabel,
     this.onTapSecondaryButton,
+    this.customWidgetBody,
     super.key,
   });
 
@@ -32,6 +34,7 @@ class JPConfirmationModal extends StatelessWidget {
             JPSpacingVertical.m,
             JPTitleModal(title: title),
             if (info != null) ...[JPSpacingVertical.m, JPText(info!)],
+            if (customWidgetBody != null) customWidgetBody!,
             JPSpacingVertical.xl,
             JPActionButtons(
               primaryButtonLabel: primaryButtonLabel,

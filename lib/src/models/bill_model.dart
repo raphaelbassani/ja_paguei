@@ -26,11 +26,14 @@ class BillModel extends Equatable {
     this.paymentDateTime,
   });
 
-  String get labelWithDueDate => 'Todo dia $formattedDueDay';
+  String get labelWithDueDate => 'Vencimento: Todo dia $formattedDueDay';
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
   String get formattedValue => Format.currencyIntoString(value);
+
+  String get labelWithPaymentDate =>
+      paymentDateTime != null ? 'Paga em: $formattedPaymentDate' : '';
 
   String get formattedPaymentDate =>
       paymentDateTime != null ? Format.ddMMyyyy(paymentDateTime!) : '';

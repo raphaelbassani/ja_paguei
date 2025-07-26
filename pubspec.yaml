@@ -1,5 +1,5 @@
 name: ja_paguei
-description: "A new Flutter project."
+description: "A Flutter project to simplify bill payment history."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -19,6 +19,7 @@ dependencies:
   currency_text_input_formatter: 2.3.0
   modal_bottom_sheet: 3.0.0
   top_snackbar_flutter: 3.3.0
+  table_calendar: 3.2.0
 
 dev_dependencies:
   flutter_test:
