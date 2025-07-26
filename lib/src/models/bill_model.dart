@@ -26,7 +26,8 @@ class BillModel extends Equatable {
     this.paymentDateTime,
   });
 
-  String get labelWithDueDate => 'Vencimento: Todo dia $formattedDueDay';
+  String get labelWithDueDate =>
+      '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} Todo dia $formattedDueDay';
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
@@ -41,6 +42,10 @@ class BillModel extends Equatable {
   bool get isPayed => status.isPayed;
 
   bool get isNotPayed => status.isNotPayed;
+
+  bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
+
+  bool get isNotPaymentMethodAutomatic => paymentMethod.isNotAutomatic;
 
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,

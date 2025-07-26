@@ -8,4 +8,8 @@ enum BillPaymentMethodEnum {
   const BillPaymentMethodEnum({required this.label});
 
   final String label;
+
+  bool get isAutomatic => this == automaticDebit;
+
+  bool get isNotAutomatic => this != automaticDebit;
 }
