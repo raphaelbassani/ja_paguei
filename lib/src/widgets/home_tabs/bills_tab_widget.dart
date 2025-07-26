@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../ui.dart';
-import '../helpers/extensions.dart';
-import '../helpers/routes.dart';
-import '../models/bill_model.dart';
-import '../view_models/database_view_model.dart';
-import '../view_models/theme_view_model.dart';
-import 'bill_confirmation_modal_widget.dart';
+import '../../../ui.dart';
+import '../../helpers/extensions.dart';
+import '../../helpers/routes.dart';
+import '../../models/bill_model.dart';
+import '../../view_models/database_view_model.dart';
+import '../../view_models/theme_view_model.dart';
+import '../bill_confirmation_modal_widget.dart';
 
 class BillsTabWidget extends StatelessWidget {
   const BillsTabWidget({super.key});
@@ -90,7 +90,10 @@ class _ItemWidget extends StatelessWidget {
                   type: JPTextTypeEnum.s,
                 ),
               JPSpacingVertical.xs,
-              JPStatus(text: bill.status.label, status: bill.status.jpStatus),
+              JPStatus(
+                text: statusLabel(context),
+                status: bill.status.jpStatus,
+              ),
               JPSpacingVertical.s,
               if (bill.isNotPayed) _Buttons(bill),
             ],
@@ -98,6 +101,18 @@ class _ItemWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String statusLabel(BuildContext context) {
+    if (bill.isNotPayed) {
+      if (bill.dueDay == context.now.day) {
+        return 'Vence hoje';
+      }
+      if (bill.dueDay == context.now.add(Duration(days: 1)).day) {
+        return 'Vence amanhã';
+      }
+    }
+    return bill.status.label;
   }
 }
 

@@ -38,7 +38,8 @@ class DataBaseViewModel extends ViewModel {
       DateTime now = DateUtils.dateOnly(DateTime.now());
 
       if (bill.paymentDateTime != null) {
-        if (now.isAfter(bill.paymentDateTime!.add(Duration(days: 20)))) {
+        if (now.isAfter(bill.paymentDateTime!.add(Duration(days: 20))) &&
+            bill.isPayed) {
           newBill = bill.copyWithCleaningPayment();
         }
 

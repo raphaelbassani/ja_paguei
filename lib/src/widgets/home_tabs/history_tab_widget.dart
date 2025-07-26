@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../ui.dart';
-import '../models/bill_model.dart';
-import '../view_models/database_view_model.dart';
+import '../../../ui.dart';
+import '../../models/bill_model.dart';
+import '../../view_models/database_view_model.dart';
 
 class HistoryTabWidget extends StatelessWidget {
   const HistoryTabWidget({super.key});

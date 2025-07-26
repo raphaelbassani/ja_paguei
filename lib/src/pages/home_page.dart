@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../ui.dart';
 import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
-import '../widgets/bills_tab_widget.dart';
-import '../widgets/history_tab_widget.dart';
+import '../widgets/home_tabs/bills_tab_widget.dart';
+import '../widgets/home_tabs/history_tab_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

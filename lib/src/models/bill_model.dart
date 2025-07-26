@@ -38,6 +38,8 @@ class BillModel extends Equatable {
   String get formattedPaymentDate =>
       paymentDateTime != null ? Format.ddMMyyyy(paymentDateTime!) : '';
 
+  bool get isPayed => status.isPayed;
+
   bool get isNotPayed => status.isNotPayed;
 
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
