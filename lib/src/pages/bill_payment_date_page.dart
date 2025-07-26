@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../ui.dart';
 import '../enums/bill_status.dart';
 import '../helpers/extensions.dart';
 import '../models/bill_model.dart';
-import '../view_models/database_view_model.dart';
+import '../widgets/bill_confirmation_modal_widget.dart';
 
 class BillPaymentDatePage extends StatefulWidget {
   const BillPaymentDatePage({super.key});
@@ -21,8 +20,6 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
   @override
   Widget build(BuildContext context) {
     bill = context.arguments as BillModel;
-    final DataBaseViewModel dataBaseViewModel = context
-        .watch<DataBaseViewModel>();
 
     return Scaffold(
       appBar: JPAppBar(title: ' ', hasLeading: true),
@@ -64,10 +61,12 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
                         status: BillStatusEnum.payed,
                       );
 
-                      dataBaseViewModel.updateBill(updatedBill);
-                      dataBaseViewModel.createPayment(updatedBill);
-                      context.popUntilIsRoot();
-                      context.showSnackSuccess('Conta paga!');
+                      context.showModal(
+                        child: BillConfirmationModalWidget(
+                          bill: updatedBill,
+                          hasDateSelection: false,
+                        ),
+                      );
                     },
                   ),
                   JPSpacingVertical.l,

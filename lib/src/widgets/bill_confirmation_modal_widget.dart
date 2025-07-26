@@ -10,8 +10,13 @@ import '../view_models/database_view_model.dart';
 
 class BillConfirmationModalWidget extends StatelessWidget {
   final BillModel bill;
+  final bool hasDateSelection;
 
-  const BillConfirmationModalWidget(this.bill, {super.key});
+  const BillConfirmationModalWidget({
+    required this.bill,
+    this.hasDateSelection = true,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class BillConfirmationModalWidget extends StatelessWidget {
         .watch<DataBaseViewModel>();
 
     BillModel updatedBill = bill.copyWith(
-      paymentDateTime: context.now,
+      paymentDateTime: bill.paymentDateTime ?? context.now,
       status: BillStatusEnum.payed,
     );
 
@@ -27,7 +32,9 @@ class BillConfirmationModalWidget extends StatelessWidget {
       title: 'Essa conta já foi paga?',
       primaryButtonLabel: 'Sim, já foi paga',
       secondaryButtonLabel: 'Não, ainda não',
-      customWidgetBody: _CustomWidgetBodyConfirmationModal(updatedBill),
+      customWidgetBody: hasDateSelection
+          ? _CustomWidgetBodyConfirmationModal(updatedBill)
+          : null,
       onTapPrimaryButton: () {
         dataBaseViewModel.updateBill(updatedBill);
         dataBaseViewModel.createPayment(updatedBill);

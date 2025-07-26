@@ -93,7 +93,7 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                       );
 
                       context.showModal(
-                        child: BillConfirmationModalWidget(updatedBill),
+                        child: BillConfirmationModalWidget(bill: updatedBill),
                       );
                     },
                   ),

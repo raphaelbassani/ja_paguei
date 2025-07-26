@@ -118,7 +118,7 @@ class _Buttons extends StatelessWidget {
               context.pushNamed(Routes.billVariableValue, arguments: bill);
               return;
             }
-            context.showModal(child: BillConfirmationModalWidget(bill));
+            context.showModal(child: BillConfirmationModalWidget(bill: bill));
           },
         ),
         JPSecondaryButtonSmall(
