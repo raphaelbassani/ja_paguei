@@ -53,12 +53,14 @@ class _JPCalendarState extends State<JPCalendar> {
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOut,
                 );
+                setState(() {});
               },
               onRightArrowTap: () {
                 _pageController.nextPage(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOut,
                 );
+                setState(() {});
               },
             );
           },
@@ -66,6 +68,7 @@ class _JPCalendarState extends State<JPCalendar> {
         TableCalendar(
           onCalendarCreated: (controller) => _pageController = controller,
           headerVisible: false,
+          onPageChanged: (newFocusedDay) => focusedDay.value = newFocusedDay,
           firstDay: DateTime(
             context.now.year,
             context.now.month - 1,

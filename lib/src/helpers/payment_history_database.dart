@@ -42,29 +42,9 @@ class PaymentHistoryDatabase {
       ''');
   }
 
-  Future<PaymentHistoryModel> save(PaymentHistoryModel payment) async {
+  Future<void> save(PaymentHistoryModel payment) async {
     final db = await instance.database;
-    final id = await db.insert(
-      PaymentHistoryFields.tableName,
-      payment.toJson(),
-    );
-    return payment.copyWithId(id: id);
-  }
-
-  Future<PaymentHistoryModel> read(int id) async {
-    final db = await instance.database;
-    final maps = await db.query(
-      PaymentHistoryFields.tableName,
-      columns: PaymentHistoryFields.values,
-      where: '${PaymentHistoryFields.id} = ?',
-      whereArgs: [id],
-    );
-
-    if (maps.isNotEmpty) {
-      return PaymentHistoryModel.fromJson(maps.first);
-    } else {
-      throw Exception('ID $id not found');
-    }
+    await db.insert(PaymentHistoryFields.tableName, payment.toJson());
   }
 
   Future<List<PaymentHistoryModel>> readAll() async {
@@ -74,11 +54,11 @@ class PaymentHistoryDatabase {
         .map((json) => PaymentHistoryModel.fromJson(json))
         .toList();
     final List<PaymentHistoryModel> sortedList = listResult
-      ..sort((a, b) => a.paymentDateTime.compareTo(b.paymentDateTime));
+      ..sort((a, b) => b.paymentDateTime.compareTo(a.paymentDateTime));
     return sortedList;
   }
 
-  Future close() async {
+  Future<void> close() async {
     final db = await instance.database;
     db.close();
   }

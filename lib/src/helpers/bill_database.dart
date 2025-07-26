@@ -41,26 +41,9 @@ class BillDatabase {
       ''');
   }
 
-  Future<BillModel> create(BillModel bill) async {
+  Future<void> create(BillModel bill) async {
     final db = await instance.database;
-    final id = await db.insert(BillFields.tableName, bill.toJson());
-    return bill.copyWith(id: id);
-  }
-
-  Future<BillModel> read(int id) async {
-    final db = await instance.database;
-    final maps = await db.query(
-      BillFields.tableName,
-      columns: BillFields.values,
-      where: '${BillFields.id} = ?',
-      whereArgs: [id],
-    );
-
-    if (maps.isNotEmpty) {
-      return BillModel.fromJson(maps.first);
-    } else {
-      throw Exception('ID $id not found');
-    }
+    await db.insert(BillFields.tableName, bill.toJson());
   }
 
   Future<List<BillModel>> readAll() async {
@@ -70,9 +53,9 @@ class BillDatabase {
     return result.map((json) => BillModel.fromJson(json)).toList();
   }
 
-  Future<int> update(BillModel bill) async {
+  Future<void> update(BillModel bill) async {
     final db = await instance.database;
-    return db.update(
+    db.update(
       BillFields.tableName,
       bill.toJson(),
       where: '${BillFields.id} = ?',
@@ -80,16 +63,16 @@ class BillDatabase {
     );
   }
 
-  Future<int> delete(int id) async {
+  Future<void> delete(int id) async {
     final db = await instance.database;
-    return await db.delete(
+    await db.delete(
       BillFields.tableName,
       where: '${BillFields.id} = ?',
       whereArgs: [id],
     );
   }
 
-  Future close() async {
+  Future<void> close() async {
     final db = await instance.database;
     db.close();
   }

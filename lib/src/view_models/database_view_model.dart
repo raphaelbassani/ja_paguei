@@ -26,20 +26,20 @@ class DataBaseViewModel extends ViewModel {
     status = StatusEnum.loading;
     safeNotify();
 
-    await _refreshPaymentHistory();
-    await _refreshBills();
+    await _loadPaymentHistory();
+    await _loadBills();
 
     status = StatusEnum.loaded;
     safeNotify();
   }
 
-  Future<void> _refreshPaymentHistory() async {
+  Future<void> _loadPaymentHistory() async {
     await _paymentHistoryDatabase.readAll().then((value) {
       paymentHistory = value;
     });
   }
 
-  Future<void> _refreshBills() async {
+  Future<void> _loadBills() async {
     await _billDatabase.readAll().then((savedBills) {
       _resetBillIfNeeded(savedBills);
     });
@@ -53,12 +53,18 @@ class DataBaseViewModel extends ViewModel {
       DateTime now = DateUtils.dateOnly(DateTime.now());
 
       if (bill.paymentDateTime != null) {
-        if (now.isAfter(bill.paymentDateTime!.add(Duration(days: 20))) &&
+        PaymentHistoryModel lastBillPayment = paymentHistory.firstWhere(
+          (e) => e.billId == bill.id,
+        );
+
+        if (now.isAfter(
+              lastBillPayment.paymentDateTime.add(Duration(days: 20)),
+            ) &&
             bill.isPayed) {
           newBill = bill.copyWithCleaningPayment();
         }
 
-        if (now.isAfter(bill.paymentDateTime!) && bill.isNotPayed) {
+        if (now.isAfter(lastBillPayment.paymentDateTime) && bill.isNotPayed) {
           newBill = bill.copyWith(status: BillStatusEnum.overdue);
         }
       } else {
@@ -81,23 +87,23 @@ class DataBaseViewModel extends ViewModel {
     }
 
     _billDatabase.create(bill);
-    _refreshBills();
+    loadData();
     return true;
   }
 
   void updateBill(BillModel bill) {
     _billDatabase.update(bill);
-    _refreshBills();
+    loadData();
   }
 
   void deleteBill(BillModel bill) {
     _billDatabase.delete(bill.id!);
-    _refreshBills();
+    loadData();
   }
 
   bool savePaymentIntoHistory(BillModel bill) {
     _paymentHistoryDatabase.save(bill.toPaymentHistoryModel);
-    _refreshPaymentHistory();
+    loadData();
     return true;
   }
 }
