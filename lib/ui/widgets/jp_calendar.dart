@@ -4,10 +4,18 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../src/helpers/extensions.dart';
 import '../../src/helpers/format.dart';
+import '../../src/helpers/helper.dart';
 import '../../ui.dart';
 
 class JPCalendar extends StatefulWidget {
-  const JPCalendar({super.key});
+  final DateTime initialDate;
+  final Function(DateTime?) onChanged;
+
+  const JPCalendar({
+    required this.initialDate,
+    required this.onChanged,
+    super.key,
+  });
 
   @override
   State<JPCalendar> createState() => _JPCalendarState();
@@ -16,7 +24,14 @@ class JPCalendar extends StatefulWidget {
 class _JPCalendarState extends State<JPCalendar> {
   late PageController _pageController;
   CalendarFormat calendarFormat = CalendarFormat.month;
-  final ValueNotifier<DateTime> focusedDay = ValueNotifier(DateTime.now());
+  late final ValueNotifier<DateTime> focusedDay;
+
+  @override
+  void initState() {
+    super.initState();
+
+    focusedDay = ValueNotifier(widget.initialDate);
+  }
 
   @override
   void dispose() {
@@ -53,7 +68,7 @@ class _JPCalendarState extends State<JPCalendar> {
           headerVisible: false,
           firstDay: context.now.subtract(Duration(days: 365)),
           lastDay: context.now.add(Duration(days: 365)),
-          locale: 'pt_BR',
+          locale: Helper.locale,
           daysOfWeekStyle: DaysOfWeekStyle(
             weekdayStyle: TextStyle(fontSize: 12.0),
             weekendStyle: TextStyle(
@@ -89,6 +104,7 @@ class _JPCalendarState extends State<JPCalendar> {
             if (!isSameDay(focusedDay.value, newFocusedDay)) {
               setState(() {
                 focusedDay.value = newFocusedDay;
+                widget.onChanged(newFocusedDay);
               });
             }
           },

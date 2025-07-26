@@ -16,17 +16,13 @@ class BillPaymentDatePage extends StatefulWidget {
 
 class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
   BillModel? bill;
+  DateTime? newSelectedDate;
 
   @override
   Widget build(BuildContext context) {
     bill = context.arguments as BillModel;
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
-
-    BillModel updatedBill = bill!.copyWith(
-      paymentDateTime: context.now,
-      status: BillStatusEnum.payed,
-    );
 
     return Scaffold(
       appBar: JPAppBar(title: ' ', hasLeading: true),
@@ -43,9 +39,14 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
                     'Em qual data a conta foi paga?',
                     type: JPTextTypeEnum.xl,
                   ),
-                  JPSpacingVertical.m,
-                  JPSpacingVertical.l,
-                  JPCalendar(),
+                  JPSpacingVertical.xs,
+                  JPCalendar(
+                    initialDate: bill!.paymentDateTime ?? context.now,
+                    onChanged: (date) {
+                      newSelectedDate = date;
+                      setState(() {});
+                    },
+                  ),
                 ],
               ),
             ),
@@ -54,9 +55,15 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
               child: Column(
                 children: [
                   Spacer(),
+                  JPSpacingVertical.m,
                   JPActionButtons(
                     primaryButtonLabel: 'Já paguei',
                     onTapPrimaryButton: () {
+                      BillModel updatedBill = bill!.copyWith(
+                        paymentDateTime: newSelectedDate ?? context.now,
+                        status: BillStatusEnum.payed,
+                      );
+
                       dataBaseViewModel.updateBill(updatedBill);
                       dataBaseViewModel.createPayment(updatedBill);
                       context.popUntilIsRoot();
