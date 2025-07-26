@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'src/helpers/bills_database.dart';
+import 'src/helpers/bill_database.dart';
 import 'src/helpers/payment_history_database.dart';
 import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
@@ -13,7 +13,7 @@ import 'src/view_models/database_view_model.dart';
 import 'src/view_models/theme_view_model.dart';
 
 void main() {
-  BillsDatabase billsDatabase = BillsDatabase.instance;
+  BillDatabase billDatabase = BillDatabase.instance;
   PaymentHistoryDatabase paymentHistoryDatabase =
       PaymentHistoryDatabase.instance;
 
@@ -22,14 +22,14 @@ void main() {
       providers: [
         ChangeNotifierProvider(
           create: (_) => DataBaseViewModel(
-            billsDatabase: billsDatabase,
+            billDatabase: billDatabase,
             paymentHistoryDatabase: paymentHistoryDatabase,
           ),
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
       ],
       child: JaPagueiApp(
-        billsDatabase: billsDatabase,
+        billDatabase: billDatabase,
         paymentHistoryDatabase: paymentHistoryDatabase,
       ),
     ),
@@ -37,11 +37,11 @@ void main() {
 }
 
 class JaPagueiApp extends StatefulWidget {
-  final BillsDatabase billsDatabase;
+  final BillDatabase billDatabase;
   final PaymentHistoryDatabase paymentHistoryDatabase;
 
   const JaPagueiApp({
-    required this.billsDatabase,
+    required this.billDatabase,
     required this.paymentHistoryDatabase,
     super.key,
   });
@@ -62,7 +62,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
 
   @override
   dispose() {
-    widget.billsDatabase.close();
+    widget.billDatabase.close();
     widget.paymentHistoryDatabase.close();
     super.dispose();
   }

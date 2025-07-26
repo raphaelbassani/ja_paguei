@@ -2,8 +2,9 @@ import 'package:equatable/equatable.dart';
 
 import '../enums/bill_payment_method_enum.dart';
 import '../enums/bill_status.dart';
-import '../helpers/bills_database.dart';
+import '../helpers/bill_database.dart';
 import '../helpers/format.dart';
+import 'payment_history_model.dart';
 
 class BillModel extends Equatable {
   final int? id;
@@ -26,12 +27,13 @@ class BillModel extends Equatable {
     this.paymentDateTime,
   });
 
+  String get formattedValue => Format.currencyIntoString(value);
+
   String get labelWithDueDate =>
-      '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} Todo dia $formattedDueDay';
+      '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
+      'Todo dia $formattedDueDay';
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
-
-  String get formattedValue => Format.currencyIntoString(value);
 
   String get labelWithPaymentDate =>
       paymentDateTime != null ? 'Paga em: $formattedPaymentDate' : '';
@@ -114,6 +116,19 @@ class BillModel extends Equatable {
     BillFields.isVariableValue: isVariableValue ? '1' : '0',
     BillFields.paymentDateTime: paymentDateTime?.toIso8601String() ?? '',
   };
+
+  PaymentHistoryModel get toPaymentHistoryModel {
+    return PaymentHistoryModel(
+      id: null,
+      billId: id!,
+      name: name,
+      value: value,
+      paymentDateTime: paymentDateTime!,
+      isVariableValue: isVariableValue,
+      dueDay: dueDay,
+      paymentMethod: paymentMethod,
+    );
+  }
 
   @override
   List<Object?> get props => [

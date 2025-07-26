@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 
 import '../enums/bill_status.dart';
 import '../enums/loading_status_enum.dart';
-import '../helpers/bills_database.dart';
+import '../helpers/bill_database.dart';
 import '../helpers/payment_history_database.dart';
 import '../models/bill_model.dart';
+import '../models/payment_history_model.dart';
 import 'view_model.dart';
 
 class DataBaseViewModel extends ViewModel {
   final PaymentHistoryDatabase _paymentHistoryDatabase;
-  final BillsDatabase _billsDatabase;
+  final BillDatabase _billDatabase;
 
   DataBaseViewModel({
     required PaymentHistoryDatabase paymentHistoryDatabase,
-    required BillsDatabase billsDatabase,
+    required BillDatabase billDatabase,
   }) : _paymentHistoryDatabase = paymentHistoryDatabase,
-       _billsDatabase = billsDatabase;
+       _billDatabase = billDatabase;
 
   StatusEnum status = StatusEnum.idle;
-  List<BillModel> paymentHistory = [];
+  List<PaymentHistoryModel> paymentHistory = [];
   List<BillModel> bills = [];
 
   Future<void> loadData() async {
@@ -39,7 +40,7 @@ class DataBaseViewModel extends ViewModel {
   }
 
   Future<void> _refreshBills() async {
-    await _billsDatabase.readAll().then((savedBills) {
+    await _billDatabase.readAll().then((savedBills) {
       _resetBillIfNeeded(savedBills);
     });
   }
@@ -79,29 +80,24 @@ class DataBaseViewModel extends ViewModel {
       return false;
     }
 
-    _billsDatabase.create(bill);
+    _billDatabase.create(bill);
     _refreshBills();
     return true;
   }
 
   void updateBill(BillModel bill) {
-    _billsDatabase.update(bill);
+    _billDatabase.update(bill);
     _refreshBills();
   }
 
   void deleteBill(BillModel bill) {
-    _billsDatabase.delete(bill.id!);
+    _billDatabase.delete(bill.id!);
     _refreshBills();
   }
 
   bool savePaymentIntoHistory(BillModel bill) {
-    _paymentHistoryDatabase.save(bill.copyWithNullId());
+    _paymentHistoryDatabase.save(bill.toPaymentHistoryModel);
     _refreshPaymentHistory();
     return true;
-  }
-
-  void deletePaymentOfHistory(BillModel bill) {
-    _paymentHistoryDatabase.delete(bill.id!);
-    _refreshPaymentHistory();
   }
 }

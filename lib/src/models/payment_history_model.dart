@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 import '../enums/bill_payment_method_enum.dart';
+import '../helpers/format.dart';
 import '../helpers/payment_history_database.dart';
-import 'bill_model.dart';
 
 class PaymentHistoryModel extends Equatable {
   final int? id;
@@ -25,6 +25,20 @@ class PaymentHistoryModel extends Equatable {
     required this.paymentDateTime,
   });
 
+  String get formattedValue => Format.currencyIntoString(value);
+
+  bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
+
+  String get labelWithDueDate =>
+      '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
+      'Todo dia $formattedDueDay';
+
+  String get formattedDueDay => dueDay.toString().padLeft(2, '0');
+
+  String get labelWithPaymentDate => 'Paga em: $formattedPaymentDate';
+
+  String get formattedPaymentDate => Format.ddMMyyyy(paymentDateTime);
+
   factory PaymentHistoryModel.fromJson(Map<String, Object?> json) =>
       PaymentHistoryModel(
         id: json[PaymentHistoryFields.id] as int?,
@@ -42,18 +56,27 @@ class PaymentHistoryModel extends Equatable {
         ),
       );
 
-  PaymentHistoryModel fromBillModel(BillModel bill) {
-    return PaymentHistoryModel(
-      id: null,
-      billId: bill.id!,
-      name: bill.name,
-      value: bill.value,
-      paymentDateTime: bill.paymentDateTime!,
-      isVariableValue: bill.isVariableValue,
-      dueDay: bill.dueDay,
-      paymentMethod: bill.paymentMethod,
-    );
-  }
+  PaymentHistoryModel copyWithId({required int id}) => PaymentHistoryModel(
+    id: id,
+    billId: billId,
+    name: name,
+    value: value,
+    paymentMethod: paymentMethod,
+    dueDay: dueDay,
+    isVariableValue: isVariableValue,
+    paymentDateTime: paymentDateTime,
+  );
+
+  Map<String, Object?> toJson() => {
+    PaymentHistoryFields.id: id,
+    PaymentHistoryFields.billId: billId,
+    PaymentHistoryFields.name: name,
+    PaymentHistoryFields.value: value.toStringAsFixed(2),
+    PaymentHistoryFields.paymentMethod: paymentMethod.name,
+    PaymentHistoryFields.dueDay: dueDay.toString(),
+    PaymentHistoryFields.isVariableValue: isVariableValue ? '1' : '0',
+    PaymentHistoryFields.paymentDateTime: paymentDateTime.toIso8601String(),
+  };
 
   @override
   List<Object?> get props => [

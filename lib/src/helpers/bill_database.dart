@@ -3,12 +3,12 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/bill_model.dart';
 
-class BillsDatabase {
-  static final BillsDatabase instance = BillsDatabase._internal();
+class BillDatabase {
+  static final BillDatabase instance = BillDatabase._internal();
 
   static Database? _database;
 
-  BillsDatabase._internal();
+  BillDatabase._internal();
 
   Future<Database> get database async {
     if (_database != null) {

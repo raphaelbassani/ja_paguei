@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/bill_model.dart';
+import '../models/payment_history_model.dart';
 
 class PaymentHistoryDatabase {
   static final PaymentHistoryDatabase instance =
@@ -42,13 +42,16 @@ class PaymentHistoryDatabase {
       ''');
   }
 
-  Future<BillModel> save(BillModel bill) async {
+  Future<PaymentHistoryModel> save(PaymentHistoryModel payment) async {
     final db = await instance.database;
-    final id = await db.insert(PaymentHistoryFields.tableName, bill.toJson());
-    return bill.copyWith(id: id);
+    final id = await db.insert(
+      PaymentHistoryFields.tableName,
+      payment.toJson(),
+    );
+    return payment.copyWithId(id: id);
   }
 
-  Future<BillModel> read(int id) async {
+  Future<PaymentHistoryModel> read(int id) async {
     final db = await instance.database;
     final maps = await db.query(
       PaymentHistoryFields.tableName,
@@ -58,40 +61,21 @@ class PaymentHistoryDatabase {
     );
 
     if (maps.isNotEmpty) {
-      return BillModel.fromJson(maps.first);
+      return PaymentHistoryModel.fromJson(maps.first);
     } else {
       throw Exception('ID $id not found');
     }
   }
 
-  Future<List<BillModel>> readAll() async {
+  Future<List<PaymentHistoryModel>> readAll() async {
     final db = await instance.database;
     final result = await db.query(PaymentHistoryFields.tableName);
-    final List<BillModel> listResult = result
-        .map((json) => BillModel.fromJson(json))
+    final List<PaymentHistoryModel> listResult = result
+        .map((json) => PaymentHistoryModel.fromJson(json))
         .toList();
-    final List<BillModel> sortedList = listResult
-      ..sort((a, b) => a.paymentDateTime!.compareTo(b.paymentDateTime!));
+    final List<PaymentHistoryModel> sortedList = listResult
+      ..sort((a, b) => a.paymentDateTime.compareTo(b.paymentDateTime));
     return sortedList;
-  }
-
-  Future<int> update(BillModel bill) async {
-    final db = await instance.database;
-    return db.update(
-      PaymentHistoryFields.tableName,
-      bill.toJson(),
-      where: '${PaymentHistoryFields.id} = ?',
-      whereArgs: [bill.id],
-    );
-  }
-
-  Future<int> delete(int id) async {
-    final db = await instance.database;
-    return await db.delete(
-      PaymentHistoryFields.tableName,
-      where: '${PaymentHistoryFields.id} = ?',
-      whereArgs: [id],
-    );
   }
 
   Future close() async {
@@ -115,6 +99,7 @@ class PaymentHistoryFields {
 
   static const List<String> values = [
     id,
+    billId,
     name,
     value,
     paymentMethod,
