@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../ui.dart';
+import '../enums/bill_status.dart';
+import '../helpers/extensions.dart';
+import '../models/bill_model.dart';
+import '../view_models/database_view_model.dart';
+
+class BillPaymentDatePage extends StatefulWidget {
+  const BillPaymentDatePage({super.key});
+
+  @override
+  State<BillPaymentDatePage> createState() => _BillPaymentDatePageState();
+}
+
+class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
+  BillModel? bill;
+
+  @override
+  Widget build(BuildContext context) {
+    bill = context.arguments as BillModel;
+    final DataBaseViewModel dataBaseViewModel = context
+        .watch<DataBaseViewModel>();
+
+    BillModel updatedBill = bill!.copyWith(
+      paymentDateTime: DateTime.now(),
+      status: BillStatusEnum.payed,
+    );
+
+    return Scaffold(
+      appBar: JPAppBar(title: ' ', hasLeading: true),
+      body: Padding(
+        padding: JPPadding.horizontal,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  JPSpacingVertical.m,
+                  JPText(
+                    'Em qual data a conta foi paga?',
+                    type: JPTextTypeEnum.xl,
+                  ),
+                  JPSpacingVertical.m,
+                  JPSpacingVertical.l,
+                ],
+              ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  Spacer(),
+                  JPActionButtons(
+                    primaryButtonLabel: 'Já paguei',
+                    onTapPrimaryButton: () {
+                      dataBaseViewModel.updateBill(updatedBill);
+                      dataBaseViewModel.createPayment(updatedBill);
+                      context.popUntilIsRoot();
+                      context.showSnackSuccess('Conta paga!');
+                    },
+                  ),
+                  JPSpacingVertical.l,
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

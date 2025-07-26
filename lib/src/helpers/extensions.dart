@@ -26,6 +26,11 @@ extension ContextExtensions on BuildContext {
     navigator.pushNamed(route, arguments: arguments);
   }
 
+  void popOnceAndPushNamed(String route, {Object? arguments}) {
+    pop();
+    navigator.pushNamed(route, arguments: arguments);
+  }
+
   void popUntilIsRoot() {
     navigator.popUntil(
       (route) =>

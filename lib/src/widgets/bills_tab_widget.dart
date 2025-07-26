@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../ui.dart';
-import '../enums/bill_status.dart';
 import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
 import '../models/bill_model.dart';
 import '../view_models/database_view_model.dart';
 import '../view_models/theme_view_model.dart';
+import 'bill_confirmation_modal_widget.dart';
 
 class BillsTabWidget extends StatelessWidget {
   const BillsTabWidget({super.key});
@@ -108,9 +108,6 @@ class _Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DataBaseViewModel dataBaseViewModel = context
-        .watch<DataBaseViewModel>();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -121,24 +118,7 @@ class _Buttons extends StatelessWidget {
               context.pushNamed(Routes.billVariableValue, arguments: bill);
               return;
             }
-            context.showModal(
-              child: JPConfirmationModal(
-                title: 'Essa conta já foi paga?',
-                primaryButtonLabel: 'Sim, já foi paga',
-                secondaryButtonLabel: 'Não, ainda não',
-                customWidgetBody: _CustomWidgetBodyConfirmationModal(),
-                onTapPrimaryButton: () {
-                  BillModel updatedBill = bill.copyWith(
-                    paymentDateTime: DateTime.now(),
-                    status: BillStatusEnum.payed,
-                  );
-                  dataBaseViewModel.updateBill(updatedBill);
-                  dataBaseViewModel.createPayment(updatedBill);
-                  context.pop();
-                  context.showSnackSuccess('Conta paga!');
-                },
-              ),
-            );
+            context.showModal(child: BillConfirmationModalWidget(bill));
           },
         ),
         JPSecondaryButtonSmall(
@@ -149,14 +129,5 @@ class _Buttons extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
-  const _CustomWidgetBodyConfirmationModal();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: []);
   }
 }
