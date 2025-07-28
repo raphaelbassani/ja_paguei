@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../enums/bill_payment_method_enum.dart';
 import '../enums/bill_status.dart';
 import '../helpers/bill_database.dart';
-import '../helpers/format.dart';
+import '../helpers/extensions.dart';
 import 'payment_history_model.dart';
 
 class BillModel extends Equatable {
@@ -27,19 +28,21 @@ class BillModel extends Equatable {
     this.paymentDateTime,
   });
 
-  String get formattedValue => Format.currencyIntoString(value);
+  String formattedValue(BuildContext context) =>
+      context.currencyIntoString(value);
+
+  String labelWithPaymentDate(BuildContext context) => paymentDateTime != null
+      ? 'Paga em: ${formattedPaymentDate(context)}'
+      : '';
+
+  String formattedPaymentDate(BuildContext context) =>
+      paymentDateTime != null ? context.ddMMyyyy(paymentDateTime!) : '';
 
   String get labelWithDueDate =>
       '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
       'Todo dia $formattedDueDay';
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
-
-  String get labelWithPaymentDate =>
-      paymentDateTime != null ? 'Paga em: $formattedPaymentDate' : '';
-
-  String get formattedPaymentDate =>
-      paymentDateTime != null ? Format.ddMMyyyy(paymentDateTime!) : '';
 
   bool get isPayed => status.isPayed;
 

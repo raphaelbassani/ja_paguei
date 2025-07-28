@@ -52,7 +52,7 @@ class _ItemWidget extends StatelessWidget {
         JPSpacingVertical.xxs,
         Row(
           children: [
-            JPText(payment.formattedValue),
+            JPText(payment.formattedValue(context)),
             if (payment.isVariableValue) ...[
               JPSpacingHorizontal.xs,
               JPText(
@@ -67,7 +67,7 @@ class _ItemWidget extends StatelessWidget {
         JPText(payment.labelWithDueDate, hasDefaultOpacity: true),
         JPSpacingVertical.xs,
         JPText(
-          payment.labelWithPaymentDate,
+          payment.labelWithPaymentDate(context),
           hasDefaultOpacity: true,
           type: JPTextTypeEnum.s,
         ),

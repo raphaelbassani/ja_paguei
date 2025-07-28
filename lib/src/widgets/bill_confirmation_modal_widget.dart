@@ -57,7 +57,7 @@ class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
         JPSpacingVertical.m,
         JPSelectionTile(
           title: 'Data que foi paga',
-          info: bill.formattedPaymentDate,
+          info: bill.formattedPaymentDate(context),
           onTap: () => context.popOnceAndPushNamed(
             Routes.billPaymentDate,
             arguments: bill,

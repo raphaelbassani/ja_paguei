@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.8
   sqflite: 2.4.2
   equatable: 2.0.7
@@ -20,7 +22,7 @@ dependencies:
   modal_bottom_sheet: 3.0.0
   top_snackbar_flutter: 3.3.0
   table_calendar: 3.2.0
-  flutter_localization: 0.3.3
+  easy_localization: 3.0.8
 
 dev_dependencies:
   flutter_test:

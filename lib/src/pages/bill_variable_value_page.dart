@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../ui.dart';
 import '../enums/bill_status.dart';
 import '../helpers/extensions.dart';
-import '../helpers/format.dart';
 import '../models/bill_model.dart';
 import '../widgets/bill_confirmation_modal_widget.dart';
 
@@ -26,7 +25,7 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       bill = context.arguments as BillModel;
-      valueController.text = Format.currencyInput.formatString(
+      valueController.text = context.currencyTextInputFormatter.formatString(
         bill!.value.toStringAsFixed(2),
       );
     });
@@ -61,12 +60,12 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                   JPTextFormField(
                     controller: valueController,
                     label: 'Valor',
-                    hint: bill?.formattedValue ?? '',
-                    inputFormatters: [Format.currencyInput],
+                    hint: bill?.formattedValue(context) ?? '',
+                    inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
-                        double value = Format.currencyIntoDouble(text);
+                        double value = context.currencyIntoDouble(text);
                         if (value == 0) {
                           return 'Digite um valor valido';
                         }
@@ -87,7 +86,7 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                     primaryButtonLabel: 'Já paguei',
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(
-                        value: Format.currencyIntoDouble(valueController.text),
+                        value: context.currencyIntoDouble(valueController.text),
                         paymentDateTime: context.now,
                         status: BillStatusEnum.payed,
                       );

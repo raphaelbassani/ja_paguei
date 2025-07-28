@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../enums/bill_payment_method_enum.dart';
-import '../helpers/format.dart';
+import '../helpers/extensions.dart';
 import '../helpers/payment_history_database.dart';
 
 class PaymentHistoryModel extends Equatable {
@@ -25,7 +26,14 @@ class PaymentHistoryModel extends Equatable {
     required this.paymentDateTime,
   });
 
-  String get formattedValue => Format.currencyIntoString(value);
+  String formattedValue(BuildContext context) =>
+      context.currencyIntoString(value);
+
+  String labelWithPaymentDate(BuildContext context) =>
+      'Paga em: ${formattedPaymentDate(context)}';
+
+  String formattedPaymentDate(BuildContext context) =>
+      context.ddMMyyyy(paymentDateTime);
 
   bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
 
@@ -34,10 +42,6 @@ class PaymentHistoryModel extends Equatable {
       'Todo dia $formattedDueDay';
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
-
-  String get labelWithPaymentDate => 'Paga em: $formattedPaymentDate';
-
-  String get formattedPaymentDate => Format.ddMMyyyy(paymentDateTime);
 
   factory PaymentHistoryModel.fromJson(Map<String, Object?> json) =>
       PaymentHistoryModel(

@@ -12,4 +12,7 @@ enum BillPaymentMethodEnum {
   bool get isAutomatic => this == automaticDebit;
 
   bool get isNotAutomatic => this != automaticDebit;
+
+  static List<String> get paymentMethods =>
+      BillPaymentMethodEnum.values.map((e) => e.label).toList();
 }

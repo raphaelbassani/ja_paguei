@@ -3,8 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../src/helpers/extensions.dart';
-import '../../src/helpers/format.dart';
-import '../../src/helpers/helper.dart';
 import '../../ui.dart';
 
 class JPCalendar extends StatefulWidget {
@@ -79,7 +77,7 @@ class _JPCalendarState extends State<JPCalendar> {
             context.now.month + 1,
             context.now.day,
           ),
-          locale: Helper.locale,
+          locale: context.locale,
           daysOfWeekStyle: DaysOfWeekStyle(
             weekdayStyle: TextStyle(fontSize: 12.0),
             weekendStyle: TextStyle(
@@ -148,7 +146,7 @@ class _CalendarHeader extends StatelessWidget {
             onPressed: onLeftArrowTap,
           ),
           const Spacer(),
-          JPText(Format.mmmmYYYY(focusedDay), type: JPTextTypeEnum.l),
+          JPText(context.mmmmYYYY(focusedDay), type: JPTextTypeEnum.l),
           const Spacer(),
           IconButton(
             icon: const Icon(Icons.chevron_right),

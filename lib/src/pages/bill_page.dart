@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import '../../ui.dart';
 import '../enums/bill_payment_method_enum.dart';
 import '../helpers/extensions.dart';
-import '../helpers/format.dart';
-import '../helpers/helper.dart';
 import '../models/bill_model.dart';
 import '../view_models/database_view_model.dart';
 
@@ -37,7 +35,7 @@ class _BillPageState extends State<BillPage> {
       editBill = context.arguments as BillModel?;
       if (isEdition) {
         nameController.text = editBill!.name;
-        valueController.text = Format.currencyInput.formatString(
+        valueController.text = context.currencyTextInputFormatter.formatString(
           editBill!.value.toStringAsFixed(2),
         );
         dueDayController.text = editBill!.dueDay.toString();
@@ -136,13 +134,13 @@ class _BillPageState extends State<BillPage> {
                   JPTextFormField(
                     controller: valueController,
                     label: 'Valor da conta',
-                    hint: '${Format.brl} 100,00',
-                    inputFormatters: [Format.currencyInput],
+                    hint: '${context.currency} 100,00',
+                    inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
                     inputAction: TextInputAction.next,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
-                        double value = Format.currencyIntoDouble(text);
+                        double value = context.currencyIntoDouble(text);
                         if (value == 0) {
                           return 'Digite um valor valido';
                         }
@@ -159,7 +157,7 @@ class _BillPageState extends State<BillPage> {
                     label: 'Dia de vencimento',
                     hint: '01',
                     keyboardType: TextInputType.number,
-                    inputFormatters: [Format.dueDayInput],
+                    inputFormatters: [context.dueDayInput],
                     inputAction: TextInputAction.done,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
@@ -185,7 +183,7 @@ class _BillPageState extends State<BillPage> {
                         child: JPSelectionModal(
                           title: 'Método de pagamento',
                           preSelectedValue: paymentMethod?.label,
-                          items: Helper.paymentMethods,
+                          items: BillPaymentMethodEnum.paymentMethods,
                           onTapPrimaryButton: (newPaymentMethod) {
                             paymentMethod = BillPaymentMethodEnum.values
                                 .firstWhere((e) => e.label == newPaymentMethod);
@@ -245,7 +243,7 @@ class _BillPageState extends State<BillPage> {
                         if (isEdition) {
                           BillModel newBillModel = editBill!.copyWith(
                             name: nameController.text,
-                            value: Format.currencyIntoDouble(
+                            value: context.currencyIntoDouble(
                               valueController.text,
                             ),
                             dueDay: int.parse(dueDayController.text),
@@ -259,7 +257,7 @@ class _BillPageState extends State<BillPage> {
                           BillModel newBillModel = BillModel(
                             id: null,
                             name: nameController.text,
-                            value: Format.currencyIntoDouble(
+                            value: context.currencyIntoDouble(
                               valueController.text,
                             ),
                             dueDay: int.parse(dueDayController.text),
