@@ -176,17 +176,19 @@ class _BillPageState extends State<BillPage> {
                   JPSelectionTile(
                     title: 'Método de pagamento',
                     info: paymentMethod != null
-                        ? paymentMethod!.label
+                        ? context.translate(paymentMethod!.name)
                         : 'Selecione o método de pagamento',
                     onTap: () {
                       context.showModal(
                         child: JPSelectionModal(
                           title: 'Método de pagamento',
-                          preSelectedValue: paymentMethod?.label,
+                          preSelectedValue: context.translate(
+                            paymentMethod?.name,
+                          ),
                           items: BillPaymentMethodEnum.paymentMethods,
                           onTapPrimaryButton: (newPaymentMethod) {
                             paymentMethod = BillPaymentMethodEnum.values
-                                .firstWhere((e) => e.label == newPaymentMethod);
+                                .firstWhere((e) => e.name == newPaymentMethod);
                             setState(() {});
                           },
                         ),

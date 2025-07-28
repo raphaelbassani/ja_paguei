@@ -87,6 +87,8 @@ extension ContextExtensions on BuildContext {
   String get currency =>
       LocaleValues.translate(_languageCode, LocaleKeys.currency);
 
+  String translate(String? key) => LocaleValues.translate(_languageCode, key);
+
   CurrencyTextInputFormatter get currencyTextInputFormatter =>
       CurrencyTextInputFormatter.currency(
         locale: '${_languageCode}_$_countryCode',

@@ -1,18 +1,16 @@
 enum BillPaymentMethodEnum {
-  creditCard(label: 'Cartão de crédito'),
-  automaticDebit(label: 'Débito automático'),
-  bankSlip(label: 'Boleto'),
-  pix(label: 'PIX'),
-  money(label: 'Dinheiro');
+  creditCard,
+  automaticDebit,
+  bankSlip,
+  pix,
+  money;
 
-  const BillPaymentMethodEnum({required this.label});
-
-  final String label;
+  const BillPaymentMethodEnum();
 
   bool get isAutomatic => this == automaticDebit;
 
   bool get isNotAutomatic => this != automaticDebit;
 
   static List<String> get paymentMethods =>
-      BillPaymentMethodEnum.values.map((e) => e.label).toList();
+      BillPaymentMethodEnum.values.map((e) => e.name).toList();
 }

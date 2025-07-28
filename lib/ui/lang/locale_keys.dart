@@ -3,15 +3,17 @@ abstract class LocaleKeys {
 
   static const currency = 'currency';
 
-  static const billPaymentMethodEnumCreditCard =
-      'billPaymentMethodEnumCreditCard';
-  static const billPaymentMethodEnumAutomaticDebit =
-      'billPaymentMethodEnumAutomaticDebit';
-  static const billPaymentMethodEnumBankSlip = 'billPaymentMethodEnumBankSlip';
-  static const billPaymentMethodEnumPix = 'billPaymentMethodEnumPix';
-  static const billPaymentMethodEnumMoney = 'billPaymentMethodEnumMoney';
+  /// BillPaymentMethodEnum
+  static const creditCard = 'creditCard';
+  static const automaticDebit = 'automaticDebit';
+  static const bankSlip = 'bankSlip';
+  static const pix = 'pix';
+  static const money = 'money';
 
-  static const billStatusEnumPending = 'billStatusEnumPending';
-  static const billStatusEnumPayed = 'billStatusEnumPayed';
-  static const billStatusEnumOverdue = 'billStatusEnumOverdue';
+  /// BillStatusEnum
+  static const pending = 'pending';
+  static const payed = 'payed';
+  static const overdue = 'overdue';
+  static const overdueToday = 'overdueToday';
+  static const overdueTomorrow = 'overdueTomorrow';
 }

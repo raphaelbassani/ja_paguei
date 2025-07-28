@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../enums/bill_status.dart';
+import '../enums/bill_status_enum.dart';
 import '../enums/loading_status_enum.dart';
 import '../helpers/bill_database.dart';
 import '../helpers/payment_history_database.dart';

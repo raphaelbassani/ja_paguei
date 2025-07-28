@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../ui.dart';
-import '../enums/bill_status.dart';
+import '../enums/bill_status_enum.dart';
 import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
 import '../models/bill_model.dart';

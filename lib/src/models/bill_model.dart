@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../enums/bill_payment_method_enum.dart';
-import '../enums/bill_status.dart';
+import '../enums/bill_status_enum.dart';
 import '../helpers/bill_database.dart';
 import '../helpers/extensions.dart';
 import 'payment_history_model.dart';
@@ -38,7 +38,7 @@ class BillModel extends Equatable {
   String formattedPaymentDate(BuildContext context) =>
       paymentDateTime != null ? context.ddMMyyyy(paymentDateTime!) : '';
 
-  String get labelWithDueDate =>
+  String labelWithDueDate(BuildContext context) =>
       '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
       'Todo dia $formattedDueDay';
 

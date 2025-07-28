@@ -1,18 +1,15 @@
 import 'dart:ui';
 
-import 'package:easy_localization/easy_localization.dart';
-
 import 'locale_keys.dart';
 
-class LocaleValues extends AssetLoader {
+class LocaleValues {
   const LocaleValues();
 
-  @override
-  Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
-    return Future.value(mapLocales[locale.toString()]);
-  }
+  static String translate(String languageCode, String? key) {
+    if (key == null || key.isEmpty) {
+      return '';
+    }
 
-  static String translate(String languageCode, String key) {
     if (languageCode == 'pt') {
       return pt[key]!;
     }
@@ -23,6 +20,16 @@ class LocaleValues extends AssetLoader {
   static const Map<String, String> en = {
     LocaleKeys.title: 'Hello',
     LocaleKeys.currency: '\$',
+    LocaleKeys.creditCard: 'Credit card',
+    LocaleKeys.automaticDebit: 'Automatic debit',
+    LocaleKeys.bankSlip: 'Bank slip',
+    LocaleKeys.pix: 'Bank transfer',
+    LocaleKeys.money: 'Cash',
+    LocaleKeys.pending: 'Pending',
+    LocaleKeys.payed: 'Payed',
+    LocaleKeys.overdue: 'Overdue',
+    LocaleKeys.overdueToday: 'Due today',
+    LocaleKeys.overdueTomorrow: 'Due tomorrow',
   };
 
   // static const Map<String, dynamic> en = { EXAMPLE
@@ -64,6 +71,16 @@ class LocaleValues extends AssetLoader {
   static const Map<String, String> pt = {
     LocaleKeys.title: 'Hello',
     LocaleKeys.currency: 'R\$',
+    LocaleKeys.creditCard: 'Cartão de crédito',
+    LocaleKeys.automaticDebit: 'Débito automático',
+    LocaleKeys.bankSlip: 'Boleto',
+    LocaleKeys.pix: 'Pix',
+    LocaleKeys.money: 'Dinheiro',
+    LocaleKeys.pending: 'Pendente',
+    LocaleKeys.payed: 'Paga',
+    LocaleKeys.overdue: 'Vencida',
+    LocaleKeys.overdueToday: 'Vence hoje',
+    LocaleKeys.overdueTomorrow: 'Vence amanhã',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

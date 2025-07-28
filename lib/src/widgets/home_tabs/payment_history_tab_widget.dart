@@ -64,7 +64,7 @@ class _ItemWidget extends StatelessWidget {
           ],
         ),
         JPSpacingVertical.xxs,
-        JPText(payment.labelWithDueDate, hasDefaultOpacity: true),
+        JPText(payment.labelWithDueDate(context), hasDefaultOpacity: true),
         JPSpacingVertical.xs,
         JPText(
           payment.labelWithPaymentDate(context),

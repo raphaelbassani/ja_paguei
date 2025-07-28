@@ -81,7 +81,7 @@ class _ItemWidget extends StatelessWidget {
                 ],
               ),
               JPSpacingVertical.xxs,
-              JPText(bill.labelWithDueDate, hasDefaultOpacity: true),
+              JPText(bill.labelWithDueDate(context), hasDefaultOpacity: true),
               JPSpacingVertical.xs,
               if (bill.paymentDateTime != null)
                 JPText(
@@ -106,13 +106,13 @@ class _ItemWidget extends StatelessWidget {
   String statusLabel(BuildContext context) {
     if (bill.isNotPayed) {
       if (bill.dueDay == context.now.day) {
-        return 'Vence hoje';
+        return context.translate(LocaleKeys.overdueToday);
       }
       if (bill.dueDay == context.now.add(Duration(days: 1)).day) {
-        return 'Vence amanhã';
+        return context.translate(LocaleKeys.overdueTomorrow);
       }
     }
-    return bill.status.label;
+    return context.translate(bill.status.name);
   }
 }
 

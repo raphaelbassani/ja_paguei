@@ -35,11 +35,11 @@ class PaymentHistoryModel extends Equatable {
   String formattedPaymentDate(BuildContext context) =>
       context.ddMMyyyy(paymentDateTime);
 
-  bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
-
-  String get labelWithDueDate =>
+  String labelWithDueDate(BuildContext context) =>
       '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
       'Todo dia $formattedDueDay';
+
+  bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
 
   String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
