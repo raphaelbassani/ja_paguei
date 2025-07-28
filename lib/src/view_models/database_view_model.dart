@@ -58,13 +58,13 @@ class DataBaseViewModel extends ViewModel {
         );
 
         if (now.isAfter(
-              lastBillPayment.paymentDateTime.add(Duration(days: 20)),
+              lastBillPayment.paymentDateTime!.add(Duration(days: 20)),
             ) &&
             bill.isPayed) {
           newBill = bill.copyWithCleaningPayment();
         }
 
-        if (now.isAfter(lastBillPayment.paymentDateTime) && bill.isNotPayed) {
+        if (now.isAfter(lastBillPayment.paymentDateTime!) && bill.isNotPayed) {
           newBill = bill.copyWith(status: BillStatusEnum.overdue);
         }
       } else {

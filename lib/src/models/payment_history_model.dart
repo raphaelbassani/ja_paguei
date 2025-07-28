@@ -1,47 +1,20 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
 import '../enums/bill_payment_method_enum.dart';
-import '../helpers/extensions.dart';
 import '../helpers/payment_history_database.dart';
+import 'base_model.dart';
 
-class PaymentHistoryModel extends Equatable {
-  final int? id;
+class PaymentHistoryModel extends BaseModel {
   final int billId;
-  final String name;
-  final double value;
-  final BillPaymentMethodEnum paymentMethod;
-  final int dueDay;
-  final bool isVariableValue;
-  final DateTime paymentDateTime;
 
   const PaymentHistoryModel({
-    required this.id,
     required this.billId,
-    required this.name,
-    required this.value,
-    required this.paymentMethod,
-    required this.dueDay,
-    required this.isVariableValue,
-    required this.paymentDateTime,
+    required super.paymentDateTime,
+    required super.id,
+    required super.name,
+    required super.value,
+    required super.paymentMethod,
+    required super.dueDay,
+    required super.isVariableValue,
   });
-
-  String formattedValue(BuildContext context) =>
-      context.currencyIntoString(value);
-
-  String labelWithPaymentDate(BuildContext context) =>
-      'Paga em: ${formattedPaymentDate(context)}';
-
-  String formattedPaymentDate(BuildContext context) =>
-      context.ddMMyyyy(paymentDateTime);
-
-  String labelWithDueDate(BuildContext context) =>
-      '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
-      'Todo dia $formattedDueDay';
-
-  bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
-
-  String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
   factory PaymentHistoryModel.fromJson(Map<String, Object?> json) =>
       PaymentHistoryModel(
@@ -79,7 +52,7 @@ class PaymentHistoryModel extends Equatable {
     PaymentHistoryFields.paymentMethod: paymentMethod.name,
     PaymentHistoryFields.dueDay: dueDay.toString(),
     PaymentHistoryFields.isVariableValue: isVariableValue ? '1' : '0',
-    PaymentHistoryFields.paymentDateTime: paymentDateTime.toIso8601String(),
+    PaymentHistoryFields.paymentDateTime: paymentDateTime!.toIso8601String(),
   };
 
   @override

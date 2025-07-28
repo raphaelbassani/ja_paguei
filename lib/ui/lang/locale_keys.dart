@@ -16,4 +16,8 @@ abstract class LocaleKeys {
   static const overdue = 'overdue';
   static const overdueToday = 'overdueToday';
   static const overdueTomorrow = 'overdueTomorrow';
+
+  static const dueDate = 'dueDate';
+  static const onTheDay = 'onTheDay';
+  static const paidOn = 'paidOn';
 }

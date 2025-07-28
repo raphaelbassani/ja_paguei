@@ -54,7 +54,7 @@ class PaymentHistoryDatabase {
         .map((json) => PaymentHistoryModel.fromJson(json))
         .toList();
     final List<PaymentHistoryModel> sortedList = listResult
-      ..sort((a, b) => b.paymentDateTime.compareTo(a.paymentDateTime));
+      ..sort((a, b) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
     return sortedList;
   }
 

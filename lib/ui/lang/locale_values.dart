@@ -30,6 +30,9 @@ class LocaleValues {
     LocaleKeys.overdue: 'Overdue',
     LocaleKeys.overdueToday: 'Due today',
     LocaleKeys.overdueTomorrow: 'Due tomorrow',
+    LocaleKeys.dueDate: 'Due date',
+    LocaleKeys.onTheDay: 'On the',
+    LocaleKeys.paidOn: 'Paid on',
   };
 
   // static const Map<String, dynamic> en = { EXAMPLE
@@ -81,6 +84,9 @@ class LocaleValues {
     LocaleKeys.overdue: 'Vencida',
     LocaleKeys.overdueToday: 'Vence hoje',
     LocaleKeys.overdueTomorrow: 'Vence amanhã',
+    LocaleKeys.dueDate: 'Vencimento',
+    LocaleKeys.onTheDay: 'Todo dia',
+    LocaleKeys.paidOn: 'Paga em',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

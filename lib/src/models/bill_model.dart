@@ -1,56 +1,26 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-
 import '../enums/bill_payment_method_enum.dart';
 import '../enums/bill_status_enum.dart';
 import '../helpers/bill_database.dart';
-import '../helpers/extensions.dart';
+import 'base_model.dart';
 import 'payment_history_model.dart';
 
-class BillModel extends Equatable {
-  final int? id;
-  final String name;
-  final double value;
-  final BillPaymentMethodEnum paymentMethod;
-  final int dueDay;
+class BillModel extends BaseModel {
   final BillStatusEnum status;
-  final bool isVariableValue;
-  final DateTime? paymentDateTime;
 
   const BillModel({
-    required this.id,
-    required this.name,
-    required this.value,
-    required this.paymentMethod,
-    required this.dueDay,
+    required super.id,
+    required super.name,
+    required super.value,
+    required super.paymentMethod,
+    required super.dueDay,
+    required super.isVariableValue,
+    super.paymentDateTime,
     this.status = BillStatusEnum.pending,
-    this.isVariableValue = false,
-    this.paymentDateTime,
   });
-
-  String formattedValue(BuildContext context) =>
-      context.currencyIntoString(value);
-
-  String labelWithPaymentDate(BuildContext context) => paymentDateTime != null
-      ? 'Paga em: ${formattedPaymentDate(context)}'
-      : '';
-
-  String formattedPaymentDate(BuildContext context) =>
-      paymentDateTime != null ? context.ddMMyyyy(paymentDateTime!) : '';
-
-  String labelWithDueDate(BuildContext context) =>
-      '${isPaymentMethodAutomatic ? 'Débito automático:' : 'Vencimento:'} '
-      'Todo dia $formattedDueDay';
-
-  String get formattedDueDay => dueDay.toString().padLeft(2, '0');
 
   bool get isPayed => status.isPayed;
 
   bool get isNotPayed => status.isNotPayed;
-
-  bool get isPaymentMethodAutomatic => paymentMethod.isAutomatic;
-
-  bool get isNotPaymentMethodAutomatic => paymentMethod.isNotAutomatic;
 
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,
