@@ -75,6 +75,8 @@ extension ContextExtensions on BuildContext {
     );
   }
 
+  /// Internacionalization
+
   Locale get _deviceLocale => Localizations.localeOf(this);
 
   String get _languageCode => _deviceLocale.languageCode;
@@ -84,10 +86,9 @@ extension ContextExtensions on BuildContext {
   String? get locale =>
       '$_languageCode${_countryCode != null ? '_$_countryCode' : ''}';
 
-  String get currency =>
-      LocaleValues.translate(_languageCode, LocaleKeys.currency);
-
   String translate(String? key) => LocaleValues.translate(_languageCode, key);
+
+  String get currency => translate(LocaleKeys.currency);
 
   CurrencyTextInputFormatter get currencyTextInputFormatter =>
       CurrencyTextInputFormatter.currency(

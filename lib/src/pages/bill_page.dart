@@ -136,10 +136,10 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   if (!hasEditedValue && hasTriedToSendWithPending)
-                    _JPTextError('Preencha o valor da conta'),
+                    _JPTextError(context.translate(LocaleKeys.billValueError)),
                   JPTextFormField(
                     controller: valueController,
-                    label: 'Valor da conta',
+                    label: context.translate(LocaleKeys.billValue),
                     hint: '${context.currency} 100,00',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
@@ -148,7 +148,9 @@ class _BillPageState extends State<BillPage> {
                       if (text != null && text.isNotEmpty) {
                         double value = context.currencyIntoDouble(text);
                         if (value == 0) {
-                          return 'Digite um valor valido';
+                          return context.translate(
+                            LocaleKeys.billValueValidatorError,
+                          );
                         }
                       }
 
@@ -157,10 +159,12 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   if (!hasEditedDueDay && hasTriedToSendWithPending)
-                    _JPTextError('Preencha o dia de vencimento'),
+                    _JPTextError(
+                      context.translate(LocaleKeys.billDueDateError),
+                    ),
                   JPTextFormField(
                     controller: dueDayController,
-                    label: 'Dia de vencimento',
+                    label: context.translate(LocaleKeys.billDueDate),
                     hint: '01',
                     keyboardType: TextInputType.number,
                     inputFormatters: [context.dueDayInput],
@@ -169,7 +173,9 @@ class _BillPageState extends State<BillPage> {
                       if (text != null && text.isNotEmpty) {
                         int value = int.parse(text);
                         if (value > 31 || (value == 0 && text.length == 2)) {
-                          return 'Digite um dia valido';
+                          return context.translate(
+                            LocaleKeys.billDueDateValidatorError,
+                          );
                         }
                       }
 
@@ -178,16 +184,20 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   if (!hasEditedPaymentMethod && hasTriedToSendWithPending)
-                    _JPTextError('Preencha o método de pagamento'),
+                    _JPTextError(
+                      context.translate(LocaleKeys.billPaymentMethodError),
+                    ),
                   JPSelectionTile(
-                    title: 'Método de pagamento',
+                    title: context.translate(LocaleKeys.billPaymentMethod),
                     info: paymentMethod != null
                         ? context.translate(paymentMethod!.name)
-                        : 'Selecione o método de pagamento',
+                        : context.translate(LocaleKeys.billPaymentMethodHint),
                     onTap: () {
                       context.showModal(
                         child: JPSelectionModal(
-                          title: 'Método de pagamento',
+                          title: context.translate(
+                            LocaleKeys.billPaymentMethod,
+                          ),
                           preSelectedValue: context.translate(
                             paymentMethod?.name,
                           ),
@@ -203,7 +213,7 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   JPSelectionSwitch(
-                    label: 'Essa conta tem valor variável?',
+                    label: context.translate(LocaleKeys.billHasVariableValue),
                     isSelected: isVariableValue ?? false,
                     onTap: (newVariableValue) {
                       isVariableValue = newVariableValue;
@@ -213,18 +223,24 @@ class _BillPageState extends State<BillPage> {
                   if (isEdition) ...[
                     JPSpacingVertical.m,
                     JPSelectionTile(
-                      title: 'Não tem mais essa conta?',
-                      info: 'Deletar conta',
+                      title: context.translate(LocaleKeys.billDeleteTitle),
+                      info: context.translate(LocaleKeys.billDeleteInfo),
                       onTap: () {
                         context.showModal(
                           child: JPConfirmationModal(
-                            title: 'Deseja deletar essa conta?',
-                            primaryButtonLabel: 'Deletar',
+                            title: context.translate(
+                              LocaleKeys.billDeleteModalTitle,
+                            ),
+                            primaryButtonLabel: context.translate(
+                              LocaleKeys.billDeleteModalLabel,
+                            ),
                             onTapPrimaryButton: () {
                               dataBaseViewModel.deleteBill(editBill!);
                               context.popUntilIsRoot();
                               context.showSnackInfo(
-                                'Conta deletada com sucesso.',
+                                context.translate(
+                                  LocaleKeys.billDeleteModalSnackBar,
+                                ),
                               );
                             },
                           ),
@@ -260,7 +276,9 @@ class _BillPageState extends State<BillPage> {
                           );
 
                           dataBaseViewModel.updateBill(newBillModel);
-                          context.showSnackInfo('Conta editada com sucesso.');
+                          context.showSnackInfo(
+                            context.translate(LocaleKeys.billEditedSnackBar),
+                          );
                         } else {
                           BillModel newBillModel = BillModel(
                             id: null,
@@ -278,18 +296,22 @@ class _BillPageState extends State<BillPage> {
                           );
                           if (!hasCreated) {
                             context.showSnackError(
-                              'Já existe uma conta com esse nome.',
+                              context.translate(
+                                LocaleKeys.billCreatedSnackBarError,
+                              ),
                             );
                             return;
                           }
-                          context.showSnackSuccess('Conta criada com sucesso.');
+                          context.showSnackSuccess(
+                            context.translate(LocaleKeys.billCreatedSnackBar),
+                          );
                         }
                         context.popUntilIsRoot();
                         return;
                       } else {
                         hasTriedToSendWithPending = true;
                         context.showSnackError(
-                          'Por favor preencha todos os dados',
+                          context.translate(LocaleKeys.billError),
                         );
                       }
                       setState(() {});
@@ -300,7 +322,9 @@ class _BillPageState extends State<BillPage> {
                           child: JPConfirmationModal(
                             title: cancelModalTitle,
                             info: cancelModalInfo,
-                            primaryButtonLabel: 'Cancelar',
+                            primaryButtonLabel: context.translate(
+                              LocaleKeys.cancel,
+                            ),
                             onTapPrimaryButton: context.popUntilIsRoot,
                             secondaryButtonLabel: cancelModalButtonLabel,
                           ),

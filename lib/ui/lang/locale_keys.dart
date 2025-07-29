@@ -2,6 +2,7 @@ abstract class LocaleKeys {
   static const title = 'title';
 
   static const currency = 'currency';
+  static const cancel = 'cancel';
 
   /// BillPaymentMethodEnum
   static const creditCard = 'creditCard';
@@ -37,4 +38,23 @@ abstract class LocaleKeys {
   static const billName = 'billName';
   static const billNameHint = 'billNameHint';
   static const billNameValidatorError = 'billNameValidatorError';
+  static const billValueError = 'billValueError';
+  static const billValue = 'billValue';
+  static const billValueValidatorError = 'billValueValidatorError';
+  static const billDueDateError = 'billDueDateError';
+  static const billDueDate = 'billDueDate';
+  static const billDueDateValidatorError = 'billDueDateValidatorError';
+  static const billPaymentMethodError = 'billPaymentMethodError';
+  static const billPaymentMethod = 'billPaymentMethod';
+  static const billPaymentMethodHint = 'billPaymentMethodHint';
+  static const billHasVariableValue = 'billHasVariableValue';
+  static const billDeleteTitle = 'billDeleteTitle';
+  static const billDeleteInfo = 'billDeleteInfo';
+  static const billDeleteModalTitle = 'billDeleteModalTitle';
+  static const billDeleteModalLabel = 'billDeleteModalLabel';
+  static const billDeleteModalSnackBar = 'billDeleteModalSnackBar';
+  static const billEditedSnackBar = 'billEditedSnackBar';
+  static const billCreatedSnackBarError = 'billCreatedSnackBarError';
+  static const billCreatedSnackBar = 'billCreatedSnackBar';
+  static const billError = 'billError';
 }

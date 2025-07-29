@@ -20,6 +20,7 @@ class LocaleValues {
   static const Map<String, String> en = {
     LocaleKeys.title: 'Hello',
     LocaleKeys.currency: '\$',
+    LocaleKeys.cancel: 'Cancel',
     LocaleKeys.creditCard: 'Credit card',
     LocaleKeys.automaticDebit: 'Automatic debit',
     LocaleKeys.bankSlip: 'Bank slip',
@@ -48,11 +49,31 @@ class LocaleValues {
     LocaleKeys.billName: 'Nome da conta',
     LocaleKeys.billNameHint: 'Conta de água',
     LocaleKeys.billNameValidatorError: 'Digite um nome valido.',
+    LocaleKeys.billValueError: 'Preencha o valor da conta',
+    LocaleKeys.billValue: 'Valor da conta',
+    LocaleKeys.billValueValidatorError: 'Digite um valor valido',
+    LocaleKeys.billDueDateError: 'Preencha o dia de vencimento',
+    LocaleKeys.billDueDate: 'Dia de vencimento',
+    LocaleKeys.billDueDateValidatorError: 'Digite um dia valido',
+    LocaleKeys.billPaymentMethodError: 'Preencha o método de pagamento',
+    LocaleKeys.billPaymentMethod: 'Método de pagamento',
+    LocaleKeys.billPaymentMethodHint: 'Selecione o método de pagamento',
+    LocaleKeys.billHasVariableValue: 'Essa conta tem valor variável?',
+    LocaleKeys.billDeleteTitle: 'Não tem mais essa conta?',
+    LocaleKeys.billDeleteInfo: 'Deletar conta',
+    LocaleKeys.billDeleteModalTitle: 'Deseja deletar essa conta?',
+    LocaleKeys.billDeleteModalLabel: 'Deletar',
+    LocaleKeys.billDeleteModalSnackBar: 'Conta deletada com sucesso.',
+    LocaleKeys.billEditedSnackBar: 'Conta editada com sucesso.',
+    LocaleKeys.billCreatedSnackBarError: 'Já existe uma conta com esse nome.',
+    LocaleKeys.billCreatedSnackBar: 'Conta criada com sucesso.',
+    LocaleKeys.billError: 'Por favor preencha todos os dados',
   };
 
   static const Map<String, String> pt = {
     LocaleKeys.title: 'Hello',
     LocaleKeys.currency: 'R\$',
+    LocaleKeys.cancel: 'Cancelar',
     LocaleKeys.creditCard: 'Cartão de crédito',
     LocaleKeys.automaticDebit: 'Débito automático',
     LocaleKeys.bankSlip: 'Boleto',
@@ -70,6 +91,7 @@ class LocaleValues {
     LocaleKeys.createBill: 'Criar conta',
     LocaleKeys.cancelEditBill: 'Deseja cancelar edição?',
     LocaleKeys.cancelCreateBill: 'Deseja cancelar?',
+    //TODO
     LocaleKeys.cancelEditBillModalInfo:
         'Ao confirmar você perderá todas as informações editadas.',
     LocaleKeys.cancelCreateBillModalInfo:
@@ -80,6 +102,25 @@ class LocaleValues {
     LocaleKeys.billName: 'Nome da conta',
     LocaleKeys.billNameHint: 'Conta de água',
     LocaleKeys.billNameValidatorError: 'Digite um nome valido.',
+    LocaleKeys.billValueError: 'Preencha o valor da conta',
+    LocaleKeys.billValue: 'Valor da conta',
+    LocaleKeys.billValueValidatorError: 'Digite um valor valido',
+    LocaleKeys.billDueDateError: 'Preencha o dia de vencimento',
+    LocaleKeys.billDueDate: 'Dia de vencimento',
+    LocaleKeys.billDueDateValidatorError: 'Digite um dia valido',
+    LocaleKeys.billPaymentMethodError: 'Preencha o método de pagamento',
+    LocaleKeys.billPaymentMethod: 'Método de pagamento',
+    LocaleKeys.billPaymentMethodHint: 'Selecione o método de pagamento',
+    LocaleKeys.billHasVariableValue: 'Essa conta tem valor variável?',
+    LocaleKeys.billDeleteTitle: 'Não tem mais essa conta?',
+    LocaleKeys.billDeleteInfo: 'Deletar conta',
+    LocaleKeys.billDeleteModalTitle: 'Deseja deletar essa conta?',
+    LocaleKeys.billDeleteModalLabel: 'Deletar',
+    LocaleKeys.billDeleteModalSnackBar: 'Conta deletada com sucesso.',
+    LocaleKeys.billEditedSnackBar: 'Conta editada com sucesso.',
+    LocaleKeys.billCreatedSnackBarError: 'Já existe uma conta com esse nome.',
+    LocaleKeys.billCreatedSnackBar: 'Conta criada com sucesso.',
+    LocaleKeys.billError: 'Por favor preencha todos os dados',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {
