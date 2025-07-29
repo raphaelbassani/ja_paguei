@@ -3,39 +3,39 @@ import 'package:flutter/material.dart';
 import '../enums/bill_status_enum.dart';
 import '../enums/loading_status_enum.dart';
 import '../helpers/bill_database.dart';
-import '../helpers/payment_history_database.dart';
+import '../helpers/history_database.dart';
 import '../models/bill_model.dart';
-import '../models/payment_history_model.dart';
+import '../models/history_model.dart';
 import 'view_model.dart';
 
 class DataBaseViewModel extends ViewModel {
-  final PaymentHistoryDatabase _paymentHistoryDatabase;
+  final HistoryDatabase _historyDatabase;
   final BillDatabase _billDatabase;
 
   DataBaseViewModel({
-    required PaymentHistoryDatabase paymentHistoryDatabase,
+    required HistoryDatabase historyDatabase,
     required BillDatabase billDatabase,
-  }) : _paymentHistoryDatabase = paymentHistoryDatabase,
+  }) : _historyDatabase = historyDatabase,
        _billDatabase = billDatabase;
 
   StatusEnum status = StatusEnum.idle;
-  List<PaymentHistoryModel> paymentHistory = [];
+  List<HistoryModel> history = [];
   List<BillModel> bills = [];
 
   Future<void> loadData() async {
     status = StatusEnum.loading;
     safeNotify();
 
-    await _loadPaymentHistory();
+    await _loadHistory();
     await _loadBills();
 
     status = StatusEnum.loaded;
     safeNotify();
   }
 
-  Future<void> _loadPaymentHistory() async {
-    await _paymentHistoryDatabase.readAll().then((value) {
-      paymentHistory = value;
+  Future<void> _loadHistory() async {
+    await _historyDatabase.readAll().then((value) {
+      history = value;
     });
   }
 
@@ -53,7 +53,7 @@ class DataBaseViewModel extends ViewModel {
       DateTime now = DateUtils.dateOnly(DateTime.now());
 
       if (bill.paymentDateTime != null) {
-        PaymentHistoryModel lastBillPayment = paymentHistory.firstWhere(
+        HistoryModel lastBillPayment = history.firstWhere(
           (e) => e.billId == bill.id,
         );
 
@@ -68,8 +68,14 @@ class DataBaseViewModel extends ViewModel {
           newBill = bill.copyWith(status: BillStatusEnum.overdue);
         }
       } else {
-        if (now.isAfter(DateTime(now.year, now.month, bill.dueDay)) &&
-            bill.isNotPaid) {
+        final DateTime nextPaymentDate = DateTime(
+          now.year,
+          now.month,
+          bill.dueDay,
+        );
+        if (now.isAfter(nextPaymentDate) &&
+            bill.isNotPaid &&
+            bill.createdAt!.isBefore(nextPaymentDate)) {
           newBill = bill.copyWith(status: BillStatusEnum.overdue);
         }
       }
@@ -102,7 +108,7 @@ class DataBaseViewModel extends ViewModel {
   }
 
   bool savePaymentIntoHistory(BillModel bill) {
-    _paymentHistoryDatabase.save(bill.toPaymentHistoryModel);
+    _historyDatabase.save(bill.toHistoryModel);
     loadData();
     return true;
   }

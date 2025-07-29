@@ -1,15 +1,14 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/payment_history_model.dart';
+import '../models/history_model.dart';
 
-class PaymentHistoryDatabase {
-  static final PaymentHistoryDatabase instance =
-      PaymentHistoryDatabase._internal();
+class HistoryDatabase {
+  static final HistoryDatabase instance = HistoryDatabase._internal();
 
   static Database? _database;
 
-  PaymentHistoryDatabase._internal();
+  HistoryDatabase._internal();
 
   Future<Database> get database async {
     if (_database != null) {
@@ -22,38 +21,38 @@ class PaymentHistoryDatabase {
 
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
-    final path = join(databasePath, 'payment_history.db');
+    final path = join(databasePath, 'history.db');
 
     return await openDatabase(path, version: 1, onCreate: _createDatabase);
   }
 
   Future<void> _createDatabase(Database db, _) async {
     return await db.execute('''
-        CREATE TABLE ${PaymentHistoryFields.tableName} (
-          ${PaymentHistoryFields.id} ${PaymentHistoryFields.idType},
-          ${PaymentHistoryFields.billId} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.name} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.amount} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.paymentMethod} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.dueDay} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.isVariableAmount} ${PaymentHistoryFields.textType},
-          ${PaymentHistoryFields.paymentDateTime} ${PaymentHistoryFields.textType}
+        CREATE TABLE ${HistoryFields.tableName} (
+          ${HistoryFields.id} ${HistoryFields.idType},
+          ${HistoryFields.billId} ${HistoryFields.textType},
+          ${HistoryFields.name} ${HistoryFields.textType},
+          ${HistoryFields.amount} ${HistoryFields.textType},
+          ${HistoryFields.paymentMethod} ${HistoryFields.textType},
+          ${HistoryFields.dueDay} ${HistoryFields.textType},
+          ${HistoryFields.isVariableAmount} ${HistoryFields.textType},
+          ${HistoryFields.paymentDateTime} ${HistoryFields.textType}
         )
       ''');
   }
 
-  Future<void> save(PaymentHistoryModel payment) async {
+  Future<void> save(HistoryModel payment) async {
     final db = await instance.database;
-    await db.insert(PaymentHistoryFields.tableName, payment.toJson());
+    await db.insert(HistoryFields.tableName, payment.toJson());
   }
 
-  Future<List<PaymentHistoryModel>> readAll() async {
+  Future<List<HistoryModel>> readAll() async {
     final db = await instance.database;
-    final result = await db.query(PaymentHistoryFields.tableName);
-    final List<PaymentHistoryModel> listResult = result
-        .map((json) => PaymentHistoryModel.fromJson(json))
+    final result = await db.query(HistoryFields.tableName);
+    final List<HistoryModel> listResult = result
+        .map((json) => HistoryModel.fromJson(json))
         .toList();
-    final List<PaymentHistoryModel> sortedList = listResult
+    final List<HistoryModel> sortedList = listResult
       ..sort((a, b) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
     return sortedList;
   }
@@ -64,8 +63,8 @@ class PaymentHistoryDatabase {
   }
 }
 
-class PaymentHistoryFields {
-  static const String tableName = 'payment_history';
+class HistoryFields {
+  static const String tableName = 'history';
   static const String idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
   static const String textType = 'TEXT NOT NULL';
   static const String id = '_id';

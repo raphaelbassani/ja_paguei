@@ -6,7 +6,7 @@ import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
 import '../widgets/home_tabs/balance_tab_widget.dart';
 import '../widgets/home_tabs/bills_tab_widget.dart';
-import '../widgets/home_tabs/payment_history_tab_widget.dart';
+import '../widgets/home_tabs/history_tab_widget.dart';
 import '../widgets/home_tabs/settings_tab_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
   final List<Widget> tabPages = [
     BillsTabWidget(),
-    PaymentHistoryTabWidget(),
+    HistoryTabWidget(),
     BalanceTabWidget(),
     SettingsTabWidget(),
   ];

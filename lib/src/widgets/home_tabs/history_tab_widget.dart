@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../../ui.dart';
 import '../../helpers/extensions.dart';
-import '../../models/payment_history_model.dart';
+import '../../models/history_model.dart';
 import '../../view_models/database_view_model.dart';
 
-class PaymentHistoryTabWidget extends StatelessWidget {
-  const PaymentHistoryTabWidget({super.key});
+class HistoryTabWidget extends StatelessWidget {
+  const HistoryTabWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,9 @@ class PaymentHistoryTabWidget extends StatelessWidget {
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: dataBaseViewModel.paymentHistory.length,
+            childCount: dataBaseViewModel.history.length,
             (_, index) {
-              final PaymentHistoryModel payment =
-                  dataBaseViewModel.paymentHistory[index];
+              final HistoryModel payment = dataBaseViewModel.history[index];
               return Padding(
                 padding: JPPadding.horizontal,
                 child: Column(
@@ -40,7 +39,7 @@ class PaymentHistoryTabWidget extends StatelessWidget {
 }
 
 class _ItemWidget extends StatelessWidget {
-  final PaymentHistoryModel payment;
+  final HistoryModel payment;
 
   const _ItemWidget(this.payment);
 

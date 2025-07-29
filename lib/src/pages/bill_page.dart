@@ -273,7 +273,7 @@ class _BillPageState extends State<BillPage> {
                       if (hasEditedAllInfo) {
                         hasTriedToSendWithPending = false;
                         if (isEdition) {
-                          BillModel newBillModel = editBill!.copyWith(
+                          BillModel editBillModel = editBill!.copyWith(
                             name: nameController.text,
                             amount: context.currencyIntoDouble(
                               amountController.text,
@@ -283,7 +283,7 @@ class _BillPageState extends State<BillPage> {
                             isVariableAmount: isVariableAmount,
                           );
 
-                          dataBaseViewModel.updateBill(newBillModel);
+                          dataBaseViewModel.updateBill(editBillModel);
                           context.showSnackInfo(
                             context.translate(JPLocaleKeys.billEditedSnackBar),
                           );
@@ -297,6 +297,7 @@ class _BillPageState extends State<BillPage> {
                             dueDay: int.parse(dueDayController.text),
                             paymentMethod: paymentMethod!,
                             isVariableAmount: isVariableAmount ?? false,
+                            createdAt: DateTime.now(),
                           );
 
                           bool hasCreated = dataBaseViewModel.createBill(

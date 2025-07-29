@@ -51,8 +51,6 @@ class JPLocale {
     JPLocaleKeys.createBill: 'Create bill',
     JPLocaleKeys.cancelEditBill: 'Cancel editing?',
     JPLocaleKeys.cancelCreateBill: 'Do you want to cancel?',
-
-    //TODO transalate from here
     JPLocaleKeys.cancelEditBillModalInfo:
         'By confirming, you will lose all edited information.',
     JPLocaleKeys.cancelCreateBillModalInfo:

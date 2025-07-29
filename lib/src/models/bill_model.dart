@@ -2,10 +2,11 @@ import '../enums/bill_payment_method_enum.dart';
 import '../enums/bill_status_enum.dart';
 import '../helpers/bill_database.dart';
 import 'base_model.dart';
-import 'payment_history_model.dart';
+import 'history_model.dart';
 
 class BillModel extends BaseModel {
   final BillStatusEnum status;
+  final DateTime? createdAt;
 
   const BillModel({
     required super.id,
@@ -16,6 +17,7 @@ class BillModel extends BaseModel {
     required super.isVariableAmount,
     super.paymentDateTime,
     this.status = BillStatusEnum.pending,
+    this.createdAt,
   });
 
   bool get isPaid => status.isPaid;
@@ -35,6 +37,9 @@ class BillModel extends BaseModel {
     paymentDateTime: json[BillFields.paymentDateTime] != null
         ? DateTime.tryParse(json[BillFields.paymentDateTime].toString())
         : null,
+    createdAt: json[BillFields.createdAt] != null
+        ? DateTime.tryParse(json[BillFields.createdAt].toString())
+        : null,
   );
 
   BillModel copyWith({
@@ -46,6 +51,7 @@ class BillModel extends BaseModel {
     BillStatusEnum? status,
     bool? isVariableAmount,
     DateTime? paymentDateTime,
+    DateTime? createdAt,
   }) => BillModel(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -55,6 +61,7 @@ class BillModel extends BaseModel {
     status: status ?? this.status,
     isVariableAmount: isVariableAmount ?? this.isVariableAmount,
     paymentDateTime: paymentDateTime ?? this.paymentDateTime,
+    createdAt: createdAt ?? this.createdAt,
   );
 
   BillModel copyWithNullId() => BillModel(
@@ -66,6 +73,7 @@ class BillModel extends BaseModel {
     status: status,
     isVariableAmount: isVariableAmount,
     paymentDateTime: paymentDateTime,
+    createdAt: createdAt,
   );
 
   BillModel copyWithCleaningPayment() => BillModel(
@@ -75,6 +83,7 @@ class BillModel extends BaseModel {
     paymentMethod: paymentMethod,
     dueDay: dueDay,
     isVariableAmount: isVariableAmount,
+    createdAt: createdAt,
     status: BillStatusEnum.pending,
     paymentDateTime: null,
   );
@@ -88,10 +97,11 @@ class BillModel extends BaseModel {
     BillFields.status: status.name,
     BillFields.isVariableAmount: isVariableAmount ? '1' : '0',
     BillFields.paymentDateTime: paymentDateTime?.toIso8601String() ?? '',
+    BillFields.createdAt: createdAt?.toIso8601String() ?? '',
   };
 
-  PaymentHistoryModel get toPaymentHistoryModel {
-    return PaymentHistoryModel(
+  HistoryModel get toHistoryModel {
+    return HistoryModel(
       id: null,
       billId: id!,
       name: name,
@@ -113,5 +123,6 @@ class BillModel extends BaseModel {
     status,
     isVariableAmount,
     paymentDateTime,
+    createdAt,
   ];
 }
