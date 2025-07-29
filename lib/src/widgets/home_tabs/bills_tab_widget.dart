@@ -70,7 +70,7 @@ class _ItemWidget extends StatelessWidget {
               Row(
                 children: [
                   JPText(bill.formattedValue(context)),
-                  if (bill.isVariableValue) ...[
+                  if (bill.isVariableAmount) ...[
                     JPSpacingHorizontal.xs,
                     JPText(
                       '(${context.translate(LocaleKeys.variableAmount)})',
@@ -129,7 +129,7 @@ class _Buttons extends StatelessWidget {
         JPPrimaryButtonSmall(
           label: context.translate(LocaleKeys.alreadyPaid),
           onTap: () {
-            if (bill.isVariableValue) {
+            if (bill.isVariableAmount) {
               context.pushNamed(Routes.billVariableValue, arguments: bill);
               return;
             }

@@ -10,10 +10,10 @@ class PaymentHistoryModel extends BaseModel {
     required super.paymentDateTime,
     required super.id,
     required super.name,
-    required super.value,
+    required super.amount,
     required super.paymentMethod,
     required super.dueDay,
-    required super.isVariableValue,
+    required super.isVariableAmount,
   });
 
   factory PaymentHistoryModel.fromJson(Map<String, Object?> json) =>
@@ -21,13 +21,13 @@ class PaymentHistoryModel extends BaseModel {
         id: json[PaymentHistoryFields.id] as int?,
         billId: int.parse(json[PaymentHistoryFields.billId].toString()),
         name: json[PaymentHistoryFields.name].toString(),
-        value: double.parse(json[PaymentHistoryFields.value].toString()),
+        amount: double.parse(json[PaymentHistoryFields.amount].toString()),
         paymentMethod: BillPaymentMethodEnum.values.byName(
           json[PaymentHistoryFields.paymentMethod].toString(),
         ),
         dueDay: int.parse(json[PaymentHistoryFields.dueDay].toString()),
-        isVariableValue:
-            json[PaymentHistoryFields.isVariableValue] as String == '1',
+        isVariableAmount:
+            json[PaymentHistoryFields.isVariableAmount] as String == '1',
         paymentDateTime: DateTime.parse(
           json[PaymentHistoryFields.paymentDateTime].toString(),
         ),
@@ -37,10 +37,10 @@ class PaymentHistoryModel extends BaseModel {
     id: id,
     billId: billId,
     name: name,
-    value: value,
+    amount: amount,
     paymentMethod: paymentMethod,
     dueDay: dueDay,
-    isVariableValue: isVariableValue,
+    isVariableAmount: isVariableAmount,
     paymentDateTime: paymentDateTime,
   );
 
@@ -48,10 +48,10 @@ class PaymentHistoryModel extends BaseModel {
     PaymentHistoryFields.id: id,
     PaymentHistoryFields.billId: billId,
     PaymentHistoryFields.name: name,
-    PaymentHistoryFields.value: value.toStringAsFixed(2),
+    PaymentHistoryFields.amount: amount.toStringAsFixed(2),
     PaymentHistoryFields.paymentMethod: paymentMethod.name,
     PaymentHistoryFields.dueDay: dueDay.toString(),
-    PaymentHistoryFields.isVariableValue: isVariableValue ? '1' : '0',
+    PaymentHistoryFields.isVariableAmount: isVariableAmount ? '1' : '0',
     PaymentHistoryFields.paymentDateTime: paymentDateTime!.toIso8601String(),
   };
 
@@ -60,10 +60,10 @@ class PaymentHistoryModel extends BaseModel {
     id,
     billId,
     name,
-    value,
+    amount,
     paymentMethod,
     dueDay,
-    isVariableValue,
+    isVariableAmount,
     paymentDateTime,
   ];
 }

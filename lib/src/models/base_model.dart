@@ -8,24 +8,24 @@ import '../helpers/extensions.dart';
 abstract class BaseModel extends Equatable {
   final int? id;
   final String name;
-  final double value;
+  final double amount;
   final BillPaymentMethodEnum paymentMethod;
   final int dueDay;
-  final bool isVariableValue;
+  final bool isVariableAmount;
   final DateTime? paymentDateTime;
 
   const BaseModel({
     required this.id,
     required this.name,
-    required this.value,
+    required this.amount,
     required this.paymentMethod,
     required this.dueDay,
-    required this.isVariableValue,
+    required this.isVariableAmount,
     this.paymentDateTime,
   });
 
   String formattedValue(BuildContext context) =>
-      context.currencyIntoString(value);
+      context.currencyIntoString(amount);
 
   String labelWithDueDate(BuildContext context) =>
       '${isPaymentMethodAutomatic ? context.translate(LocaleKeys.automaticDebit) : context.translate(LocaleKeys.dueDate)}: '

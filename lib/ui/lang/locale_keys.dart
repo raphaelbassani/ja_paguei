@@ -6,7 +6,7 @@ abstract class LocaleKeys {
   static const save = 'save';
   static const cancel = 'cancel';
   static const edit = 'edit';
-  static const variableAmount = 'variableValue';
+  static const variableAmount = 'variableAmount';
 
   /// BillPaymentMethodEnum
   static const creditCard = 'creditCard';
@@ -42,16 +42,16 @@ abstract class LocaleKeys {
   static const billName = 'billName';
   static const billNameHint = 'billNameHint';
   static const billNameValidatorError = 'billNameValidatorError';
-  static const billValueError = 'billValueError';
-  static const billValue = 'billValue';
-  static const billValueValidatorError = 'billValueValidatorError';
+  static const billAmountError = 'billAmountError';
+  static const billAmount = 'billAmount';
+  static const billAmountValidatorError = 'billAmountValidatorError';
   static const billDueDateError = 'billDueDateError';
   static const billDueDate = 'billDueDate';
   static const billDueDateValidatorError = 'billDueDateValidatorError';
   static const billPaymentMethodError = 'billPaymentMethodError';
   static const billPaymentMethod = 'billPaymentMethod';
   static const billPaymentMethodHint = 'billPaymentMethodHint';
-  static const billHasVariableValue = 'billHasVariableValue';
+  static const billHasVariableAmount = 'billHasVariableAmount';
   static const billDeleteTitle = 'billDeleteTitle';
   static const billDeleteInfo = 'billDeleteInfo';
   static const billDeleteModalTitle = 'billDeleteModalTitle';
@@ -66,9 +66,9 @@ abstract class LocaleKeys {
   static const dateTitle = 'dateTitle';
 
   /// BillVariableValuePage
-  static const variableValueTitle = 'variableValueTitle';
-  static const variableValueLabel = 'variableValueLabel';
-  static const variableValueValidatorError = 'variableValueValidatorError';
+  static const variableAmountTitle = 'variableAmountTitle';
+  static const variableAmountLabel = 'variableAmountLabel';
+  static const variableAmountValidatorError = 'variableAmountValidatorError';
 
   /// HomePage
   static const homeAccount = 'homeAccount';

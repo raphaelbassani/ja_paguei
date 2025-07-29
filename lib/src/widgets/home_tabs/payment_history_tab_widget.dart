@@ -54,7 +54,7 @@ class _ItemWidget extends StatelessWidget {
         Row(
           children: [
             JPText(payment.formattedValue(context)),
-            if (payment.isVariableValue) ...[
+            if (payment.isVariableAmount) ...[
               JPSpacingHorizontal.xs,
               JPText(
                 '(${context.translate(LocaleKeys.variableAmount)})',

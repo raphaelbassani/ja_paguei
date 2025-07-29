@@ -31,11 +31,11 @@ class BillDatabase {
         CREATE TABLE ${BillFields.tableName} (
           ${BillFields.id} ${BillFields.idType},
           ${BillFields.name} ${BillFields.textType},
-          ${BillFields.value} ${BillFields.textType},
+          ${BillFields.amount} ${BillFields.textType},
           ${BillFields.paymentMethod} ${BillFields.textType},
           ${BillFields.dueDay} ${BillFields.textType},
           ${BillFields.status} ${BillFields.textType},
-          ${BillFields.isVariableValue} ${BillFields.textType},
+          ${BillFields.isVariableAmount} ${BillFields.textType},
           ${BillFields.paymentDateTime} ${BillFields.textType}
         )
       ''');
@@ -84,21 +84,21 @@ class BillFields {
   static const String textType = 'TEXT NOT NULL';
   static const String id = '_id';
   static const String name = 'name';
-  static const String value = 'value';
+  static const String amount = 'amount';
   static const String paymentMethod = 'paymentMethod';
   static const String dueDay = 'dueDay';
   static const String status = 'status';
-  static const String isVariableValue = 'isVariableValue';
+  static const String isVariableAmount = 'isVariableAmount';
   static const String paymentDateTime = 'paymentDateTime';
 
   static const List<String> values = [
     id,
     name,
-    value,
+    amount,
     paymentMethod,
     dueDay,
     status,
-    isVariableValue,
+    isVariableAmount,
     paymentDateTime,
   ];
 }

@@ -16,11 +16,11 @@ class BillPage extends StatefulWidget {
 
 class _BillPageState extends State<BillPage> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController valueController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
   TextEditingController dueDayController = TextEditingController();
   BillModel? editBill;
   BillPaymentMethodEnum? paymentMethod;
-  bool? isVariableValue;
+  bool? isVariableAmount;
   bool hasTriedToSendWithPending = false;
 
   @override
@@ -28,19 +28,19 @@ class _BillPageState extends State<BillPage> {
     super.initState();
 
     nameController.addListener(_updateListener);
-    valueController.addListener(_updateListener);
+    amountController.addListener(_updateListener);
     dueDayController.addListener(_updateListener);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       editBill = context.arguments as BillModel?;
       if (isEdition) {
         nameController.text = editBill!.name;
-        valueController.text = context.currencyTextInputFormatter.formatString(
-          editBill!.value.toStringAsFixed(2),
+        amountController.text = context.currencyTextInputFormatter.formatString(
+          editBill!.amount.toStringAsFixed(2),
         );
         dueDayController.text = editBill!.dueDay.toString();
         paymentMethod = editBill!.paymentMethod;
-        isVariableValue = editBill!.isVariableValue;
+        isVariableAmount = editBill!.isVariableAmount;
       }
     });
   }
@@ -52,7 +52,7 @@ class _BillPageState extends State<BillPage> {
   @override
   void dispose() {
     nameController.dispose();
-    valueController.dispose();
+    amountController.dispose();
     dueDayController.dispose();
     super.dispose();
   }
@@ -78,25 +78,25 @@ class _BillPageState extends State<BillPage> {
   bool get hasEditedName =>
       nameController.text.isNotEmpty && nameController.text.length > 2;
 
-  bool get hasEditedValue => valueController.text.isNotEmpty;
+  bool get hasEditedAmount => amountController.text.isNotEmpty;
 
   bool get hasEditedDueDay => dueDayController.text.isNotEmpty;
 
   bool get hasEditedPaymentMethod => paymentMethod != null;
 
-  bool get hasEditedIsVariableValue => isVariableValue != null;
+  bool get hasEditedIsVariableAmount => isVariableAmount != null;
 
   bool get hasEditedAnyInfo => [
     hasEditedName,
-    hasEditedValue,
+    hasEditedAmount,
     hasEditedDueDay,
     hasEditedPaymentMethod,
-    hasEditedIsVariableValue,
+    hasEditedIsVariableAmount,
   ].any((e) => e);
 
   bool get hasEditedAllInfo => ![
     hasEditedName,
-    hasEditedValue,
+    hasEditedAmount,
     hasEditedDueDay,
     hasEditedPaymentMethod,
   ].any((e) => !e);
@@ -135,21 +135,21 @@ class _BillPageState extends State<BillPage> {
                     },
                   ),
                   JPSpacingVertical.l,
-                  if (!hasEditedValue && hasTriedToSendWithPending)
-                    _JPTextError(context.translate(LocaleKeys.billValueError)),
+                  if (!hasEditedAmount && hasTriedToSendWithPending)
+                    _JPTextError(context.translate(LocaleKeys.billAmountError)),
                   JPTextFormField(
-                    controller: valueController,
-                    label: context.translate(LocaleKeys.billValue),
+                    controller: amountController,
+                    label: context.translate(LocaleKeys.billAmount),
                     hint: '${context.currency} 100,00',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
                     inputAction: TextInputAction.next,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
-                        double value = context.currencyIntoDouble(text);
-                        if (value == 0) {
+                        double amount = context.currencyIntoDouble(text);
+                        if (amount == 0) {
                           return context.translate(
-                            LocaleKeys.billValueValidatorError,
+                            LocaleKeys.billAmountValidatorError,
                           );
                         }
                       }
@@ -217,10 +217,10 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   JPSelectionSwitch(
-                    label: context.translate(LocaleKeys.billHasVariableValue),
-                    isSelected: isVariableValue ?? false,
-                    onTap: (newVariableValue) {
-                      isVariableValue = newVariableValue;
+                    label: context.translate(LocaleKeys.billHasVariableAmount),
+                    isSelected: isVariableAmount ?? false,
+                    onTap: (newVariableAmount) {
+                      isVariableAmount = newVariableAmount;
                       setState(() {});
                     },
                   ),
@@ -271,12 +271,12 @@ class _BillPageState extends State<BillPage> {
                         if (isEdition) {
                           BillModel newBillModel = editBill!.copyWith(
                             name: nameController.text,
-                            value: context.currencyIntoDouble(
-                              valueController.text,
+                            amount: context.currencyIntoDouble(
+                              amountController.text,
                             ),
                             dueDay: int.parse(dueDayController.text),
                             paymentMethod: paymentMethod,
-                            isVariableValue: isVariableValue,
+                            isVariableAmount: isVariableAmount,
                           );
 
                           dataBaseViewModel.updateBill(newBillModel);
@@ -287,12 +287,12 @@ class _BillPageState extends State<BillPage> {
                           BillModel newBillModel = BillModel(
                             id: null,
                             name: nameController.text,
-                            value: context.currencyIntoDouble(
-                              valueController.text,
+                            amount: context.currencyIntoDouble(
+                              amountController.text,
                             ),
                             dueDay: int.parse(dueDayController.text),
                             paymentMethod: paymentMethod!,
-                            isVariableValue: isVariableValue ?? false,
+                            isVariableAmount: isVariableAmount ?? false,
                           );
 
                           bool hasCreated = dataBaseViewModel.createBill(

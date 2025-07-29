@@ -53,25 +53,25 @@ class LocaleValues {
 
     //TODO transalate from here
     LocaleKeys.cancelEditBillModalInfo:
-        'Ao confirmar você perderá todas as informações editadas.',
+        'By confirming, you will lose all edited information.',
     LocaleKeys.cancelCreateBillModalInfo:
-        'Ao confirmar você perderá todas as informações criadas.',
-    LocaleKeys.cancelEditBillModalButtonLabel: 'Continuar edição',
-    LocaleKeys.cancelCreateBillModalButtonLabel: 'Continuar criação',
-    LocaleKeys.billNameError: 'Preencha o nome da conta',
-    LocaleKeys.billName: 'Nome da conta',
-    LocaleKeys.billNameHint: 'Conta de água',
-    LocaleKeys.billNameValidatorError: 'Digite um nome valido.',
-    LocaleKeys.billValueError: 'Preencha o valor da conta',
-    LocaleKeys.billValue: 'Valor da conta',
-    LocaleKeys.billValueValidatorError: 'Digite um valor valido.',
-    LocaleKeys.billDueDateError: 'Preencha o dia de vencimento',
-    LocaleKeys.billDueDate: 'Dia de vencimento',
-    LocaleKeys.billDueDateValidatorError: 'Digite um dia valido.',
-    LocaleKeys.billPaymentMethodError: 'Preencha o método de pagamento',
-    LocaleKeys.billPaymentMethod: 'Método de pagamento',
-    LocaleKeys.billPaymentMethodHint: 'Selecione o método de pagamento',
-    LocaleKeys.billHasVariableValue: 'Essa conta tem valor variável?',
+        'By confirming, you will lose all created information.',
+    LocaleKeys.cancelEditBillModalButtonLabel: 'Continue editing',
+    LocaleKeys.cancelCreateBillModalButtonLabel: 'Continue creating',
+    LocaleKeys.billNameError: ' Please enter the bill name',
+    LocaleKeys.billName: 'Bill name',
+    LocaleKeys.billNameHint: 'Water bill',
+    LocaleKeys.billNameValidatorError: 'Please enter a valid name.',
+    LocaleKeys.billAmountError: 'Please enter the bill amount',
+    LocaleKeys.billAmount: 'Bill amount',
+    LocaleKeys.billAmountValidatorError: 'Please enter a valid amount.',
+    LocaleKeys.billDueDateError: 'Please enter the due date',
+    LocaleKeys.billDueDate: 'Due date',
+    LocaleKeys.billDueDateValidatorError: 'Please enter a valid date.',
+    LocaleKeys.billPaymentMethodError: 'Please enter the payment method',
+    LocaleKeys.billPaymentMethod: 'Payment method',
+    LocaleKeys.billPaymentMethodHint: 'Select the payment method',
+    LocaleKeys.billHasVariableAmount: 'Does this bill have a variable amount?',
     LocaleKeys.billDeleteTitle: 'Não tem mais essa conta?',
     LocaleKeys.billDeleteInfo: 'Deletar conta',
     LocaleKeys.billDeleteModalTitle: 'Deseja deletar essa conta?',
@@ -86,9 +86,9 @@ class LocaleValues {
     LocaleKeys.dateTitle: 'Em qual data a conta foi paga?',
 
     /// BillVariableValuePage
-    LocaleKeys.variableValueTitle: 'Qual foi o valor pago?',
-    LocaleKeys.variableValueLabel: 'Valor',
-    LocaleKeys.variableValueValidatorError: 'Digite um valor valido.',
+    LocaleKeys.variableAmountTitle: 'Qual foi o valor pago?',
+    LocaleKeys.variableAmountLabel: 'Valor',
+    LocaleKeys.variableAmountValidatorError: 'Digite um valor valido.',
 
     /// BillVariableValuePage
     LocaleKeys.homeAccount: 'Conta',
@@ -137,7 +137,6 @@ class LocaleValues {
     LocaleKeys.createBill: 'Criar conta',
     LocaleKeys.cancelEditBill: 'Deseja cancelar edição?',
     LocaleKeys.cancelCreateBill: 'Deseja cancelar?',
-    //TODO
     LocaleKeys.cancelEditBillModalInfo:
         'Ao confirmar você perderá todas as informações editadas.',
     LocaleKeys.cancelCreateBillModalInfo:
@@ -148,16 +147,16 @@ class LocaleValues {
     LocaleKeys.billName: 'Nome da conta',
     LocaleKeys.billNameHint: 'Conta de água',
     LocaleKeys.billNameValidatorError: 'Digite um nome valido.',
-    LocaleKeys.billValueError: 'Preencha o valor da conta',
-    LocaleKeys.billValue: 'Valor da conta',
-    LocaleKeys.billValueValidatorError: 'Digite um valor valido.',
+    LocaleKeys.billAmountError: 'Preencha o valor da conta',
+    LocaleKeys.billAmount: 'Valor da conta',
+    LocaleKeys.billAmountValidatorError: 'Digite um valor valido.',
     LocaleKeys.billDueDateError: 'Preencha o dia de vencimento',
     LocaleKeys.billDueDate: 'Dia de vencimento',
     LocaleKeys.billDueDateValidatorError: 'Digite um dia valido.',
     LocaleKeys.billPaymentMethodError: 'Preencha o método de pagamento',
     LocaleKeys.billPaymentMethod: 'Método de pagamento',
     LocaleKeys.billPaymentMethodHint: 'Selecione o método de pagamento',
-    LocaleKeys.billHasVariableValue: 'Essa conta tem valor variável?',
+    LocaleKeys.billHasVariableAmount: 'Essa conta tem valor variável?',
     LocaleKeys.billDeleteTitle: 'Não tem mais essa conta?',
     LocaleKeys.billDeleteInfo: 'Deletar conta',
     LocaleKeys.billDeleteModalTitle: 'Deseja deletar essa conta?',
@@ -172,9 +171,9 @@ class LocaleValues {
     LocaleKeys.dateTitle: 'Em qual data a conta foi paga?',
 
     /// BillVariableValuePage
-    LocaleKeys.variableValueTitle: 'Qual foi o valor pago?',
-    LocaleKeys.variableValueLabel: 'Valor',
-    LocaleKeys.variableValueValidatorError: 'Digite um valor valido.',
+    LocaleKeys.variableAmountTitle: 'Qual foi o valor pago?',
+    LocaleKeys.variableAmountLabel: 'Valor',
+    LocaleKeys.variableAmountValidatorError: 'Digite um valor valido.',
 
     /// BillVariableValuePage
     LocaleKeys.homeAccount: 'Conta',

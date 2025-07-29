@@ -6,27 +6,27 @@ import '../helpers/extensions.dart';
 import '../models/bill_model.dart';
 import '../widgets/bill_confirmation_modal_widget.dart';
 
-class BillVariableValuePage extends StatefulWidget {
-  const BillVariableValuePage({super.key});
+class BillVariableAmountPage extends StatefulWidget {
+  const BillVariableAmountPage({super.key});
 
   @override
-  State<BillVariableValuePage> createState() => _BillVariableValuePageState();
+  State<BillVariableAmountPage> createState() => _BillVariableAmountPageState();
 }
 
-class _BillVariableValuePageState extends State<BillVariableValuePage> {
-  TextEditingController valueController = TextEditingController();
+class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
+  TextEditingController amountController = TextEditingController();
   BillModel? bill;
 
   @override
   void initState() {
     super.initState();
 
-    valueController.addListener(_updateListener);
+    amountController.addListener(_updateListener);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       bill = context.arguments as BillModel;
-      valueController.text = context.currencyTextInputFormatter.formatString(
-        bill!.value.toStringAsFixed(2),
+      amountController.text = context.currencyTextInputFormatter.formatString(
+        bill!.amount.toStringAsFixed(2),
       );
     });
   }
@@ -37,7 +37,7 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
 
   @override
   void dispose() {
-    valueController.dispose();
+    amountController.dispose();
     super.dispose();
   }
 
@@ -55,23 +55,23 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                 children: [
                   JPSpacingVertical.m,
                   JPText(
-                    context.translate(LocaleKeys.variableValueTitle),
+                    context.translate(LocaleKeys.variableAmountTitle),
                     type: JPTextTypeEnum.xl,
                   ),
                   JPSpacingVertical.m,
                   JPSpacingVertical.l,
                   JPTextFormField(
-                    controller: valueController,
-                    label: context.translate(LocaleKeys.variableValueLabel),
+                    controller: amountController,
+                    label: context.translate(LocaleKeys.variableAmountLabel),
                     hint: bill?.formattedValue(context) ?? '',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
-                        double value = context.currencyIntoDouble(text);
-                        if (value == 0) {
+                        double amount = context.currencyIntoDouble(text);
+                        if (amount == 0) {
                           return context.translate(
-                            LocaleKeys.variableValueValidatorError,
+                            LocaleKeys.variableAmountValidatorError,
                           );
                         }
                       }
@@ -93,7 +93,9 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                     ),
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(
-                        value: context.currencyIntoDouble(valueController.text),
+                        amount: context.currencyIntoDouble(
+                          amountController.text,
+                        ),
                         paymentDateTime: context.now,
                         status: BillStatusEnum.paid,
                       );

@@ -7,7 +7,7 @@ import 'src/helpers/payment_history_database.dart';
 import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
 import 'src/pages/bill_payment_date_page.dart';
-import 'src/pages/bill_variable_value_page.dart';
+import 'src/pages/bill_variable_amount_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/view_models/database_view_model.dart';
 import 'src/view_models/theme_view_model.dart';
@@ -86,7 +86,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       routes: {
         Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),
-        Routes.billVariableValue: (context) => const BillVariableValuePage(),
+        Routes.billVariableValue: (context) => const BillVariableAmountPage(),
         Routes.billPaymentDate: (context) => const BillPaymentDatePage(),
       },
     );
