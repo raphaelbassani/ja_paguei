@@ -24,7 +24,7 @@ abstract class BaseModel extends Equatable {
     this.paymentDateTime,
   });
 
-  String formattedValue(BuildContext context) =>
+  String formattedAmount(BuildContext context) =>
       context.currencyIntoString(amount);
 
   String labelWithDueDate(BuildContext context) =>

@@ -63,7 +63,7 @@ class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
                   JPTextFormField(
                     controller: amountController,
                     label: context.translate(LocaleKeys.variableAmountLabel),
-                    hint: bill?.formattedValue(context) ?? '',
+                    hint: bill?.formattedAmount(context) ?? '',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
                     validator: (text) {

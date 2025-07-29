@@ -5,6 +5,7 @@ abstract class LocaleKeys {
   static const currency = 'currency';
   static const save = 'save';
   static const cancel = 'cancel';
+  static const delete = 'delete';
   static const edit = 'edit';
   static const variableAmount = 'variableAmount';
 
@@ -55,7 +56,6 @@ abstract class LocaleKeys {
   static const billDeleteTitle = 'billDeleteTitle';
   static const billDeleteInfo = 'billDeleteInfo';
   static const billDeleteModalTitle = 'billDeleteModalTitle';
-  static const billDeleteModalLabel = 'billDeleteModalLabel';
   static const billDeleteModalSnackBar = 'billDeleteModalSnackBar';
   static const billEditedSnackBar = 'billEditedSnackBar';
   static const billCreatedSnackBarError = 'billCreatedSnackBarError';
@@ -65,7 +65,7 @@ abstract class LocaleKeys {
   /// BillPaymentDatePage
   static const dateTitle = 'dateTitle';
 
-  /// BillVariableValuePage
+  /// BillVariableAmountPage
   static const variableAmountTitle = 'variableAmountTitle';
   static const variableAmountLabel = 'variableAmountLabel';
   static const variableAmountValidatorError = 'variableAmountValidatorError';

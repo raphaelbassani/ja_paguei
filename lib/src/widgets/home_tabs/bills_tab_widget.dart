@@ -69,7 +69,7 @@ class _ItemWidget extends StatelessWidget {
               JPSpacingVertical.xxs,
               Row(
                 children: [
-                  JPText(bill.formattedValue(context)),
+                  JPText(bill.formattedAmount(context)),
                   if (bill.isVariableAmount) ...[
                     JPSpacingHorizontal.xs,
                     JPText(
@@ -130,7 +130,7 @@ class _Buttons extends StatelessWidget {
           label: context.translate(LocaleKeys.alreadyPaid),
           onTap: () {
             if (bill.isVariableAmount) {
-              context.pushNamed(Routes.billVariableValue, arguments: bill);
+              context.pushNamed(Routes.billVariableAmount, arguments: bill);
               return;
             }
             context.showModal(child: BillConfirmationModalWidget(bill: bill));

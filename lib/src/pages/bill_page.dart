@@ -236,7 +236,7 @@ class _BillPageState extends State<BillPage> {
                               LocaleKeys.billDeleteModalTitle,
                             ),
                             primaryButtonLabel: context.translate(
-                              LocaleKeys.billDeleteModalLabel,
+                              LocaleKeys.delete,
                             ),
                             onTapPrimaryButton: () {
                               dataBaseViewModel.deleteBill(editBill!);

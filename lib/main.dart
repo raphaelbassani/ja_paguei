@@ -86,7 +86,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       routes: {
         Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),
-        Routes.billVariableValue: (context) => const BillVariableAmountPage(),
+        Routes.billVariableAmount: (context) => const BillVariableAmountPage(),
         Routes.billPaymentDate: (context) => const BillPaymentDatePage(),
       },
     );

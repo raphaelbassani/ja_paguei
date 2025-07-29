@@ -23,6 +23,7 @@ class LocaleValues {
     LocaleKeys.currency: '\$',
     LocaleKeys.save: 'Save',
     LocaleKeys.cancel: 'Cancel',
+    LocaleKeys.delete: 'Delete',
     LocaleKeys.edit: 'Edit',
     LocaleKeys.variableAmount: 'Variable amount',
 
@@ -72,36 +73,36 @@ class LocaleValues {
     LocaleKeys.billPaymentMethod: 'Payment method',
     LocaleKeys.billPaymentMethodHint: 'Select the payment method',
     LocaleKeys.billHasVariableAmount: 'Does this bill have a variable amount?',
-    LocaleKeys.billDeleteTitle: 'Não tem mais essa conta?',
-    LocaleKeys.billDeleteInfo: 'Deletar conta',
-    LocaleKeys.billDeleteModalTitle: 'Deseja deletar essa conta?',
-    LocaleKeys.billDeleteModalLabel: 'Deletar',
-    LocaleKeys.billDeleteModalSnackBar: 'Conta deletada com sucesso.',
-    LocaleKeys.billEditedSnackBar: 'Conta editada com sucesso.',
-    LocaleKeys.billCreatedSnackBarError: 'Já existe uma conta com esse nome.',
-    LocaleKeys.billCreatedSnackBar: 'Conta criada com sucesso.',
-    LocaleKeys.billError: 'Por favor preencha todos os dados',
+    LocaleKeys.billDeleteTitle: 'Don\'t have this bill anymore?',
+    LocaleKeys.billDeleteInfo: 'Delete bill',
+    LocaleKeys.billDeleteModalTitle: 'Do you want to delete this bill?',
+    LocaleKeys.billDeleteModalSnackBar: 'Bill successfully deleted.',
+    LocaleKeys.billEditedSnackBar: 'Bill successfully edited.',
+    LocaleKeys.billCreatedSnackBarError:
+        'A bill with this name already exists.',
+    LocaleKeys.billCreatedSnackBar: 'Bill successfully created..',
+    LocaleKeys.billError: 'Please fill in all the information',
 
     /// BillPaymentDatePage
-    LocaleKeys.dateTitle: 'Em qual data a conta foi paga?',
+    LocaleKeys.dateTitle: 'On what date was the bill paid?',
 
-    /// BillVariableValuePage
-    LocaleKeys.variableAmountTitle: 'Qual foi o valor pago?',
-    LocaleKeys.variableAmountLabel: 'Valor',
-    LocaleKeys.variableAmountValidatorError: 'Digite um valor valido.',
+    /// BillVariableAmountPage
+    LocaleKeys.variableAmountTitle: 'What was the amount paid?',
+    LocaleKeys.variableAmountLabel: 'Amount',
+    LocaleKeys.variableAmountValidatorError: ' Please enter a valid amount.',
 
-    /// BillVariableValuePage
-    LocaleKeys.homeAccount: 'Conta',
-    LocaleKeys.homeAccountTab: 'Contas',
-    LocaleKeys.homeHistoryTab: 'Histórico',
-    LocaleKeys.homeBalanceTab: 'Balanço',
+    /// HomePage
+    LocaleKeys.homeAccount: 'Bill',
+    LocaleKeys.homeAccountTab: 'Bills',
+    LocaleKeys.homeHistoryTab: 'History',
+    LocaleKeys.homeBalanceTab: 'Balance',
 
     /// BillConfirmationModalWidget
-    LocaleKeys.billConfirmationModalTitle: 'Essa conta já foi paga?',
-    LocaleKeys.billConfirmationModalPrimaryButtonLabel: 'Sim, já foi paga',
-    LocaleKeys.billConfirmationModalSecondaryButtonLabel: 'Não, ainda não',
-    LocaleKeys.billConfirmationModalSnack: 'Conta paga!',
-    LocaleKeys.billConfirmationModalDateTitle: 'Data que foi paga',
+    LocaleKeys.billConfirmationModalTitle: 'Has this bill already been paid?',
+    LocaleKeys.billConfirmationModalPrimaryButtonLabel: 'Yes, it has been paid',
+    LocaleKeys.billConfirmationModalSecondaryButtonLabel: 'No, not yet',
+    LocaleKeys.billConfirmationModalSnack: 'Bill paid!',
+    LocaleKeys.billConfirmationModalDateTitle: 'Date that it was paid',
   };
 
   static const Map<String, String> pt = {
@@ -110,6 +111,7 @@ class LocaleValues {
     LocaleKeys.currency: 'R\$',
     LocaleKeys.save: 'Salvar',
     LocaleKeys.cancel: 'Cancelar',
+    LocaleKeys.delete: 'Deletar',
     LocaleKeys.edit: 'Editar',
     LocaleKeys.variableAmount: 'Valor variável',
 
@@ -160,7 +162,6 @@ class LocaleValues {
     LocaleKeys.billDeleteTitle: 'Não tem mais essa conta?',
     LocaleKeys.billDeleteInfo: 'Deletar conta',
     LocaleKeys.billDeleteModalTitle: 'Deseja deletar essa conta?',
-    LocaleKeys.billDeleteModalLabel: 'Deletar',
     LocaleKeys.billDeleteModalSnackBar: 'Conta deletada com sucesso.',
     LocaleKeys.billEditedSnackBar: 'Conta editada com sucesso.',
     LocaleKeys.billCreatedSnackBarError: 'Já existe uma conta com esse nome.',
@@ -170,12 +171,12 @@ class LocaleValues {
     /// BillPaymentDatePage
     LocaleKeys.dateTitle: 'Em qual data a conta foi paga?',
 
-    /// BillVariableValuePage
+    /// BillVariableAmountPage
     LocaleKeys.variableAmountTitle: 'Qual foi o valor pago?',
     LocaleKeys.variableAmountLabel: 'Valor',
     LocaleKeys.variableAmountValidatorError: 'Digite um valor valido.',
 
-    /// BillVariableValuePage
+    /// HomePage
     LocaleKeys.homeAccount: 'Conta',
     LocaleKeys.homeAccountTab: 'Contas',
     LocaleKeys.homeHistoryTab: 'Histórico',
