@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../ui.dart';
 import '../enums/bill_status_enum.dart';
 import '../enums/loading_status_enum.dart';
 import '../helpers/bill_database.dart';
@@ -124,4 +125,58 @@ class DataBaseViewModel extends ViewModel {
       (e) => e.billId == bill.id && e.paymentDateTime == bill.paymentDateTime,
     );
   }
+
+  Map<String, List<double>> balanceGraphItems({int maxNumberOfBars = 6}) {
+    Map<String, List<double>> graphItems = {};
+
+    if (_history.isEmpty) {
+      return {};
+    }
+
+    final List<HistoryModel> ascHistory = _history;
+
+    ascHistory.sort((b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
+
+    int barCount = 0;
+    int currentMonth = ascHistory.first.paymentDateTime!.month;
+    List<double> values = [];
+    for (var item in ascHistory) {
+      final int itemMonth = item.paymentDateTime!.month;
+
+      if (currentMonth != itemMonth) {
+        Map<String, List<double>> newItem = {_months[currentMonth]!: values};
+        graphItems.addAll(newItem);
+        barCount++;
+
+        if (barCount == maxNumberOfBars) {
+          return graphItems;
+        }
+
+        currentMonth = itemMonth;
+        values = [];
+      }
+
+      values.add(item.amount);
+    }
+
+    Map<String, List<double>> newItem = {_months[currentMonth]!: values};
+    graphItems.addAll(newItem);
+
+    return graphItems;
+  }
+
+  final Map<int, String> _months = {
+    1: JPLocaleKeys.jan,
+    2: JPLocaleKeys.feb,
+    3: JPLocaleKeys.mar,
+    4: JPLocaleKeys.apr,
+    5: JPLocaleKeys.may,
+    6: JPLocaleKeys.jun,
+    7: JPLocaleKeys.jul,
+    8: JPLocaleKeys.aug,
+    9: JPLocaleKeys.sep,
+    10: JPLocaleKeys.oct,
+    11: JPLocaleKeys.nov,
+    12: JPLocaleKeys.dec,
+  };
 }

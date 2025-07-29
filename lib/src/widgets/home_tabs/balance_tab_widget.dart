@@ -2,42 +2,69 @@ import 'dart:math' as math;
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../ui.dart';
 import '../../helpers/extensions.dart';
+import '../../view_models/database_view_model.dart';
 
 class BalanceTabWidget extends StatelessWidget {
   const BalanceTabWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final mainItems = <String, List<double>>{
-      context.translate(JPLocaleKeys.jan): [.2, .2, .2, .2, 5],
-      context.translate(JPLocaleKeys.feb): [1.8, 2.7, 3, 6.5],
-      context.translate(JPLocaleKeys.mar): [1.5, 2, 3.5, 6],
-      context.translate(JPLocaleKeys.apr): [1.5, 1.5, 4, 6.5],
-      context.translate(JPLocaleKeys.may): [2, 2, 5, 9],
-      context.translate(JPLocaleKeys.jun): [1.2, 1.5, 4.3, 10],
-    };
+    final Map<String, List<double>> items = context
+        .watch<DataBaseViewModel>()
+        .balanceGraphItems();
+
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(child: _BarChartWidget(graphItems: mainItems)),
+        SliverToBoxAdapter(
+          child: _BarChartWidget(
+            graphItems: items,
+            maxY: maxY(items),
+            barWidth: 200 / items.length,
+          ),
+        ),
       ],
     );
+  }
+
+  double maxY(Map<String, List<double>> items) {
+    List<List<double>> values = items.values.toList();
+    double newMaxY = 0;
+
+    for (var e in values) {
+      double sum = e.fold(
+        0.0,
+        (previousValue, element) => previousValue + element,
+      );
+
+      if (sum > newMaxY) {
+        newMaxY = sum;
+      }
+    }
+
+    return newMaxY + (newMaxY * .2);
   }
 }
 
 class _BarChartWidget extends StatefulWidget {
   final Map<String, List<double>> graphItems;
+  final double maxY;
+  final double barWidth;
 
-  const _BarChartWidget({required this.graphItems});
+  const _BarChartWidget({
+    required this.graphItems,
+    required this.maxY,
+    required this.barWidth,
+  });
 
   @override
   State<StatefulWidget> createState() => _BarChartWidgetState();
 }
 
 class _BarChartWidgetState extends State<_BarChartWidget> {
-  final double _barWidth = 28;
   final List<Color> _rodColors = [
     Color(0xFF2196F3),
     Color(0xFFFFC300),
@@ -69,7 +96,7 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
       barRods: [
         BarChartRodData(
           toY: sum,
-          width: _barWidth,
+          width: widget.barWidth,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(6),
             topRight: Radius.circular(6),
@@ -89,7 +116,7 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
               _rodColors[(index / colorsLength) > 1
                   ? (index - (colorsLength * truncated))
                   : index],
-              BorderSide(color: Colors.white, width: isTouched ? 2 : 0),
+              BorderSide(color: context.textColor, width: isTouched ? 1 : 0),
             );
           }),
         ),
@@ -106,11 +133,22 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.center,
-          maxY: 20,
+          maxY: widget.maxY,
           minY: 0,
-          groupsSpace: 12,
+          groupsSpace: 6,
           barTouchData: BarTouchData(
             handleBuiltInTouches: false,
+            touchTooltipData: BarTouchTooltipData(
+              getTooltipColor: (_) => Colors.transparent,
+              tooltipBorder: BorderSide(color: Colors.transparent),
+              getTooltipItem:
+                  (BarChartGroupData _, int _, BarChartRodData rod, int _) {
+                    return BarTooltipItem(
+                      context.currencyIntoString(rod.toY),
+                      context.textStyle,
+                    );
+                  },
+            ),
             touchCallback: (FlTouchEvent event, barTouchResponse) {
               if (!event.isInterestedForInteractions ||
                   barTouchResponse == null ||
@@ -146,7 +184,7 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
                   }
 
                   return _HorizontalTitlesWidget(
-                    month: keys[index],
+                    monthKey: keys[index],
                     meta: meta,
                   );
                 },
@@ -157,8 +195,8 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
                 showTitles: true,
                 getTitlesWidget: (value, meta) =>
                     _VerticalTitlesWidget(value: value, meta: meta),
-                interval: 5,
-                reservedSize: 42,
+                interval: widget.maxY / 4,
+                reservedSize: 50,
               ),
             ),
             topTitles: AxisTitles(
@@ -177,16 +215,15 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
           ),
           gridData: FlGridData(
             show: true,
-            checkToShowHorizontalLine: (value) => value % 5 == 0,
-            getDrawingHorizontalLine: (value) {
-              if (value == 0) {
-                return FlLine(
-                  color: Colors.white54.withValues(alpha: 0.1),
-                  strokeWidth: 3,
-                );
-              }
+            getDrawingVerticalLine: (value) {
               return FlLine(
-                color: Colors.white54.withValues(alpha: 0.05),
+                color: context.textColor.withAlpha(25),
+                strokeWidth: 0.8,
+              );
+            },
+            getDrawingHorizontalLine: (value) {
+              return FlLine(
+                color: context.textColor.withAlpha(25),
                 strokeWidth: 0.8,
               );
             },
@@ -208,14 +245,17 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
 }
 
 class _HorizontalTitlesWidget extends StatelessWidget {
-  final String month;
+  final String monthKey;
   final TitleMeta meta;
 
-  const _HorizontalTitlesWidget({required this.month, required this.meta});
+  const _HorizontalTitlesWidget({required this.monthKey, required this.meta});
 
   @override
   Widget build(BuildContext context) {
-    return SideTitleWidget(meta: meta, child: JPText(month));
+    return SideTitleWidget(
+      meta: meta,
+      child: JPText(context.translate(monthKey)),
+    );
   }
 }
 
@@ -227,18 +267,14 @@ class _VerticalTitlesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(color: Colors.white, fontSize: 10);
-    String text;
-    if (value == 0) {
-      text = '0';
-    } else {
-      text = '${value.toInt()}0k';
-    }
     return SideTitleWidget(
       angle: degreeToRadian(0),
       meta: meta,
       space: 4,
-      child: Text(text, style: style, textAlign: TextAlign.center),
+      child: JPText(
+        '${context.currency} ${value.round().toString()}',
+        type: JPTextTypeEnum.xs,
+      ),
     );
   }
 
