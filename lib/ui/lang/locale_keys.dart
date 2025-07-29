@@ -1,9 +1,12 @@
 abstract class LocaleKeys {
   static const title = 'title';
 
+  static const alreadyPaid = 'alreadyPaid';
   static const currency = 'currency';
   static const save = 'save';
   static const cancel = 'cancel';
+  static const edit = 'edit';
+  static const variableAmount = 'variableValue';
 
   /// BillPaymentMethodEnum
   static const creditCard = 'creditCard';
@@ -14,7 +17,7 @@ abstract class LocaleKeys {
 
   /// BillStatusEnum
   static const pending = 'pending';
-  static const payed = 'payed';
+  static const paid = 'paid';
   static const overdue = 'overdue';
   static const overdueToday = 'overdueToday';
   static const overdueTomorrow = 'overdueTomorrow';
@@ -61,5 +64,15 @@ abstract class LocaleKeys {
 
   /// BillPaymentDatePage
   static const dateTitle = 'dateTitle';
-  static const dateButtonLabel = 'dateButtonLabel';
+
+  /// BillVariableValuePage
+  static const variableValueTitle = 'variableValueTitle';
+  static const variableValueLabel = 'variableValueLabel';
+  static const variableValueValidatorError = 'variableValueValidatorError';
+
+  /// HomePage
+  static const homeAccount = 'homeAccount';
+  static const homeAccountTab = 'homeAccountTab';
+  static const homeHistoryTab = 'homeHistoryTab';
+  static const homeBalanceTab = 'homeBalanceTab';
 }

@@ -18,17 +18,24 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> tabPages = [
     BillsTabWidget(),
     PaymentHistoryTabWidget(),
-    _BaseScreenWidget(title: 'Balanço'),
+    _BaseScreenWidget(),
   ];
-
-  final List<String> tabTitle = ['Contas', 'Histórico', ''];
 
   @override
   Widget build(BuildContext context) {
+    final List<String> tabTitle = [
+      context.translate(LocaleKeys.homeAccountTab),
+      context.translate(LocaleKeys.homeHistoryTab),
+      context.translate(LocaleKeys.homeBalanceTab),
+    ];
+
     return Scaffold(
       appBar: JPAppBar(title: tabTitle[tabIndex]),
       floatingActionButton: tabIndex == 0
-          ? JPFab(label: 'Conta', onTap: () => context.pushNamed(Routes.bill))
+          ? JPFab(
+              label: context.translate(LocaleKeys.homeAccount),
+              onTap: () => context.pushNamed(Routes.bill),
+            )
           : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: tabIndex,
@@ -37,15 +44,15 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.credit_card),
-            label: 'Contas',
+            label: tabTitle[0],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
-            label: 'Histórico',
+            label: tabTitle[1],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money),
-            label: 'Balanço',
+            label: tabTitle[2],
           ),
         ],
       ),
@@ -61,9 +68,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _BaseScreenWidget extends StatelessWidget {
-  final String title;
-
-  const _BaseScreenWidget({required this.title});
+  const _BaseScreenWidget();
 
   @override
   Widget build(BuildContext context) {

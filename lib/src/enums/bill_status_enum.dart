@@ -2,14 +2,14 @@ import '../../ui.dart';
 
 enum BillStatusEnum {
   pending(jpStatus: JPStatusEnum.warning),
-  payed(jpStatus: JPStatusEnum.positive),
+  paid(jpStatus: JPStatusEnum.positive),
   overdue(jpStatus: JPStatusEnum.error);
 
   const BillStatusEnum({required this.jpStatus});
 
   final JPStatusEnum jpStatus;
 
-  bool get isPayed => this == payed;
+  bool get isPaid => this == paid;
 
-  bool get isNotPayed => this != payed;
+  bool get isNotPaid => this != paid;
 }

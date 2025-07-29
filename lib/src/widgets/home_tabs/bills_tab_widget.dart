@@ -73,7 +73,7 @@ class _ItemWidget extends StatelessWidget {
                   if (bill.isVariableValue) ...[
                     JPSpacingHorizontal.xs,
                     JPText(
-                      '(Valor variável)',
+                      '(${context.translate(LocaleKeys.variableAmount)})',
                       type: JPTextTypeEnum.s,
                       hasDefaultOpacity: true,
                     ),
@@ -95,7 +95,7 @@ class _ItemWidget extends StatelessWidget {
                 status: bill.status.jpStatus,
               ),
               JPSpacingVertical.s,
-              if (bill.isNotPayed) _Buttons(bill),
+              if (bill.isNotPaid) _Buttons(bill),
             ],
           ),
         ),
@@ -104,7 +104,7 @@ class _ItemWidget extends StatelessWidget {
   }
 
   String statusLabel(BuildContext context) {
-    if (bill.isNotPayed) {
+    if (bill.isNotPaid) {
       if (bill.dueDay == context.now.day) {
         return context.translate(LocaleKeys.overdueToday);
       }
@@ -127,7 +127,7 @@ class _Buttons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         JPPrimaryButtonSmall(
-          label: 'Já paguei',
+          label: context.translate(LocaleKeys.alreadyPaid),
           onTap: () {
             if (bill.isVariableValue) {
               context.pushNamed(Routes.billVariableValue, arguments: bill);
@@ -137,7 +137,7 @@ class _Buttons extends StatelessWidget {
           },
         ),
         JPSecondaryButtonSmall(
-          label: 'Editar',
+          label: context.translate(LocaleKeys.edit),
           onTap: () {
             context.pushNamed(Routes.bill, arguments: bill);
           },

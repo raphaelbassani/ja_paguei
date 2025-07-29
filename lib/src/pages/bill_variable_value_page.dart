@@ -54,12 +54,15 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   JPSpacingVertical.m,
-                  JPText('Qual foi o valor pago?', type: JPTextTypeEnum.xl),
+                  JPText(
+                    context.translate(LocaleKeys.variableValueTitle),
+                    type: JPTextTypeEnum.xl,
+                  ),
                   JPSpacingVertical.m,
                   JPSpacingVertical.l,
                   JPTextFormField(
                     controller: valueController,
-                    label: 'Valor',
+                    label: context.translate(LocaleKeys.variableValueLabel),
                     hint: bill?.formattedValue(context) ?? '',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
@@ -67,7 +70,9 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                       if (text != null && text.isNotEmpty) {
                         double value = context.currencyIntoDouble(text);
                         if (value == 0) {
-                          return 'Digite um valor valido';
+                          return context.translate(
+                            LocaleKeys.variableValueValidatorError,
+                          );
                         }
                       }
 
@@ -83,12 +88,14 @@ class _BillVariableValuePageState extends State<BillVariableValuePage> {
                 children: [
                   Spacer(),
                   JPActionButtons(
-                    primaryButtonLabel: 'Já paguei',
+                    primaryButtonLabel: context.translate(
+                      LocaleKeys.alreadyPaid,
+                    ),
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(
                         value: context.currencyIntoDouble(valueController.text),
                         paymentDateTime: context.now,
-                        status: BillStatusEnum.payed,
+                        status: BillStatusEnum.paid,
                       );
 
                       context.showModal(

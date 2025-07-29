@@ -18,9 +18,9 @@ class BillModel extends BaseModel {
     this.status = BillStatusEnum.pending,
   });
 
-  bool get isPayed => status.isPayed;
+  bool get isPaid => status.isPaid;
 
-  bool get isNotPayed => status.isNotPayed;
+  bool get isNotPaid => status.isNotPaid;
 
   factory BillModel.fromJson(Map<String, Object?> json) => BillModel(
     id: json[BillFields.id] as int?,

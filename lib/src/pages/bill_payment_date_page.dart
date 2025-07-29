@@ -55,12 +55,12 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
                   JPSpacingVertical.m,
                   JPActionButtons(
                     primaryButtonLabel: context.translate(
-                      LocaleKeys.dateButtonLabel,
+                      LocaleKeys.alreadyPaid,
                     ),
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(
                         paymentDateTime: newSelectedDate ?? context.now,
-                        status: BillStatusEnum.payed,
+                        status: BillStatusEnum.paid,
                       );
 
                       context.showModal(

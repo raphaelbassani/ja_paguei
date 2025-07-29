@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui.dart';
+import '../../helpers/extensions.dart';
 import '../../models/payment_history_model.dart';
 import '../../view_models/database_view_model.dart';
 
@@ -56,7 +57,7 @@ class _ItemWidget extends StatelessWidget {
             if (payment.isVariableValue) ...[
               JPSpacingHorizontal.xs,
               JPText(
-                '(Valor variável)',
+                '(${context.translate(LocaleKeys.variableAmount)})',
                 type: JPTextTypeEnum.s,
                 hasDefaultOpacity: true,
               ),

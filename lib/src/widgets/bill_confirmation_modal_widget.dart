@@ -25,7 +25,7 @@ class BillConfirmationModalWidget extends StatelessWidget {
 
     BillModel updatedBill = bill.copyWith(
       paymentDateTime: bill.paymentDateTime ?? context.now,
-      status: BillStatusEnum.payed,
+      status: BillStatusEnum.paid,
     );
 
     return JPConfirmationModal(
