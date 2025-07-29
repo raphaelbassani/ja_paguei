@@ -9,6 +9,20 @@ abstract class JPLocaleKeys {
   static const edit = 'edit';
   static const variableAmount = 'variableAmount';
 
+  /// Months
+  static const jan = 'jan';
+  static const feb = 'feb';
+  static const mar = 'mar';
+  static const apr = 'apr';
+  static const may = 'may';
+  static const jun = 'jun';
+  static const jul = 'jul';
+  static const aug = 'aug';
+  static const sep = 'sep';
+  static const oct = 'oct';
+  static const nov = 'nov';
+  static const dec = 'dec';
+
   /// BillPaymentMethodEnum
   static const creditCard = 'creditCard';
   static const automaticDebit = 'automaticDebit';

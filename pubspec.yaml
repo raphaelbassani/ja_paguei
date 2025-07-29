@@ -24,6 +24,7 @@ dependencies:
   table_calendar: 3.2.0
   shared_preferences: 2.5.3
   stylish_bottom_bar: 1.1.1
+  fl_chart: 1.0.0
 
 dev_dependencies:
   flutter_test:

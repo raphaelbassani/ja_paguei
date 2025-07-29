@@ -27,6 +27,20 @@ class JPLocale {
     JPLocaleKeys.edit: 'Edit',
     JPLocaleKeys.variableAmount: 'Variable amount',
 
+    ///Months
+    JPLocaleKeys.jan: 'Jan',
+    JPLocaleKeys.feb: 'Feb',
+    JPLocaleKeys.mar: 'Mar',
+    JPLocaleKeys.apr: 'Apr',
+    JPLocaleKeys.may: 'May',
+    JPLocaleKeys.jun: 'Jun',
+    JPLocaleKeys.jul: 'Jul',
+    JPLocaleKeys.aug: 'Aug',
+    JPLocaleKeys.sep: 'Sep',
+    JPLocaleKeys.oct: 'Oct',
+    JPLocaleKeys.nov: 'Nov',
+    JPLocaleKeys.dec: 'Dec',
+
     /// BillPaymentMethodEnum
     JPLocaleKeys.creditCard: 'Credit card',
     JPLocaleKeys.automaticDebit: 'Automatic debit',
@@ -116,6 +130,20 @@ class JPLocale {
     JPLocaleKeys.delete: 'Deletar',
     JPLocaleKeys.edit: 'Editar',
     JPLocaleKeys.variableAmount: 'Valor variável',
+
+    ///Months
+    JPLocaleKeys.jan: 'Jan',
+    JPLocaleKeys.feb: 'Fev',
+    JPLocaleKeys.mar: 'Mar',
+    JPLocaleKeys.apr: 'Abr',
+    JPLocaleKeys.may: 'Mai',
+    JPLocaleKeys.jun: 'Jun',
+    JPLocaleKeys.jul: 'Jul',
+    JPLocaleKeys.aug: 'Ago',
+    JPLocaleKeys.sep: 'Set',
+    JPLocaleKeys.oct: 'Out',
+    JPLocaleKeys.nov: 'Nov',
+    JPLocaleKeys.dec: 'Dez',
 
     /// BillPaymentMethodEnum
     JPLocaleKeys.creditCard: 'Cartão de crédito',
