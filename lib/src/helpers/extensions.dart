@@ -159,8 +159,12 @@ extension ContextExtensions on BuildContext {
         '$slash${date.year}';
   }
 
-  String mmmmYYYY(DateTime date, {String slash = '/'}) {
+  String mmmmYYYY(DateTime date) {
     return DateFormat.yMMMM(jpLocale).format(date).capitalizeFirstLetter();
+  }
+
+  String mmmm(DateTime date) {
+    return DateFormat.MMMM(jpLocale).format(date).capitalizeFirstLetter();
   }
 }
 

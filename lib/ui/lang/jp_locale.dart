@@ -104,6 +104,7 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalSecondaryButtonLabel: 'No, not yet',
     JPLocaleKeys.billConfirmationModalSnack: 'Bill paid!',
     JPLocaleKeys.billConfirmationModalDateTitle: 'Date that it was paid',
+    JPLocaleKeys.billConfirmationModalDateSubtitle: 'Date that it was paid',
   };
 
   static const Map<String, String> pt = {
@@ -190,6 +191,9 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalSecondaryButtonLabel: 'Não, ainda não',
     JPLocaleKeys.billConfirmationModalSnack: 'Conta paga!',
     JPLocaleKeys.billConfirmationModalDateTitle: 'Data que foi paga',
+    JPLocaleKeys.billConfirmationModalDateSubtitle:
+        'A conta já foi paga nesse dia, '
+        'deseja pagar novamente?',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

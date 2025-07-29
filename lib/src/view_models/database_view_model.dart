@@ -18,24 +18,30 @@ class DataBaseViewModel extends ViewModel {
   }) : _historyDatabase = historyDatabase,
        _billDatabase = billDatabase;
 
-  StatusEnum status = StatusEnum.idle;
-  List<HistoryModel> history = [];
-  List<BillModel> bills = [];
+  StatusEnum get status => _status;
+
+  List<HistoryModel> get history => _history;
+
+  List<BillModel> get bills => _bills;
+
+  StatusEnum _status = StatusEnum.idle;
+  List<HistoryModel> _history = [];
+  List<BillModel> _bills = [];
 
   Future<void> loadData() async {
-    status = StatusEnum.loading;
+    _status = StatusEnum.loading;
     safeNotify();
 
     await _loadHistory();
     await _loadBills();
 
-    status = StatusEnum.loaded;
+    _status = StatusEnum.loaded;
     safeNotify();
   }
 
   Future<void> _loadHistory() async {
     await _historyDatabase.readAll().then((value) {
-      history = value;
+      _history = value;
     });
   }
 
@@ -53,7 +59,7 @@ class DataBaseViewModel extends ViewModel {
       DateTime now = DateUtils.dateOnly(DateTime.now());
 
       if (bill.paymentDateTime != null) {
-        HistoryModel lastBillPayment = history.firstWhere(
+        HistoryModel lastBillPayment = _history.firstWhere(
           (e) => e.billId == bill.id,
         );
 
@@ -83,11 +89,11 @@ class DataBaseViewModel extends ViewModel {
       updatedBills.add(newBill ?? bill);
     }
 
-    bills = updatedBills;
+    _bills = updatedBills;
   }
 
   bool createBill(BillModel bill) {
-    bool hasAnyWithTheSameName = bills.any((e) => e.name == bill.name);
+    bool hasAnyWithTheSameName = _bills.any((e) => e.name == bill.name);
     if (hasAnyWithTheSameName) {
       return false;
     }
@@ -111,5 +117,11 @@ class DataBaseViewModel extends ViewModel {
     _historyDatabase.save(bill.toHistoryModel);
     loadData();
     return true;
+  }
+
+  bool hasAlreadyPaidBillOnSameDateHistory(BillModel bill) {
+    return _history.any(
+      (e) => e.billId == bill.id && e.paymentDateTime == bill.paymentDateTime,
+    );
   }
 }

@@ -86,4 +86,6 @@ abstract class JPLocaleKeys {
   static const billConfirmationModalSnack = 'billConfirmationModalSnack';
   static const billConfirmationModalDateTitle =
       'billConfirmationModalDateTitle';
+  static const billConfirmationModalDateSubtitle =
+      'billConfirmationModalDateSubtitle';
 }

@@ -23,6 +23,9 @@ class BillConfirmationModalWidget extends StatelessWidget {
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
 
+    final bool hasAlreadyPaidInThisDate = dataBaseViewModel
+        .hasAlreadyPaidBillOnSameDateHistory(bill);
+
     BillModel updatedBill = bill.copyWith(
       paymentDateTime: bill.paymentDateTime ?? context.now,
       status: BillStatusEnum.paid,
@@ -36,9 +39,11 @@ class BillConfirmationModalWidget extends StatelessWidget {
       secondaryButtonLabel: context.translate(
         JPLocaleKeys.billConfirmationModalSecondaryButtonLabel,
       ),
-      customWidgetBody: hasDateSelection
-          ? _CustomWidgetBodyConfirmationModal(updatedBill)
-          : null,
+      customWidgetBody: _CustomWidgetBodyConfirmationModal(
+        bill: updatedBill,
+        hasDateSelection: hasDateSelection,
+        hasAlreadyPaidInThisDate: hasAlreadyPaidInThisDate,
+      ),
       onTapPrimaryButton: () {
         dataBaseViewModel.updateBill(updatedBill);
         dataBaseViewModel.savePaymentIntoHistory(updatedBill);
@@ -53,21 +58,57 @@ class BillConfirmationModalWidget extends StatelessWidget {
 
 class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
   final BillModel bill;
+  final bool hasDateSelection;
+  final bool hasAlreadyPaidInThisDate;
 
-  const _CustomWidgetBodyConfirmationModal(this.bill);
+  const _CustomWidgetBodyConfirmationModal({
+    required this.bill,
+    required this.hasDateSelection,
+    required this.hasAlreadyPaidInThisDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (hasDateSelection) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          JPSpacingVertical.m,
+          JPSelectionTile(
+            title: context.translate(
+              JPLocaleKeys.billConfirmationModalDateTitle,
+            ),
+            info: bill.formattedPaymentDate(context),
+            onTap: () => context.popOnceAndPushNamed(
+              Routes.billPaymentDate,
+              arguments: bill,
+            ),
+          ),
+          if (hasAlreadyPaidInThisDate) _HasAlreadyPaidWidget(),
+        ],
+      );
+    }
+
+    return _HasAlreadyPaidWidget(hasExtraSpacing: true);
+  }
+}
+
+class _HasAlreadyPaidWidget extends StatelessWidget {
+  final bool hasExtraSpacing;
+
+  const _HasAlreadyPaidWidget({this.hasExtraSpacing = false});
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        JPSpacingVertical.m,
-        JPSelectionTile(
-          title: context.translate(JPLocaleKeys.billConfirmationModalDateTitle),
-          info: bill.formattedPaymentDate(context),
-          onTap: () => context.popOnceAndPushNamed(
-            Routes.billPaymentDate,
-            arguments: bill,
-          ),
+        if (hasExtraSpacing) JPSpacingVertical.s,
+        JPSpacingVertical.s,
+        JPText(
+          context.translate(JPLocaleKeys.billConfirmationModalDateSubtitle),
+          type: JPTextTypeEnum.s,
+          color: Colors.red,
         ),
       ],
     );

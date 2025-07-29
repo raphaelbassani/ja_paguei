@@ -21,12 +21,30 @@ class HistoryTabWidget extends StatelessWidget {
             childCount: dataBaseViewModel.history.length,
             (_, index) {
               final HistoryModel payment = dataBaseViewModel.history[index];
+              final bool isFirstOfMonth =
+                  index == 0 ||
+                  payment.paymentDateTime!.month !=
+                      dataBaseViewModel
+                          .history[index - 1]
+                          .paymentDateTime!
+                          .month;
+
               return Padding(
                 padding: JPPadding.horizontal,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (index != 0) ...[Divider(), JPSpacingVertical.xxs],
+                    if (isFirstOfMonth) ...[
+                      JPSpacingVertical.s,
+                      JPText(
+                        context.mmmm(payment.paymentDateTime!),
+                        type: JPTextTypeEnum.xxl,
+                        hasDefaultOpacity: true,
+                      ),
+                      JPSpacingVertical.s,
+                    ],
                     _ItemWidget(payment),
+                    JPSpacingVertical.xs,
                   ],
                 ),
               );
@@ -45,33 +63,35 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        JPText(payment.name, type: JPTextTypeEnum.l),
-        JPSpacingVertical.xxs,
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            JPText(payment.formattedAmount(context)),
-            if (payment.isVariableAmount) ...[
-              JPSpacingHorizontal.xs,
-              JPText(
-                '(${context.translate(JPLocaleKeys.variableAmount)})',
-                type: JPTextTypeEnum.s,
-                hasDefaultOpacity: true,
-              ),
-            ],
+            JPText(payment.name, type: JPTextTypeEnum.l),
+            JPSpacingVertical.xxs,
+            JPText(
+              payment.labelWithDueDate(context),
+              hasDefaultOpacity: true,
+              type: JPTextTypeEnum.s,
+            ),
+            JPSpacingVertical.xs,
+            JPText(
+              payment.labelWithPaymentDate(context),
+              hasDefaultOpacity: true,
+              type: JPTextTypeEnum.s,
+            ),
+            JPSpacingVertical.s,
           ],
         ),
-        JPSpacingVertical.xxs,
-        JPText(payment.labelWithDueDate(context), hasDefaultOpacity: true),
-        JPSpacingVertical.xs,
-        JPText(
-          payment.labelWithPaymentDate(context),
-          hasDefaultOpacity: true,
-          type: JPTextTypeEnum.s,
+        Spacer(),
+        Column(
+          children: [
+            JPSpacingVertical.xxs,
+            JPText(payment.formattedAmount(context)),
+          ],
         ),
-        JPSpacingVertical.s,
       ],
     );
   }

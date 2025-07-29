@@ -32,9 +32,9 @@ class _JPSelectionSwitchState extends State<JPSelectionSwitch> {
     return JPGestureDetector(
       onTap: selection,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          JPText(widget.label),
-          Spacer(),
+          Flexible(child: JPText(widget.label)),
           Switch(
             value: widget.isSelected,
             onChanged: (_) => selection(),
