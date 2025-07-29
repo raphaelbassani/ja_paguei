@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../ui/lang/locale_keys.dart';
+import '../../ui/lang/jp_locale_keys.dart';
 import '../enums/bill_payment_method_enum.dart';
 import '../helpers/extensions.dart';
 
@@ -28,11 +28,11 @@ abstract class BaseModel extends Equatable {
       context.currencyIntoString(amount);
 
   String labelWithDueDate(BuildContext context) =>
-      '${isPaymentMethodAutomatic ? context.translate(LocaleKeys.automaticDebit) : context.translate(LocaleKeys.dueDate)}: '
-      '${context.translate(LocaleKeys.onTheDay)} $formattedDueDay';
+      '${isPaymentMethodAutomatic ? context.translate(JPLocaleKeys.automaticDebit) : context.translate(JPLocaleKeys.dueDate)}: '
+      '${context.translate(JPLocaleKeys.onTheDay)} $formattedDueDay';
 
   String labelWithPaymentDate(BuildContext context) => paymentDateTime != null
-      ? '${context.translate(LocaleKeys.paidOn)}: ${formattedPaymentDate(context)}'
+      ? '${context.translate(JPLocaleKeys.paidOn)}: ${formattedPaymentDate(context)}'
       : '';
 
   String formattedPaymentDate(BuildContext context) =>

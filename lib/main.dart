@@ -10,7 +10,9 @@ import 'src/pages/bill_payment_date_page.dart';
 import 'src/pages/bill_variable_amount_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/view_models/database_view_model.dart';
+import 'src/view_models/locale_view_model.dart';
 import 'src/view_models/theme_view_model.dart';
+import 'ui/lang/jp_locale.dart';
 
 void main() {
   BillDatabase billDatabase = BillDatabase.instance;
@@ -27,6 +29,7 @@ void main() {
           ),
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
+        ChangeNotifierProvider(create: (_) => LocaleViewModel()),
       ],
       child: JaPagueiApp(
         billDatabase: billDatabase,
@@ -55,8 +58,10 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<DataBaseViewModel>().loadData();
+      context.read<ThemeViewModel>().loadTheme();
+      context.read<LocaleViewModel>().loadLang();
     });
   }
 
@@ -79,10 +84,16 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en', ''), // English
-        Locale('pt', 'BR'), // Portuguese (Brazil)
-      ],
+      supportedLocales: JPLocale.supportedLocales,
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (Locale supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode &&
+              supportedLocale.countryCode == locale?.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
       routes: {
         Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),

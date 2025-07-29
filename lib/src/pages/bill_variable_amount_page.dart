@@ -55,14 +55,14 @@ class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
                 children: [
                   JPSpacingVertical.m,
                   JPText(
-                    context.translate(LocaleKeys.variableAmountTitle),
+                    context.translate(JPLocaleKeys.variableAmountTitle),
                     type: JPTextTypeEnum.xl,
                   ),
                   JPSpacingVertical.m,
                   JPSpacingVertical.l,
                   JPTextFormField(
                     controller: amountController,
-                    label: context.translate(LocaleKeys.variableAmountLabel),
+                    label: context.translate(JPLocaleKeys.variableAmountLabel),
                     hint: bill?.formattedAmount(context) ?? '',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
@@ -71,7 +71,7 @@ class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
                         double amount = context.currencyIntoDouble(text);
                         if (amount == 0) {
                           return context.translate(
-                            LocaleKeys.variableAmountValidatorError,
+                            JPLocaleKeys.variableAmountValidatorError,
                           );
                         }
                       }
@@ -89,7 +89,7 @@ class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
                   Spacer(),
                   JPActionButtons(
                     primaryButtonLabel: context.translate(
-                      LocaleKeys.alreadyPaid,
+                      JPLocaleKeys.alreadyPaid,
                     ),
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(

@@ -60,20 +60,20 @@ class _BillPageState extends State<BillPage> {
   bool get isEdition => editBill != null;
 
   String get mainLabel => isEdition
-      ? context.translate(LocaleKeys.editBill)
-      : context.translate(LocaleKeys.createBill);
+      ? context.translate(JPLocaleKeys.editBill)
+      : context.translate(JPLocaleKeys.createBill);
 
   String get cancelModalTitle => isEdition
-      ? context.translate(LocaleKeys.cancelEditBill)
-      : context.translate(LocaleKeys.cancelCreateBill);
+      ? context.translate(JPLocaleKeys.cancelEditBill)
+      : context.translate(JPLocaleKeys.cancelCreateBill);
 
   String get cancelModalInfo => isEdition
-      ? context.translate(LocaleKeys.cancelEditBillModalInfo)
-      : context.translate(LocaleKeys.cancelCreateBillModalInfo);
+      ? context.translate(JPLocaleKeys.cancelEditBillModalInfo)
+      : context.translate(JPLocaleKeys.cancelCreateBillModalInfo);
 
   String get cancelModalButtonLabel => isEdition
-      ? context.translate(LocaleKeys.cancelEditBillModalButtonLabel)
-      : context.translate(LocaleKeys.cancelCreateBillModalButtonLabel);
+      ? context.translate(JPLocaleKeys.cancelEditBillModalButtonLabel)
+      : context.translate(JPLocaleKeys.cancelCreateBillModalButtonLabel);
 
   bool get hasEditedName =>
       nameController.text.isNotEmpty && nameController.text.length > 2;
@@ -117,17 +117,17 @@ class _BillPageState extends State<BillPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (!hasEditedName && hasTriedToSendWithPending)
-                    _JPTextError(context.translate(LocaleKeys.billNameError)),
+                    _JPTextError(context.translate(JPLocaleKeys.billNameError)),
                   JPTextFormField(
                     controller: nameController,
-                    label: context.translate(LocaleKeys.billName),
-                    hint: context.translate(LocaleKeys.billNameHint),
+                    label: context.translate(JPLocaleKeys.billName),
+                    hint: context.translate(JPLocaleKeys.billNameHint),
                     inputAction: TextInputAction.next,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
                         if (text.length < 3) {
                           return context.translate(
-                            LocaleKeys.billNameValidatorError,
+                            JPLocaleKeys.billNameValidatorError,
                           );
                         }
                       }
@@ -136,10 +136,12 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   if (!hasEditedAmount && hasTriedToSendWithPending)
-                    _JPTextError(context.translate(LocaleKeys.billAmountError)),
+                    _JPTextError(
+                      context.translate(JPLocaleKeys.billAmountError),
+                    ),
                   JPTextFormField(
                     controller: amountController,
-                    label: context.translate(LocaleKeys.billAmount),
+                    label: context.translate(JPLocaleKeys.billAmount),
                     hint: '${context.currency} 100,00',
                     inputFormatters: [context.currencyTextInputFormatter],
                     keyboardType: TextInputType.number,
@@ -149,7 +151,7 @@ class _BillPageState extends State<BillPage> {
                         double amount = context.currencyIntoDouble(text);
                         if (amount == 0) {
                           return context.translate(
-                            LocaleKeys.billAmountValidatorError,
+                            JPLocaleKeys.billAmountValidatorError,
                           );
                         }
                       }
@@ -160,11 +162,11 @@ class _BillPageState extends State<BillPage> {
                   JPSpacingVertical.l,
                   if (!hasEditedDueDay && hasTriedToSendWithPending)
                     _JPTextError(
-                      context.translate(LocaleKeys.billDueDateError),
+                      context.translate(JPLocaleKeys.billDueDateError),
                     ),
                   JPTextFormField(
                     controller: dueDayController,
-                    label: context.translate(LocaleKeys.billDueDate),
+                    label: context.translate(JPLocaleKeys.billDueDate),
                     hint: '01',
                     keyboardType: TextInputType.number,
                     inputFormatters: [context.dueDayInput],
@@ -174,7 +176,7 @@ class _BillPageState extends State<BillPage> {
                         int value = int.parse(text);
                         if (value > 31 || (value == 0 && text.length == 2)) {
                           return context.translate(
-                            LocaleKeys.billDueDateValidatorError,
+                            JPLocaleKeys.billDueDateValidatorError,
                           );
                         }
                       }
@@ -185,18 +187,18 @@ class _BillPageState extends State<BillPage> {
                   JPSpacingVertical.l,
                   if (!hasEditedPaymentMethod && hasTriedToSendWithPending)
                     _JPTextError(
-                      context.translate(LocaleKeys.billPaymentMethodError),
+                      context.translate(JPLocaleKeys.billPaymentMethodError),
                     ),
                   JPSelectionTile(
-                    title: context.translate(LocaleKeys.billPaymentMethod),
+                    title: context.translate(JPLocaleKeys.billPaymentMethod),
                     info: paymentMethod != null
                         ? context.translate(paymentMethod!.name)
-                        : context.translate(LocaleKeys.billPaymentMethodHint),
+                        : context.translate(JPLocaleKeys.billPaymentMethodHint),
                     onTap: () {
                       context.showModal(
                         child: JPSelectionModal(
                           title: context.translate(
-                            LocaleKeys.billPaymentMethod,
+                            JPLocaleKeys.billPaymentMethod,
                           ),
                           preSelectedValue: context.translate(
                             paymentMethod?.name,
@@ -217,7 +219,9 @@ class _BillPageState extends State<BillPage> {
                   ),
                   JPSpacingVertical.l,
                   JPSelectionSwitch(
-                    label: context.translate(LocaleKeys.billHasVariableAmount),
+                    label: context.translate(
+                      JPLocaleKeys.billHasVariableAmount,
+                    ),
                     isSelected: isVariableAmount ?? false,
                     onTap: (newVariableAmount) {
                       isVariableAmount = newVariableAmount;
@@ -227,23 +231,23 @@ class _BillPageState extends State<BillPage> {
                   if (isEdition) ...[
                     JPSpacingVertical.m,
                     JPSelectionTile(
-                      title: context.translate(LocaleKeys.billDeleteTitle),
-                      info: context.translate(LocaleKeys.billDeleteInfo),
+                      title: context.translate(JPLocaleKeys.billDeleteTitle),
+                      info: context.translate(JPLocaleKeys.billDeleteInfo),
                       onTap: () {
                         context.showModal(
                           child: JPConfirmationModal(
                             title: context.translate(
-                              LocaleKeys.billDeleteModalTitle,
+                              JPLocaleKeys.billDeleteModalTitle,
                             ),
                             primaryButtonLabel: context.translate(
-                              LocaleKeys.delete,
+                              JPLocaleKeys.delete,
                             ),
                             onTapPrimaryButton: () {
                               dataBaseViewModel.deleteBill(editBill!);
                               context.popUntilIsRoot();
                               context.showSnackInfo(
                                 context.translate(
-                                  LocaleKeys.billDeleteModalSnackBar,
+                                  JPLocaleKeys.billDeleteModalSnackBar,
                                 ),
                               );
                             },
@@ -281,7 +285,7 @@ class _BillPageState extends State<BillPage> {
 
                           dataBaseViewModel.updateBill(newBillModel);
                           context.showSnackInfo(
-                            context.translate(LocaleKeys.billEditedSnackBar),
+                            context.translate(JPLocaleKeys.billEditedSnackBar),
                           );
                         } else {
                           BillModel newBillModel = BillModel(
@@ -301,13 +305,13 @@ class _BillPageState extends State<BillPage> {
                           if (!hasCreated) {
                             context.showSnackError(
                               context.translate(
-                                LocaleKeys.billCreatedSnackBarError,
+                                JPLocaleKeys.billCreatedSnackBarError,
                               ),
                             );
                             return;
                           }
                           context.showSnackSuccess(
-                            context.translate(LocaleKeys.billCreatedSnackBar),
+                            context.translate(JPLocaleKeys.billCreatedSnackBar),
                           );
                         }
                         context.popUntilIsRoot();
@@ -315,7 +319,7 @@ class _BillPageState extends State<BillPage> {
                       } else {
                         hasTriedToSendWithPending = true;
                         context.showSnackError(
-                          context.translate(LocaleKeys.billError),
+                          context.translate(JPLocaleKeys.billError),
                         );
                       }
                       setState(() {});
@@ -327,7 +331,7 @@ class _BillPageState extends State<BillPage> {
                             title: cancelModalTitle,
                             info: cancelModalInfo,
                             primaryButtonLabel: context.translate(
-                              LocaleKeys.cancel,
+                              JPLocaleKeys.cancel,
                             ),
                             onTapPrimaryButton: context.popUntilIsRoot,
                             secondaryButtonLabel: cancelModalButtonLabel,

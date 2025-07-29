@@ -23,12 +23,12 @@ class JPActionButtons extends StatelessWidget {
       children: [
         JPPrimaryButton(
           onTap: onTapPrimaryButton ?? () {},
-          label: primaryButtonLabel ?? context.translate(LocaleKeys.save),
+          label: primaryButtonLabel ?? context.translate(JPLocaleKeys.save),
         ),
         JPSpacingVertical.s,
         JPSecondaryButton(
           onTap: onTapSecondaryButton ?? () => context.pop(),
-          label: secondaryButtonLabel ?? context.translate(LocaleKeys.cancel),
+          label: secondaryButtonLabel ?? context.translate(JPLocaleKeys.cancel),
         ),
       ],
     );

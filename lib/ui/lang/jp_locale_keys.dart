@@ -1,4 +1,4 @@
-abstract class LocaleKeys {
+abstract class JPLocaleKeys {
   static const title = 'title';
 
   static const alreadyPaid = 'alreadyPaid';

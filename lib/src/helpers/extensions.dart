@@ -77,18 +77,18 @@ extension ContextExtensions on BuildContext {
 
   /// Internacionalization
 
-  Locale get _deviceLocale => Localizations.localeOf(this);
+  Locale get systemLocale => Localizations.localeOf(this);
 
-  String get _languageCode => _deviceLocale.languageCode;
+  String get _languageCode => systemLocale.languageCode;
 
-  String? get _countryCode => _deviceLocale.countryCode;
+  String? get _countryCode => systemLocale.countryCode;
 
-  String? get locale =>
+  String? get jpLocale =>
       '$_languageCode${_countryCode != null ? '_$_countryCode' : ''}';
 
-  String translate(String? key) => LocaleValues.translate(_languageCode, key);
+  String translate(String? key) => JPLocale.translate(_languageCode, key);
 
-  String get currency => translate(LocaleKeys.currency);
+  String get currency => translate(JPLocaleKeys.currency);
 
   CurrencyTextInputFormatter get currencyTextInputFormatter =>
       CurrencyTextInputFormatter.currency(
@@ -113,7 +113,7 @@ extension ContextExtensions on BuildContext {
 
   CurrencyTextInputFormatter get dueDayInput =>
       CurrencyTextInputFormatter.currency(
-        locale: locale,
+        locale: jpLocale,
         symbol: '',
         decimalDigits: 0,
         maxValue: 31,
@@ -132,7 +132,7 @@ extension ContextExtensions on BuildContext {
   }
 
   String mmmmYYYY(DateTime date, {String slash = '/'}) {
-    return DateFormat.yMMMM(locale).format(date).capitalizeFirstLetter();
+    return DateFormat.yMMMM(jpLocale).format(date).capitalizeFirstLetter();
   }
 }
 

@@ -1,5 +1,5 @@
-export 'package:ja_paguei/ui/lang/locale_keys.dart';
-export 'package:ja_paguei/ui/lang/locale_values.dart';
+export 'package:ja_paguei/ui/lang/jp_locale.dart';
+export 'package:ja_paguei/ui/lang/jp_locale_keys.dart';
 export 'package:ja_paguei/ui/padding.dart';
 export 'package:ja_paguei/ui/spacing.dart';
 export 'package:ja_paguei/ui/widgets/jp_action_buttons.dart';

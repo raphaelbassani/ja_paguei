@@ -29,12 +29,12 @@ class BillConfirmationModalWidget extends StatelessWidget {
     );
 
     return JPConfirmationModal(
-      title: context.translate(LocaleKeys.billConfirmationModalTitle),
+      title: context.translate(JPLocaleKeys.billConfirmationModalTitle),
       primaryButtonLabel: context.translate(
-        LocaleKeys.billConfirmationModalPrimaryButtonLabel,
+        JPLocaleKeys.billConfirmationModalPrimaryButtonLabel,
       ),
       secondaryButtonLabel: context.translate(
-        LocaleKeys.billConfirmationModalSecondaryButtonLabel,
+        JPLocaleKeys.billConfirmationModalSecondaryButtonLabel,
       ),
       customWidgetBody: hasDateSelection
           ? _CustomWidgetBodyConfirmationModal(updatedBill)
@@ -44,7 +44,7 @@ class BillConfirmationModalWidget extends StatelessWidget {
         dataBaseViewModel.savePaymentIntoHistory(updatedBill);
         context.popUntilIsRoot();
         context.showSnackSuccess(
-          context.translate(LocaleKeys.billConfirmationModalSnack),
+          context.translate(JPLocaleKeys.billConfirmationModalSnack),
         );
       },
     );
@@ -62,7 +62,7 @@ class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
       children: [
         JPSpacingVertical.m,
         JPSelectionTile(
-          title: context.translate(LocaleKeys.billConfirmationModalDateTitle),
+          title: context.translate(JPLocaleKeys.billConfirmationModalDateTitle),
           info: bill.formattedPaymentDate(context),
           onTap: () => context.popOnceAndPushNamed(
             Routes.billPaymentDate,

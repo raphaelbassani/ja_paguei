@@ -33,7 +33,7 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
                 children: [
                   JPSpacingVertical.m,
                   JPText(
-                    context.translate(LocaleKeys.dateTitle),
+                    context.translate(JPLocaleKeys.dateTitle),
                     type: JPTextTypeEnum.xl,
                   ),
                   JPSpacingVertical.xs,
@@ -55,7 +55,7 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
                   JPSpacingVertical.m,
                   JPActionButtons(
                     primaryButtonLabel: context.translate(
-                      LocaleKeys.alreadyPaid,
+                      JPLocaleKeys.alreadyPaid,
                     ),
                     onTapPrimaryButton: () {
                       BillModel updatedBill = bill!.copyWith(

@@ -24,16 +24,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<String> tabTitle = [
-      context.translate(LocaleKeys.homeAccountTab),
-      context.translate(LocaleKeys.homeHistoryTab),
-      context.translate(LocaleKeys.homeBalanceTab),
+      context.translate(JPLocaleKeys.homeAccountTab),
+      context.translate(JPLocaleKeys.homeHistoryTab),
+      context.translate(JPLocaleKeys.homeBalanceTab),
     ];
 
     return Scaffold(
       appBar: JPAppBar(title: tabTitle[tabIndex]),
       floatingActionButton: tabIndex == 0
           ? JPFab(
-              label: context.translate(LocaleKeys.homeAccount),
+              label: context.translate(JPLocaleKeys.homeAccount),
               onTap: () => context.pushNamed(Routes.bill),
             )
           : null,

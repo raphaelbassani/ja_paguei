@@ -77,7 +77,7 @@ class _JPCalendarState extends State<JPCalendar> {
             context.now.month + 1,
             context.now.day,
           ),
-          locale: context.locale,
+          locale: context.jpLocale,
           daysOfWeekStyle: DaysOfWeekStyle(
             weekdayStyle: TextStyle(fontSize: 12.0),
             weekendStyle: TextStyle(

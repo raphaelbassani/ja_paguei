@@ -73,7 +73,7 @@ class _ItemWidget extends StatelessWidget {
                   if (bill.isVariableAmount) ...[
                     JPSpacingHorizontal.xs,
                     JPText(
-                      '(${context.translate(LocaleKeys.variableAmount)})',
+                      '(${context.translate(JPLocaleKeys.variableAmount)})',
                       type: JPTextTypeEnum.s,
                       hasDefaultOpacity: true,
                     ),
@@ -106,10 +106,10 @@ class _ItemWidget extends StatelessWidget {
   String statusLabel(BuildContext context) {
     if (bill.isNotPaid) {
       if (bill.dueDay == context.now.day) {
-        return context.translate(LocaleKeys.overdueToday);
+        return context.translate(JPLocaleKeys.overdueToday);
       }
       if (bill.dueDay == context.now.add(Duration(days: 1)).day) {
-        return context.translate(LocaleKeys.overdueTomorrow);
+        return context.translate(JPLocaleKeys.overdueTomorrow);
       }
     }
     return context.translate(bill.status.name);
@@ -127,7 +127,7 @@ class _Buttons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         JPPrimaryButtonSmall(
-          label: context.translate(LocaleKeys.alreadyPaid),
+          label: context.translate(JPLocaleKeys.alreadyPaid),
           onTap: () {
             if (bill.isVariableAmount) {
               context.pushNamed(Routes.billVariableAmount, arguments: bill);
@@ -137,7 +137,7 @@ class _Buttons extends StatelessWidget {
           },
         ),
         JPSecondaryButtonSmall(
-          label: context.translate(LocaleKeys.edit),
+          label: context.translate(JPLocaleKeys.edit),
           onTap: () {
             context.pushNamed(Routes.bill, arguments: bill);
           },
