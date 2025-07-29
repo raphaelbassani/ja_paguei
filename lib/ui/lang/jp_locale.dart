@@ -97,6 +97,7 @@ class JPLocale {
     JPLocaleKeys.homeAccountTab: 'Bills',
     JPLocaleKeys.homeHistoryTab: 'History',
     JPLocaleKeys.homeBalanceTab: 'Balance',
+    JPLocaleKeys.homeSettingsTab: 'Settings',
 
     /// BillConfirmationModalWidget
     JPLocaleKeys.billConfirmationModalTitle: 'Has this bill already been paid?',
@@ -183,6 +184,7 @@ class JPLocale {
     JPLocaleKeys.homeAccountTab: 'Contas',
     JPLocaleKeys.homeHistoryTab: 'Histórico',
     JPLocaleKeys.homeBalanceTab: 'Balanço',
+    JPLocaleKeys.homeSettingsTab: 'Ajustes',
 
     /// BillConfirmationModalWidget
     JPLocaleKeys.billConfirmationModalTitle: 'Essa conta já foi paga?',
@@ -202,7 +204,9 @@ class JPLocale {
   static const List<Locale> supportedLocales = [
     Locale('en', 'US'),
     Locale('en'),
+    Locale('en_US'),
     Locale('pt', 'BR'),
     Locale('pt'),
+    Locale('pt_BR'),
   ];
 }

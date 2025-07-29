@@ -6,7 +6,6 @@ import '../../helpers/extensions.dart';
 import '../../helpers/routes.dart';
 import '../../models/bill_model.dart';
 import '../../view_models/database_view_model.dart';
-import '../../view_models/theme_view_model.dart';
 import '../bill_confirmation_modal_widget.dart';
 
 class BillsTabWidget extends StatelessWidget {
@@ -14,24 +13,11 @@ class BillsTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeViewModel themeViewModel = context.watch<ThemeViewModel>();
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
 
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: JPPrimaryButton(
-            label: 'Trocar tema',
-            onTap: () {
-              if (themeViewModel.currentTheme == ThemeMode.dark) {
-                themeViewModel.changeToLightTheme();
-              } else {
-                themeViewModel.changeToDarkTheme();
-              }
-            },
-          ),
-        ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: dataBaseViewModel.bills.length,

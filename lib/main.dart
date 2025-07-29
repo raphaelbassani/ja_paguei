@@ -12,7 +12,7 @@ import 'src/pages/home_page.dart';
 import 'src/view_models/database_view_model.dart';
 import 'src/view_models/locale_view_model.dart';
 import 'src/view_models/theme_view_model.dart';
-import 'ui/lang/jp_locale.dart';
+import 'ui.dart';
 
 void main() {
   BillDatabase billDatabase = BillDatabase.instance;
@@ -75,27 +75,16 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Já Paguei',
       theme: ThemeData(useMaterial3: true),
       darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       themeMode: context.watch<ThemeViewModel>().currentTheme,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: JPLocale.supportedLocales,
-      locale: context.read<LocaleViewModel>().appLocale,
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (Locale supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale?.languageCode &&
-              supportedLocale.countryCode == locale?.countryCode) {
-            context.read<LocaleViewModel>().changeLang(supportedLocale);
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
+      locale: context.watch<LocaleViewModel>().appLocale,
       routes: {
         Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),

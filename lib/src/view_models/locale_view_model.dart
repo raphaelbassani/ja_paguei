@@ -21,8 +21,9 @@ class LocaleViewModel extends ViewModel {
     safeNotify();
   }
 
-  Future<void> changeLang(Locale newLocale) async {
-    if (_appLocale?.languageCode == newLocale.languageCode) {
+  Future<void> changeLang(Locale? newLocale) async {
+    if (_appLocale?.languageCode == newLocale?.languageCode ||
+        newLocale == null) {
       return;
     }
 

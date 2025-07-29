@@ -75,6 +75,7 @@ abstract class JPLocaleKeys {
   static const homeAccountTab = 'homeAccountTab';
   static const homeHistoryTab = 'homeHistoryTab';
   static const homeBalanceTab = 'homeBalanceTab';
+  static const homeSettingsTab = 'homeSettingsTab';
 
   /// BillConfirmationModalWidget
   static const billConfirmationModalTitle = 'billConfirmationModalTitle';

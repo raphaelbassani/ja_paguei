@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 import '../../ui.dart';
 import '../helpers/extensions.dart';
 import '../helpers/routes.dart';
+import '../widgets/home_tabs/balance_tab_widget.dart';
 import '../widgets/home_tabs/bills_tab_widget.dart';
 import '../widgets/home_tabs/payment_history_tab_widget.dart';
+import '../widgets/home_tabs/settings_tab_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +21,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> tabPages = [
     BillsTabWidget(),
     PaymentHistoryTabWidget(),
-    _BaseScreenWidget(),
+    BalanceTabWidget(),
+    SettingsTabWidget(),
   ];
 
   @override
@@ -27,6 +31,7 @@ class _HomePageState extends State<HomePage> {
       context.translate(JPLocaleKeys.homeAccountTab),
       context.translate(JPLocaleKeys.homeHistoryTab),
       context.translate(JPLocaleKeys.homeBalanceTab),
+      context.translate(JPLocaleKeys.homeSettingsTab),
     ];
 
     return Scaffold(
@@ -37,22 +42,27 @@ class _HomePageState extends State<HomePage> {
               onTap: () => context.pushNamed(Routes.bill),
             )
           : null,
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: StylishBottomBar(
         currentIndex: tabIndex,
         onTap: onTabTapped,
-        selectedItemColor: Colors.green,
+        option: AnimatedBarOptions(iconStyle: IconStyle.animated),
+        backgroundColor: context.backgroundColor,
         items: [
-          BottomNavigationBarItem(
+          BottomBarItem(
             icon: Icon(Icons.credit_card),
-            label: tabTitle[0],
+            title: JPText(tabTitle[0], color: Colors.green),
           ),
-          BottomNavigationBarItem(
+          BottomBarItem(
             icon: Icon(Icons.history),
-            label: tabTitle[1],
+            title: JPText(tabTitle[1], color: Colors.green),
           ),
-          BottomNavigationBarItem(
+          BottomBarItem(
             icon: Icon(Icons.attach_money),
-            label: tabTitle[2],
+            title: JPText(tabTitle[2], color: Colors.green),
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.settings),
+            title: JPText(tabTitle[3], color: Colors.green),
           ),
         ],
       ),
@@ -64,14 +74,5 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       tabIndex = index;
     });
-  }
-}
-
-class _BaseScreenWidget extends StatelessWidget {
-  const _BaseScreenWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return const CustomScrollView(slivers: []);
   }
 }
