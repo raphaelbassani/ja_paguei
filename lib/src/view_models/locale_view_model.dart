@@ -6,10 +6,9 @@ import '../helpers/local_storage_const.dart';
 import 'view_model.dart';
 
 class LocaleViewModel extends ViewModel {
-  Locale _appLocale = const Locale('en');
-  bool _hasSavedLang = false;
+  Locale? _appLocale;
 
-  Locale get appLocale => _appLocale;
+  Locale? get appLocale => _appLocale;
 
   Future<void> loadLang() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -17,14 +16,13 @@ class LocaleViewModel extends ViewModel {
     final String? lang = prefs.getString(LocalStorageConst.lang);
 
     if (lang != null) {
-      _hasSavedLang = true;
       _appLocale = Locale(lang);
     }
     safeNotify();
   }
 
-  Future<void> changeLang(Locale newLocale, {bool isFromMain = false}) async {
-    if (_appLocale == newLocale || (isFromMain && _hasSavedLang)) {
+  Future<void> changeLang(Locale newLocale) async {
+    if (_appLocale?.languageCode == newLocale.languageCode) {
       return;
     }
 

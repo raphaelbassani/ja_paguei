@@ -29,7 +29,7 @@ void main() {
           ),
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
-        ChangeNotifierProvider(create: (_) => LocaleViewModel()),
+        ChangeNotifierProvider(create: (context) => LocaleViewModel()),
       ],
       child: JaPagueiApp(
         billDatabase: billDatabase,
@@ -85,10 +85,12 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: JPLocale.supportedLocales,
+      locale: context.read<LocaleViewModel>().appLocale,
       localeResolutionCallback: (locale, supportedLocales) {
         for (Locale supportedLocale in supportedLocales) {
           if (supportedLocale.languageCode == locale?.languageCode &&
               supportedLocale.countryCode == locale?.countryCode) {
+            context.read<LocaleViewModel>().changeLang(supportedLocale);
             return supportedLocale;
           }
         }
