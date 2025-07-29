@@ -20,6 +20,7 @@ class LocaleValues {
   static const Map<String, String> en = {
     LocaleKeys.title: 'Hello',
     LocaleKeys.currency: '\$',
+    LocaleKeys.save: 'Save',
     LocaleKeys.cancel: 'Cancel',
     LocaleKeys.creditCard: 'Credit card',
     LocaleKeys.automaticDebit: 'Automatic debit',
@@ -68,11 +69,14 @@ class LocaleValues {
     LocaleKeys.billCreatedSnackBarError: 'Já existe uma conta com esse nome.',
     LocaleKeys.billCreatedSnackBar: 'Conta criada com sucesso.',
     LocaleKeys.billError: 'Por favor preencha todos os dados',
+    LocaleKeys.dateTitle: 'Em qual data a conta foi paga?',
+    LocaleKeys.dateButtonLabel: 'Já paguei',
   };
 
   static const Map<String, String> pt = {
     LocaleKeys.title: 'Hello',
     LocaleKeys.currency: 'R\$',
+    LocaleKeys.save: 'Salvar',
     LocaleKeys.cancel: 'Cancelar',
     LocaleKeys.creditCard: 'Cartão de crédito',
     LocaleKeys.automaticDebit: 'Débito automático',
@@ -121,6 +125,8 @@ class LocaleValues {
     LocaleKeys.billCreatedSnackBarError: 'Já existe uma conta com esse nome.',
     LocaleKeys.billCreatedSnackBar: 'Conta criada com sucesso.',
     LocaleKeys.billError: 'Por favor preencha todos os dados',
+    LocaleKeys.dateTitle: 'Em qual data a conta foi paga?',
+    LocaleKeys.dateButtonLabel: 'Já paguei',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

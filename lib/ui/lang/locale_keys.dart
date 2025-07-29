@@ -2,6 +2,7 @@ abstract class LocaleKeys {
   static const title = 'title';
 
   static const currency = 'currency';
+  static const save = 'save';
   static const cancel = 'cancel';
 
   /// BillPaymentMethodEnum
@@ -57,4 +58,8 @@ abstract class LocaleKeys {
   static const billCreatedSnackBarError = 'billCreatedSnackBarError';
   static const billCreatedSnackBar = 'billCreatedSnackBar';
   static const billError = 'billError';
+
+  /// BillPaymentDatePage
+  static const dateTitle = 'dateTitle';
+  static const dateButtonLabel = 'dateButtonLabel';
 }
