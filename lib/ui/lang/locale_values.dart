@@ -50,6 +50,7 @@ class LocaleValues {
     LocaleKeys.createBill: 'Create bill',
     LocaleKeys.cancelEditBill: 'Cancel editing?',
     LocaleKeys.cancelCreateBill: 'Do you want to cancel?',
+
     //TODO transalate from here
     LocaleKeys.cancelEditBillModalInfo:
         'Ao confirmar você perderá todas as informações editadas.',
@@ -94,6 +95,13 @@ class LocaleValues {
     LocaleKeys.homeAccountTab: 'Contas',
     LocaleKeys.homeHistoryTab: 'Histórico',
     LocaleKeys.homeBalanceTab: 'Balanço',
+
+    /// BillConfirmationModalWidget
+    LocaleKeys.billConfirmationModalTitle: 'Essa conta já foi paga?',
+    LocaleKeys.billConfirmationModalPrimaryButtonLabel: 'Sim, já foi paga',
+    LocaleKeys.billConfirmationModalSecondaryButtonLabel: 'Não, ainda não',
+    LocaleKeys.billConfirmationModalSnack: 'Conta paga!',
+    LocaleKeys.billConfirmationModalDateTitle: 'Data que foi paga',
   };
 
   static const Map<String, String> pt = {
@@ -173,6 +181,13 @@ class LocaleValues {
     LocaleKeys.homeAccountTab: 'Contas',
     LocaleKeys.homeHistoryTab: 'Histórico',
     LocaleKeys.homeBalanceTab: 'Balanço',
+
+    /// BillConfirmationModalWidget
+    LocaleKeys.billConfirmationModalTitle: 'Essa conta já foi paga?',
+    LocaleKeys.billConfirmationModalPrimaryButtonLabel: 'Sim, já foi paga',
+    LocaleKeys.billConfirmationModalSecondaryButtonLabel: 'Não, ainda não',
+    LocaleKeys.billConfirmationModalSnack: 'Conta paga!',
+    LocaleKeys.billConfirmationModalDateTitle: 'Data que foi paga',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+
+import '../helpers/extensions.dart';
+
 enum BillPaymentMethodEnum {
   creditCard,
   automaticDebit,
@@ -11,6 +15,8 @@ enum BillPaymentMethodEnum {
 
   bool get isNotAutomatic => this != automaticDebit;
 
-  static List<String> get paymentMethods =>
-      BillPaymentMethodEnum.values.map((e) => e.name).toList();
+  static List<String> paymentMethods(BuildContext context) =>
+      BillPaymentMethodEnum.values
+          .map((e) => context.translate(e.name))
+          .toList();
 }

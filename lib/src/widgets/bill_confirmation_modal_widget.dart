@@ -29,9 +29,13 @@ class BillConfirmationModalWidget extends StatelessWidget {
     );
 
     return JPConfirmationModal(
-      title: 'Essa conta já foi paga?',
-      primaryButtonLabel: 'Sim, já foi paga',
-      secondaryButtonLabel: 'Não, ainda não',
+      title: context.translate(LocaleKeys.billConfirmationModalTitle),
+      primaryButtonLabel: context.translate(
+        LocaleKeys.billConfirmationModalPrimaryButtonLabel,
+      ),
+      secondaryButtonLabel: context.translate(
+        LocaleKeys.billConfirmationModalSecondaryButtonLabel,
+      ),
       customWidgetBody: hasDateSelection
           ? _CustomWidgetBodyConfirmationModal(updatedBill)
           : null,
@@ -39,7 +43,9 @@ class BillConfirmationModalWidget extends StatelessWidget {
         dataBaseViewModel.updateBill(updatedBill);
         dataBaseViewModel.savePaymentIntoHistory(updatedBill);
         context.popUntilIsRoot();
-        context.showSnackSuccess('Conta paga!');
+        context.showSnackSuccess(
+          context.translate(LocaleKeys.billConfirmationModalSnack),
+        );
       },
     );
   }
@@ -56,7 +62,7 @@ class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
       children: [
         JPSpacingVertical.m,
         JPSelectionTile(
-          title: 'Data que foi paga',
+          title: context.translate(LocaleKeys.billConfirmationModalDateTitle),
           info: bill.formattedPaymentDate(context),
           onTap: () => context.popOnceAndPushNamed(
             Routes.billPaymentDate,

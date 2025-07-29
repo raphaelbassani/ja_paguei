@@ -75,4 +75,14 @@ abstract class LocaleKeys {
   static const homeAccountTab = 'homeAccountTab';
   static const homeHistoryTab = 'homeHistoryTab';
   static const homeBalanceTab = 'homeBalanceTab';
+
+  /// BillConfirmationModalWidget
+  static const billConfirmationModalTitle = 'billConfirmationModalTitle';
+  static const billConfirmationModalPrimaryButtonLabel =
+      'billConfirmationModalPrimaryButtonLabel';
+  static const billConfirmationModalSecondaryButtonLabel =
+      'billConfirmationModalSecondaryButtonLabel';
+  static const billConfirmationModalSnack = 'billConfirmationModalSnack';
+  static const billConfirmationModalDateTitle =
+      'billConfirmationModalDateTitle';
 }

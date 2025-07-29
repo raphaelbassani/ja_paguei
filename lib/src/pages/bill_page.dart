@@ -201,10 +201,14 @@ class _BillPageState extends State<BillPage> {
                           preSelectedValue: context.translate(
                             paymentMethod?.name,
                           ),
-                          items: BillPaymentMethodEnum.paymentMethods,
+                          items: BillPaymentMethodEnum.paymentMethods(context),
                           onTapPrimaryButton: (newPaymentMethod) {
                             paymentMethod = BillPaymentMethodEnum.values
-                                .firstWhere((e) => e.name == newPaymentMethod);
+                                .firstWhere(
+                                  (e) =>
+                                      context.translate(e.name) ==
+                                      newPaymentMethod,
+                                );
                             setState(() {});
                           },
                         ),
