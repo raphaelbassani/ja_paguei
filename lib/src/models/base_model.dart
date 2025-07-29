@@ -29,7 +29,7 @@ abstract class BaseModel extends Equatable {
 
   String labelWithDueDate(BuildContext context) =>
       '${isPaymentMethodAutomatic ? context.translate(JPLocaleKeys.automaticDebit) : context.translate(JPLocaleKeys.dueDate)}: '
-      '${context.translate(JPLocaleKeys.onTheDay)} $formattedDueDay';
+      '${context.translate(JPLocaleKeys.onTheDay)} $formattedDueDay${context.dueDayTrailing(dueDay)}';
 
   String labelWithPaymentDate(BuildContext context) => paymentDateTime != null
       ? '${context.translate(JPLocaleKeys.paidOn)}: ${formattedPaymentDate(context)}'

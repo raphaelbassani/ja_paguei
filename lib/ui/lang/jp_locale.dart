@@ -81,14 +81,14 @@ class JPLocale {
     JPLocaleKeys.billEditedSnackBar: 'Bill successfully edited.',
     JPLocaleKeys.billCreatedSnackBarError:
         'A bill with this name already exists.',
-    JPLocaleKeys.billCreatedSnackBar: 'Bill successfully created..',
+    JPLocaleKeys.billCreatedSnackBar: 'Bill successfully created.',
     JPLocaleKeys.billError: 'Please fill in all the information',
 
     /// BillPaymentDatePage
-    JPLocaleKeys.dateTitle: 'On what date was the bill paid?',
+    JPLocaleKeys.dateTitle: 'When was the bill paid?',
 
     /// BillVariableAmountPage
-    JPLocaleKeys.variableAmountTitle: 'What was the amount paid?',
+    JPLocaleKeys.variableAmountTitle: 'How much was paid?',
     JPLocaleKeys.variableAmountLabel: 'Amount',
     JPLocaleKeys.variableAmountValidatorError: ' Please enter a valid amount.',
 

@@ -75,13 +75,15 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  /// Internacionalization
+  /// Internationalization
 
-  Locale get systemLocale => Localizations.localeOf(this);
+  Locale get _systemLocale => Localizations.localeOf(this);
 
-  String get _languageCode => systemLocale.languageCode;
+  String get _languageCode => _systemLocale.languageCode;
 
-  String? get _countryCode => systemLocale.countryCode;
+  String? get _countryCode => _systemLocale.countryCode;
+
+  bool get _isPtBR => _languageCode == 'pt';
 
   String? get jpLocale =>
       '$_languageCode${_countryCode != null ? '_$_countryCode' : ''}';
@@ -98,13 +100,21 @@ extension ContextExtensions on BuildContext {
       );
 
   double currencyIntoDouble(String amount) {
-    final String currency = amount
-        .replaceAllMapped('.', (match) => '')
-        .replaceAllMapped(',', (match) => '.')
-        .replaceAllMapped(this.currency, (match) => '')
-        .replaceAllMapped(' ', (match) => '');
+    String formattedAmount;
+    if (_isPtBR) {
+      formattedAmount = amount
+          .replaceAllMapped('.', (match) => '')
+          .replaceAllMapped(',', (match) => '.')
+          .replaceAllMapped(currency, (match) => '')
+          .replaceAllMapped(' ', (match) => '');
+    } else {
+      formattedAmount = amount
+          .replaceAllMapped(',', (match) => '')
+          .replaceAllMapped(currency, (match) => '')
+          .replaceAllMapped(' ', (match) => '');
+    }
 
-    return double.parse(currency);
+    return double.parse(formattedAmount);
   }
 
   String currencyIntoString(num amount) {
@@ -119,8 +129,26 @@ extension ContextExtensions on BuildContext {
         maxValue: 31,
       );
 
+  String dueDayTrailing(int number) {
+    if (_isPtBR) {
+      return '';
+    }
+
+    if (number == 1) {
+      return 'st';
+    }
+    if (number == 2) {
+      return 'nd';
+    }
+    if (number == 3) {
+      return 'rd';
+    }
+
+    return 'th';
+  }
+
   String ddMMyyyy(DateTime date, {String slash = '/'}) {
-    if (_languageCode == 'pt') {
+    if (_isPtBR) {
       return '${date.day.toString().padLeft(2, '0')}'
           '$slash${date.month.toString().padLeft(2, '0')}'
           '$slash${date.year}';
