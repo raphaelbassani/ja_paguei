@@ -75,7 +75,7 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  /// Internationalization
+  /// Localization
 
   Locale get _systemLocale => Localizations.localeOf(this);
 
