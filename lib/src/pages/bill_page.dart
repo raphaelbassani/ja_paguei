@@ -59,17 +59,21 @@ class _BillPageState extends State<BillPage> {
 
   bool get isEdition => editBill != null;
 
-  String get mainLabel => isEdition ? 'Editar conta' : 'Criar conta';
+  String get mainLabel => isEdition
+      ? context.translate(LocaleKeys.editBill)
+      : context.translate(LocaleKeys.createBill);
 
-  String get cancelModalTitle =>
-      isEdition ? 'Deseja cancelar edição?' : 'Deseja cancelar?';
+  String get cancelModalTitle => isEdition
+      ? context.translate(LocaleKeys.cancelEditBill)
+      : context.translate(LocaleKeys.cancelCreateBill);
 
   String get cancelModalInfo => isEdition
-      ? 'Ao confirmar você perderá todas as informações editadas.'
-      : 'Ao confirmar você perderá todas as informações criadas.';
+      ? context.translate(LocaleKeys.cancelEditBillModalInfo)
+      : context.translate(LocaleKeys.cancelCreateBillModalInfo);
 
-  String get cancelModalButtonLabel =>
-      isEdition ? 'Continuar edição' : 'Continuar criação';
+  String get cancelModalButtonLabel => isEdition
+      ? context.translate(LocaleKeys.cancelEditBillModalButtonLabel)
+      : context.translate(LocaleKeys.cancelCreateBillModalButtonLabel);
 
   bool get hasEditedName =>
       nameController.text.isNotEmpty && nameController.text.length > 2;
@@ -113,16 +117,18 @@ class _BillPageState extends State<BillPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (!hasEditedName && hasTriedToSendWithPending)
-                    _JPTextError('Preencha o nome da conta'),
+                    _JPTextError(context.translate(LocaleKeys.billNameError)),
                   JPTextFormField(
                     controller: nameController,
-                    label: 'Nome da conta',
-                    hint: 'Conta de água',
+                    label: context.translate(LocaleKeys.billName),
+                    hint: context.translate(LocaleKeys.billNameHint),
                     inputAction: TextInputAction.next,
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
                         if (text.length < 3) {
-                          return 'Digite um nome valido';
+                          return context.translate(
+                            LocaleKeys.billNameValidatorError,
+                          );
                         }
                       }
                       return null;

@@ -17,7 +17,24 @@ abstract class LocaleKeys {
   static const overdueToday = 'overdueToday';
   static const overdueTomorrow = 'overdueTomorrow';
 
+  /// BaseModel
   static const dueDate = 'dueDate';
   static const onTheDay = 'onTheDay';
   static const paidOn = 'paidOn';
+
+  /// BillPage
+  static const editBill = 'editBill';
+  static const createBill = 'createBill';
+  static const cancelEditBill = 'cancelEditBill';
+  static const cancelCreateBill = 'cancelCreateBill';
+  static const cancelEditBillModalInfo = 'cancelEditBillModalInfo';
+  static const cancelCreateBillModalInfo = 'cancelCreateBillModalInfo';
+  static const cancelEditBillModalButtonLabel =
+      'cancelEditBillModalButtonLabel';
+  static const cancelCreateBillModalButtonLabel =
+      'cancelCreateBillModalButtonLabel';
+  static const billNameError = 'billNameError';
+  static const billName = 'billName';
+  static const billNameHint = 'billNameHint';
+  static const billNameValidatorError = 'billNameValidatorError';
 }

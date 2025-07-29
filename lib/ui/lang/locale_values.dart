@@ -33,43 +33,22 @@ class LocaleValues {
     LocaleKeys.dueDate: 'Due date',
     LocaleKeys.onTheDay: 'On the',
     LocaleKeys.paidOn: 'Paid on',
+    LocaleKeys.editBill: 'Edit bill',
+    LocaleKeys.createBill: 'Create bill',
+    LocaleKeys.cancelEditBill: 'Cancel editing?',
+    LocaleKeys.cancelCreateBill: 'Do you want to cancel?',
+    //TODO transalate from here
+    LocaleKeys.cancelEditBillModalInfo:
+        'Ao confirmar você perderá todas as informações editadas.',
+    LocaleKeys.cancelCreateBillModalInfo:
+        'Ao confirmar você perderá todas as informações criadas.',
+    LocaleKeys.cancelEditBillModalButtonLabel: 'Continuar edição',
+    LocaleKeys.cancelCreateBillModalButtonLabel: 'Continuar criação',
+    LocaleKeys.billNameError: 'Preencha o nome da conta',
+    LocaleKeys.billName: 'Nome da conta',
+    LocaleKeys.billNameHint: 'Conta de água',
+    LocaleKeys.billNameValidatorError: 'Digite um nome valido.',
   };
-
-  // static const Map<String, dynamic> en = { EXAMPLE
-  //   'title': 'Hello',
-  //   'msg': 'Hello {} in the {} world ',
-  //   'msg_named': '{} are written in the {lang} language',
-  //   'clickMe': 'Click me',
-  //   'profile': {
-  //     'reset_password': {
-  //       'label': 'Reset Password',
-  //       'username': 'Username',
-  //       'password': 'password',
-  //     },
-  //   },
-  //   'clicked': {
-  //     'zero': 'You clicked {} times!',
-  //     'one': 'You clicked {} time!',
-  //     'two': 'You clicked {} times!',
-  //     'few': 'You clicked {} times!',
-  //     'many': 'You clicked {} times!',
-  //     'other': 'You clicked {} times!',
-  //   },
-  //   'amount': {
-  //     'zero': 'Your amount : {} ',
-  //     'one': 'Your amount : {} ',
-  //     'two': 'Your amount : {} ',
-  //     'few': 'Your amount : {} ',
-  //     'many': 'Your amount : {} ',
-  //     'other': 'Your amount : {} ',
-  //   },
-  //   'gender': {
-  //     'male': 'Hi man ;) ',
-  //     'female': 'Hello girl :)',
-  //     'with_arg': {'male': 'Hi man ;) {}', 'female': 'Hello girl :) {}'},
-  //   },
-  //   'reset_locale': 'Reset Language',
-  // };
 
   static const Map<String, String> pt = {
     LocaleKeys.title: 'Hello',
@@ -87,6 +66,20 @@ class LocaleValues {
     LocaleKeys.dueDate: 'Vencimento',
     LocaleKeys.onTheDay: 'Todo dia',
     LocaleKeys.paidOn: 'Paga em',
+    LocaleKeys.editBill: 'Editar conta',
+    LocaleKeys.createBill: 'Criar conta',
+    LocaleKeys.cancelEditBill: 'Deseja cancelar edição?',
+    LocaleKeys.cancelCreateBill: 'Deseja cancelar?',
+    LocaleKeys.cancelEditBillModalInfo:
+        'Ao confirmar você perderá todas as informações editadas.',
+    LocaleKeys.cancelCreateBillModalInfo:
+        'Ao confirmar você perderá todas as informações criadas.',
+    LocaleKeys.cancelEditBillModalButtonLabel: 'Continuar edição',
+    LocaleKeys.cancelCreateBillModalButtonLabel: 'Continuar criação',
+    LocaleKeys.billNameError: 'Preencha o nome da conta',
+    LocaleKeys.billName: 'Nome da conta',
+    LocaleKeys.billNameHint: 'Conta de água',
+    LocaleKeys.billNameValidatorError: 'Digite um nome valido.',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {
