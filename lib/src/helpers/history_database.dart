@@ -57,6 +57,15 @@ class HistoryDatabase {
     return sortedList;
   }
 
+  Future<void> delete(int id) async {
+    final db = await instance.database;
+    await db.delete(
+      HistoryFields.tableName,
+      where: '${HistoryFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future<void> close() async {
     final db = await instance.database;
     db.close();

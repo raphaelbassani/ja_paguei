@@ -59,13 +59,13 @@ class DataBaseViewModel extends ViewModel {
       BillModel? newBill;
       DateTime now = DateUtils.dateOnly(DateTime.now());
 
-      if (bill.paymentDateTime != null) {
+      if (bill.paymentDateTime != null && _history.isNotEmpty) {
         HistoryModel lastBillPayment = _history.firstWhere(
           (e) => e.billId == bill.id,
         );
 
         if (now.isAfter(
-              lastBillPayment.paymentDateTime!.add(Duration(days: 20)),
+              lastBillPayment.paymentDateTime!.add(const Duration(days: 20)),
             ) &&
             bill.isPaid) {
           newBill = bill.copyWithCleaningPayment();
@@ -114,10 +114,14 @@ class DataBaseViewModel extends ViewModel {
     loadData();
   }
 
-  bool savePaymentIntoHistory(BillModel bill) {
+  void savePaymentIntoHistory(BillModel bill) {
     _historyDatabase.save(bill.toHistoryModel);
     loadData();
-    return true;
+  }
+
+  void deletePaymentOfHistory(HistoryModel payment) {
+    _historyDatabase.delete(payment.id!);
+    loadData();
   }
 
   bool hasAlreadyPaidBillOnSameDateHistory(BillModel bill) {

@@ -44,7 +44,7 @@ class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JPAppBar(title: ' ', hasLeading: true),
+      appBar: const JPAppBar(title: ' ', hasLeading: true),
       body: Padding(
         padding: JPPadding.horizontal,
         child: CustomScrollView(
@@ -86,7 +86,7 @@ class _BillVariableAmountPageState extends State<BillVariableAmountPage> {
               hasScrollBody: false,
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   JPActionButtons(
                     primaryButtonLabel: context.translate(
                       JPLocaleKeys.alreadyPaid,

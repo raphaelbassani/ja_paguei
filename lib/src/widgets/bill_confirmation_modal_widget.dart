@@ -84,12 +84,16 @@ class _CustomWidgetBodyConfirmationModal extends StatelessWidget {
               arguments: bill,
             ),
           ),
-          if (hasAlreadyPaidInThisDate) _HasAlreadyPaidWidget(),
+          if (hasAlreadyPaidInThisDate) const _HasAlreadyPaidWidget(),
         ],
       );
     }
 
-    return _HasAlreadyPaidWidget(hasExtraSpacing: true);
+    if (hasAlreadyPaidInThisDate) {
+      return const _HasAlreadyPaidWidget(hasExtraSpacing: true);
+    }
+
+    return const SizedBox();
   }
 }
 

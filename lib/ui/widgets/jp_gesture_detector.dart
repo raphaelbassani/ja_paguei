@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class JPGestureDetector extends StatelessWidget {
   final Widget child;
-  final Function() onTap;
+  final Function()? onTap;
+  final Function()? onLongPress;
 
   const JPGestureDetector({
     required this.child,
-    required this.onTap,
+    this.onTap,
+    this.onLongPress,
     super.key,
   });
 
@@ -14,6 +16,7 @@ class JPGestureDetector extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: onLongPress,
       child: Container(color: Colors.transparent, child: child),
     );
   }

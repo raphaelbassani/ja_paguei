@@ -124,6 +124,9 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalDateTitle: 'Date that it was paid',
     JPLocaleKeys.billConfirmationModalDateSubtitle: 'Date that it was paid',
 
+    /// HistoryTabWidget
+    JPLocaleKeys.historyDeletePayment: 'Delete payment',
+
     /// SettingsTabWidget
     JPLocaleKeys.settingsDarkMode: 'Dark mode',
     JPLocaleKeys.settingsLanguage: 'Language',
@@ -235,6 +238,9 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalDateSubtitle:
         'A conta já foi paga nesse dia, '
         'deseja pagar novamente?',
+
+    /// HistoryTabWidget
+    JPLocaleKeys.historyDeletePayment: 'Deletar pagamento',
 
     /// SettingsTabWidget
     JPLocaleKeys.settingsDarkMode: 'Modo escuro',

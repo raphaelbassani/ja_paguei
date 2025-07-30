@@ -106,6 +106,9 @@ abstract class JPLocaleKeys {
   static const billConfirmationModalDateSubtitle =
       'billConfirmationModalDateSubtitle';
 
+  /// HistoryTabWidget
+  static const historyDeletePayment = 'historyDeletePayment';
+
   /// SettingsTabWidget
   static const settingsDarkMode = 'settingsDarkMode';
   static const settingsLanguage = 'settingsLanguage';

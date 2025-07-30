@@ -40,7 +40,7 @@ class _JPSelectionModalState extends State<JPSelectionModal> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
       child: Padding(
         padding: JPPadding.horizontal,
         child: Column(
@@ -50,7 +50,7 @@ class _JPSelectionModalState extends State<JPSelectionModal> {
             JPTitleModal(title: widget.title),
             JPSpacingVertical.m,
             ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: widget.items.length,
               itemBuilder: (context, index) {
@@ -117,7 +117,7 @@ class _Item extends StatelessWidget {
             child: Row(
               children: [
                 JPText(label),
-                Spacer(),
+                const Spacer(),
                 Radio<String>(
                   value: label,
                   groupValue: selectedValue,

@@ -51,7 +51,7 @@ class _BaseButton extends StatelessWidget {
       onPressed: onTap,
       style: OutlinedButton.styleFrom(
         backgroundColor: Colors.transparent,
-        side: BorderSide(color: Colors.transparent),
+        side: const BorderSide(color: Colors.transparent),
       ),
       child: isSmall
           ? JPText(label, type: JPTextTypeEnum.s)
@@ -61,9 +61,9 @@ class _BaseButton extends StatelessWidget {
                 JPSpacingVertical.xxs,
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     JPText(label, type: JPTextTypeEnum.m),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
                 JPSpacingVertical.s,

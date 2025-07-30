@@ -9,3 +9,4 @@ linter:
     sort_child_properties_last: true
     prefer_relative_imports: true
     directives_ordering: true
+    prefer_const_constructors: true

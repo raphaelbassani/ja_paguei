@@ -18,9 +18,9 @@ class SettingsTabWidget extends StatelessWidget {
             padding: JPPadding.all,
             child: Column(
               children: [
-                _SettingSwitchContainerWidget(),
+                const _SettingSwitchContainerWidget(),
                 JPSpacingVertical.m,
-                _SettingActionContainerWidget(),
+                const _SettingActionContainerWidget(),
               ],
             ),
           ),
@@ -72,7 +72,7 @@ class _SettingActionContainerWidget extends StatelessWidget {
       trailingWidget: Column(
         children: [
           JPSpacingVertical.s,
-          Icon(Icons.chevron_right),
+          const Icon(Icons.chevron_right),
           JPSpacingVertical.s,
         ],
       ),
@@ -99,9 +99,9 @@ class _SettingActionContainerWidget extends StatelessWidget {
         primaryButtonLabel: context.translate(JPLocaleKeys.confirm),
         onTapPrimaryButton: (_) {
           if (localeViewModel.appLocale?.languageCode == JPLocaleKeys.en) {
-            localeViewModel.changeLang(Locale(JPLocaleKeys.pt));
+            localeViewModel.changeLang(const Locale(JPLocaleKeys.pt));
           } else {
-            localeViewModel.changeLang(Locale(JPLocaleKeys.en));
+            localeViewModel.changeLang(const Locale(JPLocaleKeys.en));
           }
         },
       ),
@@ -146,7 +146,7 @@ class _SettingContainerWidget extends StatelessWidget {
                   ),
                   JPSpacingHorizontal.s,
                   JPText(label),
-                  Spacer(),
+                  const Spacer(),
                   trailingWidget,
                 ],
               ),

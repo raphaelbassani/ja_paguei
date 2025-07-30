@@ -54,9 +54,9 @@ class _BaseButton extends StatelessWidget {
                 JPSpacingVertical.xxs,
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     JPText(label, type: JPTextTypeEnum.m, color: Colors.white),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
                 JPSpacingVertical.s,

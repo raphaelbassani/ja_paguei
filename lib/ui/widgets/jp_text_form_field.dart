@@ -39,8 +39,8 @@ class JPTextFormField extends StatelessWidget {
       onChanged: validator,
       onTapOutside: (_) => context.unfocus,
       decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        focusedBorder: OutlineInputBorder(
+        border: const OutlineInputBorder(),
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.green),
         ),
         labelStyle: TextStyle(color: context.textColor),

@@ -266,7 +266,7 @@ class _BillPageState extends State<BillPage> {
               padding: JPPadding.all,
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   JPActionButtons(
                     primaryButtonLabel: mainLabel,
                     onTapPrimaryButton: () {
@@ -365,7 +365,7 @@ class _JPTextError extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.error, color: Colors.red, size: 12),
+            const Icon(Icons.error, color: Colors.red, size: 12),
             JPSpacingHorizontal.xxs,
             JPText(text, color: Colors.red, type: JPTextTypeEnum.s),
           ],

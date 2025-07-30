@@ -94,7 +94,7 @@ class _ItemWidget extends StatelessWidget {
       if (bill.dueDay == context.now.day) {
         return context.translate(JPLocaleKeys.overdueToday);
       }
-      if (bill.dueDay == context.now.add(Duration(days: 1)).day) {
+      if (bill.dueDay == context.now.add(const Duration(days: 1)).day) {
         return context.translate(JPLocaleKeys.overdueTomorrow);
       }
     }

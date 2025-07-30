@@ -71,14 +71,14 @@ class _BarChartWidget extends StatefulWidget {
 
 class _BarChartWidgetState extends State<_BarChartWidget> {
   final List<Color> _rodColors = [
-    Color(0xFF2196F3),
-    Color(0xFFFFC300),
-    Color(0xFFFF683B),
-    Color(0xFF3BFF49),
-    Color(0xFF6E1BFF),
-    Color(0xFFFF3AF2),
-    Color(0xFFE80054),
-    Color(0xFF50E4FF),
+    const Color(0xFF2196F3),
+    const Color(0xFFFFC300),
+    const Color(0xFFFF683B),
+    const Color(0xFF3BFF49),
+    const Color(0xFF6E1BFF),
+    const Color(0xFFFF3AF2),
+    const Color(0xFFE80054),
+    const Color(0xFF50E4FF),
   ];
   int _touchedIndex = -1;
 
@@ -145,7 +145,7 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
             handleBuiltInTouches: false,
             touchTooltipData: BarTouchTooltipData(
               getTooltipColor: (_) => Colors.transparent,
-              tooltipBorder: BorderSide(color: Colors.transparent),
+              tooltipBorder: const BorderSide(color: Colors.transparent),
               getTooltipItem:
                   (BarChartGroupData _, int _, BarChartRodData rod, int _) {
                     return BarTooltipItem(
@@ -207,14 +207,14 @@ class _BarChartWidgetState extends State<_BarChartWidget> {
             topTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (_, __) => SizedBox(),
+                getTitlesWidget: (_, __) => const SizedBox(),
               ),
             ),
 
             rightTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (_, __) => SizedBox(),
+                getTitlesWidget: (_, __) => const SizedBox(),
               ),
             ),
           ),

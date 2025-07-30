@@ -26,7 +26,7 @@ class JPConfirmationModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
       child: Padding(
         padding: JPPadding.horizontal,
         child: Column(

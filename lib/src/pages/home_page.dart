@@ -19,10 +19,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
   final List<Widget> tabPages = [
-    BillsTabWidget(),
-    HistoryTabWidget(),
-    BalanceTabWidget(),
-    SettingsTabWidget(),
+    const BillsTabWidget(),
+    const HistoryTabWidget(),
+    const BalanceTabWidget(),
+    const SettingsTabWidget(),
   ];
 
   @override
@@ -49,19 +49,19 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: context.backgroundColor,
         items: [
           BottomBarItem(
-            icon: Icon(Icons.credit_card),
+            icon: const Icon(Icons.credit_card),
             title: JPText(tabTitle[0], color: Colors.green),
           ),
           BottomBarItem(
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history),
             title: JPText(tabTitle[1], color: Colors.green),
           ),
           BottomBarItem(
-            icon: Icon(Icons.attach_money),
+            icon: const Icon(Icons.attach_money),
             title: JPText(tabTitle[2], color: Colors.green),
           ),
           BottomBarItem(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             title: JPText(tabTitle[3], color: Colors.green),
           ),
         ],

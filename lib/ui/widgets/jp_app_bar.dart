@@ -8,12 +8,12 @@ class JPAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool hasLeading;
   final bool hasTrailing;
 
-  JPAppBar({
+  const JPAppBar({
     required this.title,
     this.hasLeading = false,
     this.hasTrailing = false,
     super.key,
-  }) : preferredSize = Size.fromHeight(kToolbarHeight);
+  }) : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
   State<JPAppBar> createState() => _JPAppBarState();
@@ -36,7 +36,7 @@ class _JPAppBarState extends State<JPAppBar> {
               Padding(
                 padding: JPPadding.right,
                 child: JPGestureDetector(
-                  child: Icon(Icons.close),
+                  child: const Icon(Icons.close),
                   onTap: () => context.popUntilIsRoot(),
                 ),
               ),
@@ -44,9 +44,9 @@ class _JPAppBarState extends State<JPAppBar> {
           : null,
       leading: widget.hasLeading
           ? Padding(
-              padding: JPPadding.left - EdgeInsets.only(left: 9),
+              padding: JPPadding.left - const EdgeInsets.only(left: 9),
               child: JPGestureDetector(
-                child: Icon(Icons.arrow_back_rounded),
+                child: const Icon(Icons.arrow_back_rounded),
                 onTap: () => context.pop(),
               ),
             )

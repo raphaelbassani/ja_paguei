@@ -13,8 +13,8 @@ class JPTitleModal extends StatelessWidget {
     return Row(
       children: [
         JPText(title, type: JPTextTypeEnum.xl),
-        Spacer(),
-        JPGestureDetector(onTap: context.pop, child: Icon(Icons.close)),
+        const Spacer(),
+        JPGestureDetector(onTap: context.pop, child: const Icon(Icons.close)),
       ],
     );
   }

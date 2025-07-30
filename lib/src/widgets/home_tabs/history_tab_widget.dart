@@ -63,36 +63,53 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            JPText(payment.name, type: JPTextTypeEnum.l),
-            JPSpacingVertical.xxs,
-            JPText(
-              payment.labelWithDueDate(context),
-              hasDefaultOpacity: true,
-              type: JPTextTypeEnum.s,
-            ),
-            JPSpacingVertical.xs,
-            JPText(
-              payment.labelWithPaymentDate(context),
-              hasDefaultOpacity: true,
-              type: JPTextTypeEnum.s,
-            ),
-            JPSpacingVertical.s,
-          ],
-        ),
-        Spacer(),
-        Column(
-          children: [
-            JPSpacingVertical.xxs,
-            JPText(payment.formattedAmount(context)),
-          ],
-        ),
-      ],
+    final DataBaseViewModel dataBaseViewModel = context
+        .read<DataBaseViewModel>();
+
+    return JPGestureDetector(
+      onLongPress: () {
+        context.showModal(
+          child: JPConfirmationModal(
+            title: context.translate(JPLocaleKeys.historyDeletePayment),
+            primaryButtonLabel: context.translate(JPLocaleKeys.delete),
+            onTapPrimaryButton: () {
+              dataBaseViewModel.deletePaymentOfHistory(payment);
+              context.pop();
+            },
+          ),
+        );
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              JPText(payment.name, type: JPTextTypeEnum.l),
+              JPSpacingVertical.xxs,
+              JPText(
+                payment.labelWithDueDate(context),
+                hasDefaultOpacity: true,
+                type: JPTextTypeEnum.s,
+              ),
+              JPSpacingVertical.xs,
+              JPText(
+                payment.labelWithPaymentDate(context),
+                hasDefaultOpacity: true,
+                type: JPTextTypeEnum.s,
+              ),
+              JPSpacingVertical.s,
+            ],
+          ),
+          const Spacer(),
+          Column(
+            children: [
+              JPSpacingVertical.xxs,
+              JPText(payment.formattedAmount(context)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

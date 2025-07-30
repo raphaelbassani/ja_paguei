@@ -79,7 +79,7 @@ class _JPCalendarState extends State<JPCalendar> {
           ),
           locale: context.jpLocale,
           daysOfWeekStyle: DaysOfWeekStyle(
-            weekdayStyle: TextStyle(fontSize: 12.0),
+            weekdayStyle: const TextStyle(fontSize: 12.0),
             weekendStyle: TextStyle(
               fontSize: 12.0,
               color: context.textColor.withAlpha(100),
@@ -89,8 +89,8 @@ class _JPCalendarState extends State<JPCalendar> {
             },
           ),
           calendarStyle: CalendarStyle(
-            disabledTextStyle: TextStyle(color: Colors.transparent),
-            selectedDecoration: BoxDecoration(
+            disabledTextStyle: const TextStyle(color: Colors.transparent),
+            selectedDecoration: const BoxDecoration(
               color: Colors.green,
               shape: BoxShape.circle,
             ),
@@ -98,12 +98,15 @@ class _JPCalendarState extends State<JPCalendar> {
               color: context.textColor,
               fontSize: 16.0,
             ),
-            outsideTextStyle: TextStyle(color: Colors.transparent),
+            outsideTextStyle: const TextStyle(color: Colors.transparent),
             weekendTextStyle: TextStyle(
               color: context.textColor.withAlpha(100),
             ),
-            todayTextStyle: TextStyle(color: Colors.green, fontSize: 16.0),
-            todayDecoration: BoxDecoration(color: Colors.transparent),
+            todayTextStyle: const TextStyle(
+              color: Colors.green,
+              fontSize: 16.0,
+            ),
+            todayDecoration: const BoxDecoration(color: Colors.transparent),
           ),
           focusedDay: focusedDay.value,
           calendarFormat: calendarFormat,

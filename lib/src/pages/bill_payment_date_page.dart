@@ -22,7 +22,7 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
     bill = context.arguments as BillModel;
 
     return Scaffold(
-      appBar: JPAppBar(title: ' ', hasLeading: true),
+      appBar: const JPAppBar(title: ' ', hasLeading: true),
       body: Padding(
         padding: JPPadding.horizontal,
         child: CustomScrollView(
@@ -51,7 +51,7 @@ class _BillPaymentDatePageState extends State<BillPaymentDatePage> {
               hasScrollBody: false,
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   JPSpacingVertical.m,
                   JPActionButtons(
                     primaryButtonLabel: context.translate(
