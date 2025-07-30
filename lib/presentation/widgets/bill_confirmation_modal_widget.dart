@@ -48,7 +48,7 @@ class BillConfirmationModalWidget extends StatelessWidget {
       onTapPrimaryButton: () {
         dataBaseViewModel.updateBill(updatedBill);
         dataBaseViewModel.savePaymentIntoHistory(updatedBill);
-        context.popUntilIsRoot();
+        context.popUntilIsHome();
         context.showSnackSuccess(
           context.translate(JPLocaleKeys.billConfirmationModalSnack),
         );

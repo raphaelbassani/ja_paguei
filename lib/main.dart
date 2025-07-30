@@ -79,7 +79,8 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       supportedLocales: JPLocale.supportedLocales,
       locale: context.watch<LocaleViewModel>().appLocale,
       routes: {
-        Routes.home: (context) => const SplashScreenPage(),
+        Routes.splash: (context) => const SplashScreenPage(),
+        Routes.home: (context) => const HomePage(),
         Routes.bill: (context) => const BillPage(),
         Routes.billVariableAmount: (context) => const BillVariableAmountPage(),
         Routes.billPaymentDate: (context) => const BillPaymentDatePage(),

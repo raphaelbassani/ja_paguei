@@ -245,7 +245,7 @@ class _BillPageState extends State<BillPage> {
                             ),
                             onTapPrimaryButton: () {
                               dataBaseViewModel.deleteBill(editBill!);
-                              context.popUntilIsRoot();
+                              context.popUntilIsHome();
                               context.showSnackInfo(
                                 context.translate(
                                   JPLocaleKeys.billDeleteModalSnackBar,
@@ -316,7 +316,7 @@ class _BillPageState extends State<BillPage> {
                             context.translate(JPLocaleKeys.billCreatedSnackBar),
                           );
                         }
-                        context.popUntilIsRoot();
+                        context.popUntilIsHome();
                         return;
                       } else {
                         hasTriedToSendWithPending = true;
@@ -335,7 +335,7 @@ class _BillPageState extends State<BillPage> {
                             primaryButtonLabel: context.translate(
                               JPLocaleKeys.cancel,
                             ),
-                            onTapPrimaryButton: context.popUntilIsRoot,
+                            onTapPrimaryButton: context.popUntilIsHome,
                             secondaryButtonLabel: cancelModalButtonLabel,
                           ),
                         );
