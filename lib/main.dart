@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'src/helpers/bill_database.dart';
-import 'src/helpers/history_database.dart';
-import 'src/helpers/routes.dart';
-import 'src/pages/bill_page.dart';
-import 'src/pages/bill_payment_date_page.dart';
-import 'src/pages/bill_variable_amount_page.dart';
-import 'src/pages/splash_screen_page.dart';
-import 'src/view_models/database_view_model.dart';
-import 'src/view_models/locale_view_model.dart';
-import 'src/view_models/theme_view_model.dart';
-import 'ui.dart';
+import 'data/datasources/datasources.dart';
+import 'l10n/l10n.dart';
+import 'presentation/pages/pages.dart';
+import 'presentation/routes/routes.dart';
+import 'presentation/state/view_models.dart';
 
 void main() {
   BillDatabase billDatabase = BillDatabase.instance;
