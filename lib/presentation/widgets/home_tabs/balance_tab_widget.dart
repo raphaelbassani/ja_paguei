@@ -23,14 +23,14 @@ class BalanceTabWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              JPSpacingVertical.l,
-              if (items.length > 1)
+              if (items.length > 1) ...[
+                JPSpacingVertical.l,
                 _BarChartWidget(
                   graphItems: items,
                   maxY: maxY(items),
                   barWidth: 200 / items.length,
-                )
-              else
+                ),
+              ] else
                 Padding(
                   padding: JPPadding.all,
                   child: JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
