@@ -56,7 +56,23 @@ class BillDatabase {
         .toList();
     final List<BillModel> sortedList = listResult
       ..sort((b, a) => b.dueDay.compareTo(a.dueDay));
-    return sortedList;
+
+    DateTime today = DateTime.now();
+    final DateTime referenceDate = today.subtract(const Duration(days: 5));
+    final int referenceDay = referenceDate.day;
+
+    int index = sortedList.indexWhere((d) => d.dueDay >= referenceDay);
+    if (index == -1) {
+      index = 0;
+    }
+    ;
+
+    final List<BillModel> orderDays = [
+      ...sortedList.sublist(index),
+      ...sortedList.sublist(0, index),
+    ];
+
+    return orderDays;
   }
 
   Future<void> update(BillModel bill) async {
