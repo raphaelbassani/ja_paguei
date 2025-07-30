@@ -106,11 +106,19 @@ abstract class JPLocaleKeys {
   static const billConfirmationModalDateSubtitle =
       'billConfirmationModalDateSubtitle';
 
+  /// BillsTabWidget
+  static const billsNoData = 'billsNoData';
+  static const billsCreateNew = 'billsCreateNew';
+
   /// HistoryTabWidget
   static const historyDeletePayment = 'historyDeletePayment';
+  static const historyNoData = 'historyNoData';
 
   /// SettingsTabWidget
   static const settingsDarkMode = 'settingsDarkMode';
   static const settingsLanguage = 'settingsLanguage';
   static const settingsSelectLanguage = 'settingsSelectLanguage';
+
+  /// BalanceTabWidget
+  static const balanceNoGraph = 'balanceNoGraph';
 }

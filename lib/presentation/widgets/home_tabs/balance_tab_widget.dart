@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/extensions/extensions.dart';
 import '../../../core/ui/ui.dart';
+import '../../../l10n/jp_locale_keys.dart';
 import '../../state/view_models.dart';
 
 class BalanceTabWidget extends StatelessWidget {
@@ -23,11 +24,17 @@ class BalanceTabWidget extends StatelessWidget {
           child: Column(
             children: [
               JPSpacingVertical.l,
-              _BarChartWidget(
-                graphItems: items,
-                maxY: maxY(items),
-                barWidth: 200 / items.length,
-              ),
+              if (items.length > 1)
+                _BarChartWidget(
+                  graphItems: items,
+                  maxY: maxY(items),
+                  barWidth: 200 / items.length,
+                )
+              else
+                Padding(
+                  padding: JPPadding.all,
+                  child: JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
+                ),
             ],
           ),
         ),

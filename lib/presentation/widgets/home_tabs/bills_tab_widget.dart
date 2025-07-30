@@ -19,6 +19,23 @@ class BillsTabWidget extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
+        if (dataBaseViewModel.history.isEmpty)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: JPPadding.all,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  JPText(context.translate(JPLocaleKeys.billsNoData)),
+                  JPSpacingVertical.xs,
+                  JPPrimaryButtonSmall(
+                    label: context.translate(JPLocaleKeys.billsCreateNew),
+                    onTap: () => context.pushNamed(Routes.bill),
+                  ),
+                ],
+              ),
+            ),
+          ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: dataBaseViewModel.bills.length,
