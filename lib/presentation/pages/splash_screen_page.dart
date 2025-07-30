@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
 
-import 'home_page.dart';
+import '../../core/extensions/extensions.dart';
+import '../routes/routes.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
@@ -21,12 +21,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
     _animationController = AnimationController(vsync: this);
     _animationController.addStatusListener((animationStatus) {
       if (animationStatus == AnimationStatus.completed) {
-        Navigator.of(context).pushReplacement(
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: const HomePage(),
-          ),
-        );
+        context.pushNamed(Routes.home);
       }
     });
   }

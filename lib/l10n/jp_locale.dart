@@ -124,13 +124,22 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalDateTitle: 'Date that it was paid',
     JPLocaleKeys.billConfirmationModalDateSubtitle: 'Date that it was paid',
 
+    /// BillsTabWidget
+    JPLocaleKeys.billsNoData: 'Create your first bill.',
+    JPLocaleKeys.billsCreateNew: 'Create bill',
+
     /// HistoryTabWidget
     JPLocaleKeys.historyDeletePayment: 'Delete payment',
+    JPLocaleKeys.historyNoData: 'History will appear after first payment.',
 
     /// SettingsTabWidget
     JPLocaleKeys.settingsDarkMode: 'Dark mode',
     JPLocaleKeys.settingsLanguage: 'Language',
     JPLocaleKeys.settingsSelectLanguage: 'Select language',
+
+    /// BalanceTabWidget
+    JPLocaleKeys.balanceNoGraph:
+        'The balance will be made after the first payment.',
   };
 
   static const Map<String, String> pt = {
@@ -239,13 +248,23 @@ class JPLocale {
         'A conta já foi paga nesse dia, '
         'deseja pagar novamente?',
 
+    /// BillsTabWidget
+    JPLocaleKeys.billsNoData: 'Crie sua primeira conta.',
+    JPLocaleKeys.billsCreateNew: 'Criar conta',
+
     /// HistoryTabWidget
     JPLocaleKeys.historyDeletePayment: 'Deletar pagamento',
+    JPLocaleKeys.historyNoData:
+        'O histórico aparecerá após o primeiro pagamento.',
 
     /// SettingsTabWidget
     JPLocaleKeys.settingsDarkMode: 'Modo escuro',
     JPLocaleKeys.settingsLanguage: 'Idioma',
     JPLocaleKeys.settingsSelectLanguage: 'Selecionar idioma',
+
+    /// BalanceTabWidget
+    JPLocaleKeys.balanceNoGraph:
+        'O balanço será feito após o primeiro pagamento.',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

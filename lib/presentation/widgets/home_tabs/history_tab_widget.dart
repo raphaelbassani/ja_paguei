@@ -17,6 +17,14 @@ class HistoryTabWidget extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
+        if (dataBaseViewModel.history.isEmpty)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: JPPadding.all,
+              child: JPText(context.translate(JPLocaleKeys.historyNoData)),
+            ),
+          ),
+
         SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: dataBaseViewModel.history.length,

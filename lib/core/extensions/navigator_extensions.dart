@@ -16,10 +16,11 @@ extension NavigatorExtensions on BuildContext {
     navigator.pushNamed(route, arguments: arguments);
   }
 
-  void popUntilIsRoot() {
+  void popUntilIsHome() {
     navigator.popUntil(
       (route) =>
-          (route.settings.name != null && route.settings.name.endsWith('/')),
+          (route.settings.name != null &&
+          route.settings.name.endsWith('/home')),
     );
   }
 }

@@ -37,7 +37,7 @@ class _JPAppBarState extends State<JPAppBar> {
                 padding: JPPadding.right,
                 child: JPGestureDetector(
                   child: const Icon(Icons.close),
-                  onTap: () => context.popUntilIsRoot(),
+                  onTap: () => context.popUntilIsHome(),
                 ),
               ),
             ]
