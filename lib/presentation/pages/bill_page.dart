@@ -150,7 +150,7 @@ class _BillPageState extends State<BillPage> {
                     validator: (text) {
                       if (text != null && text.isNotEmpty) {
                         double amount = context.currencyIntoDouble(text);
-                        if (amount == 0) {
+                        if (amount < 0) {
                           return context.translate(
                             JPLocaleKeys.billAmountValidatorError,
                           );

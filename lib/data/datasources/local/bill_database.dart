@@ -50,9 +50,28 @@ class BillDatabase {
 
   Future<List<BillModel>> readAll() async {
     final db = await instance.database;
-    const orderBy = '${BillFields.dueDay} ASC';
-    final result = await db.query(BillFields.tableName, orderBy: orderBy);
-    return result.map((json) => BillModel.fromJson(json)).toList();
+    final result = await db.query(BillFields.tableName);
+    final List<BillModel> listResult = result
+        .map((json) => BillModel.fromJson(json))
+        .toList();
+    final List<BillModel> sortedList = listResult
+      ..sort((b, a) => b.dueDay.compareTo(a.dueDay));
+
+    DateTime today = DateTime.now();
+    final DateTime referenceDate = today.subtract(const Duration(days: 5));
+    final int referenceDay = referenceDate.day;
+
+    int index = sortedList.indexWhere((d) => d.dueDay >= referenceDay);
+    if (index == -1) {
+      index = 0;
+    }
+
+    final List<BillModel> orderDays = [
+      ...sortedList.sublist(index),
+      ...sortedList.sublist(0, index),
+    ];
+
+    return orderDays;
   }
 
   Future<void> update(BillModel bill) async {
@@ -72,6 +91,11 @@ class BillDatabase {
       where: '${BillFields.id} = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<void> deleteAllRows() async {
+    final db = await database;
+    await db.delete(BillFields.tableName);
   }
 
   Future<void> close() async {

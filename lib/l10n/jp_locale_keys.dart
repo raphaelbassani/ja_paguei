@@ -6,6 +6,7 @@ abstract class JPLocaleKeys {
   static const cancel = 'cancel';
   static const delete = 'delete';
   static const edit = 'edit';
+  static const close = 'close';
   static const variableAmount = 'variableAmount';
 
   /// Languages
@@ -115,10 +116,20 @@ abstract class JPLocaleKeys {
   static const historyNoData = 'historyNoData';
 
   /// SettingsTabWidget
+  static const settingsJoke = 'settingsJoke';
+  static const settingsJokeReveal = 'settingsJokeReveal';
   static const settingsDarkMode = 'settingsDarkMode';
   static const settingsLanguage = 'settingsLanguage';
   static const settingsSelectLanguage = 'settingsSelectLanguage';
+  static const settingsDeleteAllData = 'settingsDeleteAllData';
+  static const settingsDeleteAllDataModal = 'settingsDeleteAllDataModal';
+  static const settingsDeleteAllDataSnack = 'settingsDeleteAllDataSnack';
 
   /// BalanceTabWidget
   static const balanceNoGraph = 'balanceNoGraph';
+
+  /// Failures
+  static const unknownFailure = 'unknownFailure';
+  static const jokeAPIFailure = 'jokeAPIFailure';
+  static const jokeRemoteFailure = 'jokeRemoteFailure';
 }

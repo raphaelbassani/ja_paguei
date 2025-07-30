@@ -66,15 +66,14 @@ class _JPCalendarState extends State<JPCalendar> {
         TableCalendar(
           onCalendarCreated: (controller) => _pageController = controller,
           headerVisible: false,
-          onPageChanged: (newFocusedDay) => focusedDay.value = newFocusedDay,
           firstDay: DateTime(
             context.now.year,
             context.now.month - 1,
-            context.now.day,
+            context.now.day - 15,
           ),
           lastDay: DateTime(
             context.now.year,
-            context.now.month + 1,
+            context.now.month,
             context.now.day,
           ),
           locale: context.jpLocale,

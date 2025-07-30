@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 
+import 'core/extensions/extensions.dart';
+import 'core/ui/components/components.dart';
 import 'data/datasources/datasources.dart';
 import 'l10n/l10n.dart';
 import 'presentation/pages/pages.dart';
@@ -9,8 +12,8 @@ import 'presentation/routes/routes.dart';
 import 'presentation/state/view_models.dart';
 
 void main() {
-  BillDatabase billDatabase = BillDatabase.instance;
-  HistoryDatabase historyDatabase = HistoryDatabase.instance;
+  final BillDatabase billDatabase = BillDatabase.instance;
+  final HistoryDatabase historyDatabase = HistoryDatabase.instance;
 
   runApp(
     MultiProvider(
@@ -22,7 +25,8 @@ void main() {
           ),
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
-        ChangeNotifierProvider(create: (context) => LocaleViewModel()),
+        ChangeNotifierProvider(create: (_) => LocaleViewModel()),
+        Provider(create: (_) => JokeDatasource()),
       ],
       child: JaPagueiApp(
         billDatabase: billDatabase,
@@ -80,7 +84,12 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       locale: context.watch<LocaleViewModel>().appLocale,
       routes: {
         Routes.splash: (context) => const SplashScreenPage(),
-        Routes.home: (context) => const HomePage(),
+        Routes.home: (context) => LoaderOverlay(
+          disableBackButton: true,
+          overlayColor: context.backgroundColor.withAlpha(150),
+          overlayWidgetBuilder: (_) => const JPLoaderOverlay(),
+          child: const HomePage(),
+        ),
         Routes.bill: (context) => const BillPage(),
         Routes.billVariableAmount: (context) => const BillVariableAmountPage(),
         Routes.billPaymentDate: (context) => const BillPaymentDatePage(),

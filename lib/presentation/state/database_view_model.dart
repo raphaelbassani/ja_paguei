@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/datasources/datasources.dart';
@@ -58,19 +59,21 @@ class DataBaseViewModel extends BaseViewModel {
       DateTime now = DateUtils.dateOnly(DateTime.now());
 
       if (bill.paymentDateTime != null && _history.isNotEmpty) {
-        HistoryModel lastBillPayment = _history.firstWhere(
+        HistoryModel? lastBillPayment = _history.firstWhereOrNull(
           (e) => e.billId == bill.id,
         );
 
-        if (now.isAfter(
-              lastBillPayment.paymentDateTime!.add(const Duration(days: 20)),
-            ) &&
-            bill.isPaid) {
-          newBill = bill.copyWithCleaningPayment();
-        }
+        if (lastBillPayment != null) {
+          if (now.isAfter(
+                lastBillPayment.paymentDateTime!.add(const Duration(days: 20)),
+              ) &&
+              bill.isPaid) {
+            newBill = bill.copyWithCleaningPayment();
+          }
 
-        if (now.isAfter(lastBillPayment.paymentDateTime!) && bill.isNotPaid) {
-          newBill = bill.copyWith(status: BillStatusEnum.overdue);
+          if (now.isAfter(lastBillPayment.paymentDateTime!) && bill.isNotPaid) {
+            newBill = bill.copyWith(status: BillStatusEnum.overdue);
+          }
         }
       } else {
         final DateTime nextPaymentDate = DateTime(
@@ -119,6 +122,12 @@ class DataBaseViewModel extends BaseViewModel {
 
   void deletePaymentOfHistory(HistoryModel payment) {
     _historyDatabase.delete(payment.id!);
+    loadData();
+  }
+
+  void deleteAllDatabasesData() {
+    _historyDatabase.deleteAllRows();
+    _billDatabase.deleteAllRows();
     loadData();
   }
 
