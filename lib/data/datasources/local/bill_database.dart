@@ -65,7 +65,6 @@ class BillDatabase {
     if (index == -1) {
       index = 0;
     }
-    ;
 
     final List<BillModel> orderDays = [
       ...sortedList.sublist(index),
