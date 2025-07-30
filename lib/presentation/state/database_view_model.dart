@@ -125,6 +125,12 @@ class DataBaseViewModel extends BaseViewModel {
     loadData();
   }
 
+  void deleteAllDatabasesData() {
+    _historyDatabase.deleteAllRows();
+    _billDatabase.deleteAllRows();
+    loadData();
+  }
+
   bool hasAlreadyPaidBillOnSameDateHistory(BillModel bill) {
     return _history.any(
       (e) => e.billId == bill.id && e.paymentDateTime == bill.paymentDateTime,

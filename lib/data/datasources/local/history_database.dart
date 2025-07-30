@@ -67,6 +67,11 @@ class HistoryDatabase {
     );
   }
 
+  Future<void> deleteAllRows() async {
+    final db = await database;
+    await db.delete(HistoryFields.tableName);
+  }
+
   Future<void> close() async {
     final db = await instance.database;
     db.close();

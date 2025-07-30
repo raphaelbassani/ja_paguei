@@ -118,6 +118,9 @@ abstract class JPLocaleKeys {
   static const settingsDarkMode = 'settingsDarkMode';
   static const settingsLanguage = 'settingsLanguage';
   static const settingsSelectLanguage = 'settingsSelectLanguage';
+  static const settingsDeleteAllData = 'settingsDeleteAllData';
+  static const settingsDeleteAllDataModal = 'settingsDeleteAllDataModal';
+  static const settingsDeleteAllDataSnack = 'settingsDeleteAllDataSnack';
 
   /// BalanceTabWidget
   static const balanceNoGraph = 'balanceNoGraph';

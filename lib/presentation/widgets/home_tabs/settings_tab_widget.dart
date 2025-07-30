@@ -18,9 +18,11 @@ class SettingsTabWidget extends StatelessWidget {
             padding: JPPadding.all,
             child: Column(
               children: [
-                const _SettingSwitchContainerWidget(),
+                const _SettingThemeModeContainerWidget(),
                 JPSpacingVertical.m,
-                const _SettingActionContainerWidget(),
+                const _SettingLanguageContainerWidget(),
+                JPSpacingVertical.m,
+                const _SettingDeleteAllDataContainerWidget(),
               ],
             ),
           ),
@@ -30,8 +32,8 @@ class SettingsTabWidget extends StatelessWidget {
   }
 }
 
-class _SettingSwitchContainerWidget extends StatelessWidget {
-  const _SettingSwitchContainerWidget();
+class _SettingThemeModeContainerWidget extends StatelessWidget {
+  const _SettingThemeModeContainerWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +60,8 @@ class _SettingSwitchContainerWidget extends StatelessWidget {
   }
 }
 
-class _SettingActionContainerWidget extends StatelessWidget {
-  const _SettingActionContainerWidget();
+class _SettingLanguageContainerWidget extends StatelessWidget {
+  const _SettingLanguageContainerWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +105,49 @@ class _SettingActionContainerWidget extends StatelessWidget {
           } else {
             localeViewModel.changeLang(const Locale(JPLocaleKeys.pt));
           }
+        },
+      ),
+    );
+  }
+}
+
+class _SettingDeleteAllDataContainerWidget extends StatelessWidget {
+  const _SettingDeleteAllDataContainerWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final DataBaseViewModel dataBaseViewModel = context
+        .watch<DataBaseViewModel>();
+
+    return _SettingContainerWidget(
+      label: context.translate(JPLocaleKeys.settingsDeleteAllData),
+      icon: Icons.folder_copy_rounded,
+      onTap: () =>
+          onTap(context: context, dataBaseViewModel: dataBaseViewModel),
+      trailingWidget: Column(
+        children: [
+          JPSpacingVertical.s,
+          const Icon(Icons.chevron_right),
+          JPSpacingVertical.s,
+        ],
+      ),
+    );
+  }
+
+  void onTap({
+    required BuildContext context,
+    required DataBaseViewModel dataBaseViewModel,
+  }) {
+    context.showModal(
+      child: JPConfirmationModal(
+        title: context.translate(JPLocaleKeys.settingsDeleteAllDataModal),
+        primaryButtonLabel: context.translate(JPLocaleKeys.confirm),
+        onTapPrimaryButton: () {
+          dataBaseViewModel.deleteAllDatabasesData();
+          context.pop();
+          context.showSnackInfo(
+            context.translate(JPLocaleKeys.settingsDeleteAllDataSnack),
+          );
         },
       ),
     );
