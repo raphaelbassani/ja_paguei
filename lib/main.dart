@@ -8,7 +8,7 @@ import 'src/helpers/routes.dart';
 import 'src/pages/bill_page.dart';
 import 'src/pages/bill_payment_date_page.dart';
 import 'src/pages/bill_variable_amount_page.dart';
-import 'src/pages/home_page.dart';
+import 'src/pages/splash_screen_page.dart';
 import 'src/view_models/database_view_model.dart';
 import 'src/view_models/locale_view_model.dart';
 import 'src/view_models/theme_view_model.dart';
@@ -85,7 +85,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       supportedLocales: JPLocale.supportedLocales,
       locale: context.watch<LocaleViewModel>().appLocale,
       routes: {
-        Routes.home: (context) => const HomePage(),
+        Routes.home: (context) => const SplashScreenPage(),
         Routes.bill: (context) => const BillPage(),
         Routes.billVariableAmount: (context) => const BillVariableAmountPage(),
         Routes.billPaymentDate: (context) => const BillPaymentDatePage(),
