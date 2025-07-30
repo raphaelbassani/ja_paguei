@@ -10,6 +10,8 @@ class LocaleViewModel extends BaseViewModel {
 
   Locale? get appLocale => _appLocale;
 
+  String? get languageCode => _appLocale?.languageCode;
+
   Future<void> loadLang() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

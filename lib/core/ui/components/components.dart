@@ -4,6 +4,7 @@ export 'jp_calendar.dart';
 export 'jp_confirmation_modal.dart';
 export 'jp_fab.dart';
 export 'jp_gesture_detector.dart';
+export 'jp_loader_overlay.dart';
 export 'jp_primary_button.dart';
 export 'jp_secondary_button.dart';
 export 'jp_selection_modal.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -45,5 +46,21 @@ extension PresentationExtensions on BuildContext {
       Overlay.of(this),
       CustomSnackBar.error(message: message, maxLines: 20),
     );
+  }
+
+  void showLoader() {
+    if (mounted) {
+      if (!loaderOverlay.visible) {
+        loaderOverlay.show();
+      }
+    }
+  }
+
+  void hideLoader() {
+    if (mounted) {
+      if (loaderOverlay.visible) {
+        loaderOverlay.hide();
+      }
+    }
   }
 }

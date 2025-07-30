@@ -9,12 +9,16 @@ class JPActionButtons extends StatelessWidget {
   final Function()? onTapPrimaryButton;
   final String? secondaryButtonLabel;
   final Function()? onTapSecondaryButton;
+  final bool hidePrimaryButton;
+  final bool hideSecondaryButton;
 
   const JPActionButtons({
     this.primaryButtonLabel,
     this.onTapPrimaryButton,
     this.secondaryButtonLabel,
     this.onTapSecondaryButton,
+    this.hidePrimaryButton = false,
+    this.hideSecondaryButton = false,
     super.key,
   });
 
@@ -22,15 +26,19 @@ class JPActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        JPPrimaryButton(
-          onTap: onTapPrimaryButton ?? () {},
-          label: primaryButtonLabel ?? context.translate(JPLocaleKeys.save),
-        ),
-        JPSpacingVertical.s,
-        JPSecondaryButton(
-          onTap: onTapSecondaryButton ?? () => context.pop(),
-          label: secondaryButtonLabel ?? context.translate(JPLocaleKeys.cancel),
-        ),
+        if (!hidePrimaryButton)
+          JPPrimaryButton(
+            onTap: onTapPrimaryButton ?? () {},
+            label: primaryButtonLabel ?? context.translate(JPLocaleKeys.save),
+          ),
+        if (!hideSecondaryButton) ...[
+          JPSpacingVertical.s,
+          JPSecondaryButton(
+            onTap: onTapSecondaryButton ?? () => context.pop(),
+            label:
+                secondaryButtonLabel ?? context.translate(JPLocaleKeys.cancel),
+          ),
+        ],
       ],
     );
   }

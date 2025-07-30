@@ -28,6 +28,9 @@ dependencies:
   page_transition: 2.2.1
   lottie: 3.3.1
   collection: 1.19.1
+  dio: 5.8.0+1
+  dart_either: 2.0.0
+  loader_overlay: 5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -43,4 +46,5 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/lottie/loader_overlay.json
     - assets/lottie/splash.json

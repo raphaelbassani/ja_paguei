@@ -25,6 +25,7 @@ class JPLocale {
     JPLocaleKeys.cancel: 'Cancel',
     JPLocaleKeys.delete: 'Delete',
     JPLocaleKeys.edit: 'Edit',
+    JPLocaleKeys.close: 'Close',
     JPLocaleKeys.variableAmount: 'Variable amount',
 
     /// Languages
@@ -133,6 +134,8 @@ class JPLocale {
     JPLocaleKeys.historyNoData: 'History will appear after first payment.',
 
     /// SettingsTabWidget
+    JPLocaleKeys.settingsJoke: 'Tell me a joke',
+    JPLocaleKeys.settingsJokeReveal: 'Reveal joke',
     JPLocaleKeys.settingsDarkMode: 'Dark mode',
     JPLocaleKeys.settingsLanguage: 'Language',
     JPLocaleKeys.settingsSelectLanguage: 'Select language',
@@ -143,6 +146,12 @@ class JPLocale {
     /// BalanceTabWidget
     JPLocaleKeys.balanceNoGraph:
         'The balance will be made after the first payment.',
+
+    /// Failures
+    JPLocaleKeys.unknownFailure: 'Unknown failure.',
+    JPLocaleKeys.jokeAPIFailure: 'Error getting joke. Please, try again.',
+    JPLocaleKeys.jokeRemoteFailure:
+        'Error getting joke. The clown is sleeping.',
   };
 
   static const Map<String, String> pt = {
@@ -153,6 +162,7 @@ class JPLocale {
     JPLocaleKeys.cancel: 'Cancelar',
     JPLocaleKeys.delete: 'Deletar',
     JPLocaleKeys.edit: 'Editar',
+    JPLocaleKeys.close: 'Fechar',
     JPLocaleKeys.variableAmount: 'Valor variável',
 
     /// Languages
@@ -261,6 +271,8 @@ class JPLocale {
         'O histórico aparecerá após o primeiro pagamento.',
 
     /// SettingsTabWidget
+    JPLocaleKeys.settingsJoke: 'Me conte uma piada',
+    JPLocaleKeys.settingsJokeReveal: 'Revelar piada',
     JPLocaleKeys.settingsDarkMode: 'Modo escuro',
     JPLocaleKeys.settingsLanguage: 'Idioma',
     JPLocaleKeys.settingsSelectLanguage: 'Selecionar idioma',
@@ -271,6 +283,13 @@ class JPLocale {
     /// BalanceTabWidget
     JPLocaleKeys.balanceNoGraph:
         'O balanço será feito após o primeiro pagamento.',
+
+    /// Failures
+    JPLocaleKeys.unknownFailure: 'Erro desconhecido.',
+    JPLocaleKeys.jokeAPIFailure:
+        'Erro ao buscar piada. Por favor, tente novamente.',
+    JPLocaleKeys.jokeRemoteFailure:
+        'Erro ao buscar piada. O palhaço está dormindo.',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {

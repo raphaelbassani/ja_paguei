@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../../../core/extensions/extensions.dart';
 import '../../../core/ui/ui.dart';
+import '../../../data/datasources/datasources.dart';
+import '../../../data/models/joke_model.dart';
+import '../../../data/services/services.dart';
 import '../../../l10n/l10n.dart';
 import '../../state/view_models.dart';
 
@@ -18,6 +21,8 @@ class SettingsTabWidget extends StatelessWidget {
             padding: JPPadding.all,
             child: Column(
               children: [
+                const _SettingTellMeAJokeContainerWidget(),
+                JPSpacingVertical.m,
                 const _SettingThemeModeContainerWidget(),
                 JPSpacingVertical.m,
                 const _SettingLanguageContainerWidget(),
@@ -121,7 +126,7 @@ class _SettingDeleteAllDataContainerWidget extends StatelessWidget {
 
     return _SettingContainerWidget(
       label: context.translate(JPLocaleKeys.settingsDeleteAllData),
-      icon: Icons.folder_copy_rounded,
+      icon: Icons.folder_delete,
       onTap: () =>
           onTap(context: context, dataBaseViewModel: dataBaseViewModel),
       trailingWidget: Column(
@@ -149,6 +154,44 @@ class _SettingDeleteAllDataContainerWidget extends StatelessWidget {
             context.translate(JPLocaleKeys.settingsDeleteAllDataSnack),
           );
         },
+      ),
+    );
+  }
+}
+
+class _SettingTellMeAJokeContainerWidget extends StatelessWidget {
+  const _SettingTellMeAJokeContainerWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final JokeService jokeService = JokeService(
+      languageCode: context.watch<LocaleViewModel>().languageCode!,
+      datasource: context.read<JokeDatasource>(),
+    );
+
+    return _SettingContainerWidget(
+      label: context.translate(JPLocaleKeys.settingsJoke),
+      icon: Icons.auto_awesome,
+      onTap: () async {
+        context.showLoader();
+        final result = await jokeService.getJoke();
+        if (context.mounted) {
+          context.hideLoader();
+        }
+
+        result.fold(
+          ifLeft: (failure) => context.showSnackError(failure.message),
+          ifRight: (success) {
+            context.showModal(child: _JokeModal(joke: success));
+          },
+        );
+      },
+      trailingWidget: Column(
+        children: [
+          JPSpacingVertical.s,
+          const Icon(Icons.chevron_right),
+          JPSpacingVertical.s,
+        ],
       ),
     );
   }
@@ -198,6 +241,52 @@ class _SettingContainerWidget extends StatelessWidget {
               JPSpacingVertical.xxs,
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _JokeModal extends StatefulWidget {
+  final JokeModel joke;
+
+  const _JokeModal({required this.joke});
+
+  @override
+  State<_JokeModal> createState() => _JokeModalState();
+}
+
+class _JokeModalState extends State<_JokeModal> {
+  bool showFullJoke = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const ScrollPhysics(),
+      child: Padding(
+        padding: JPPadding.horizontal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            JPSpacingVertical.m,
+            JPTitleModal(title: context.translate(JPLocaleKeys.settingsJoke)),
+            JPSpacingVertical.m,
+            JPText(widget.joke.setupJoke),
+            JPSpacingVertical.xl,
+            JPActionButtons(
+              primaryButtonLabel: showFullJoke
+                  ? widget.joke.deliverJoke
+                  : context.translate(JPLocaleKeys.settingsJokeReveal),
+              onTapPrimaryButton: () {
+                showFullJoke = true;
+                setState(() {});
+              },
+              secondaryButtonLabel: context.translate(JPLocaleKeys.close),
+              onTapSecondaryButton: context.pop,
+              hidePrimaryButton: !(widget.joke.isTwoPart ?? false),
+            ),
+            JPSpacingVertical.l,
+          ],
         ),
       ),
     );
