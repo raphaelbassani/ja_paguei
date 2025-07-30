@@ -19,7 +19,7 @@ class BillsTabWidget extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        if (dataBaseViewModel.history.isEmpty)
+        if (dataBaseViewModel.bills.isEmpty)
           SliverToBoxAdapter(
             child: Padding(
               padding: JPPadding.all,

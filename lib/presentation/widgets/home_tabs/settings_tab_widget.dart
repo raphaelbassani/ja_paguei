@@ -97,11 +97,11 @@ class _SettingActionContainerWidget extends StatelessWidget {
             ? items.first
             : items[1],
         primaryButtonLabel: context.translate(JPLocaleKeys.confirm),
-        onTapPrimaryButton: (_) {
-          if (localeViewModel.appLocale?.languageCode == JPLocaleKeys.en) {
-            localeViewModel.changeLang(const Locale(JPLocaleKeys.pt));
-          } else {
+        onTapPrimaryButton: (value) {
+          if (value == items.first) {
             localeViewModel.changeLang(const Locale(JPLocaleKeys.en));
+          } else {
+            localeViewModel.changeLang(const Locale(JPLocaleKeys.pt));
           }
         },
       ),
