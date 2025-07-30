@@ -50,9 +50,13 @@ class BillDatabase {
 
   Future<List<BillModel>> readAll() async {
     final db = await instance.database;
-    const orderBy = '${BillFields.dueDay} ASC';
-    final result = await db.query(BillFields.tableName, orderBy: orderBy);
-    return result.map((json) => BillModel.fromJson(json)).toList();
+    final result = await db.query(BillFields.tableName);
+    final List<BillModel> listResult = result
+        .map((json) => BillModel.fromJson(json))
+        .toList();
+    final List<BillModel> sortedList = listResult
+      ..sort((b, a) => b.dueDay.compareTo(a.dueDay));
+    return sortedList;
   }
 
   Future<void> update(BillModel bill) async {
