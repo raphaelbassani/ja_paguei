@@ -20,10 +20,15 @@ class BalanceTabWidget extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: _BarChartWidget(
-            graphItems: items,
-            maxY: maxY(items),
-            barWidth: 200 / items.length,
+          child: Column(
+            children: [
+              JPSpacingVertical.l,
+              _BarChartWidget(
+                graphItems: items,
+                maxY: maxY(items),
+                barWidth: 200 / items.length,
+              ),
+            ],
           ),
         ),
       ],

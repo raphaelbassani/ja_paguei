@@ -83,7 +83,7 @@ extension ContextExtensions on BuildContext {
 
   String? get _countryCode => _systemLocale.countryCode;
 
-  bool get _isPtBR => _languageCode == 'pt';
+  bool get _isPtBR => _languageCode == JPLocaleKeys.pt;
 
   String? get jpLocale =>
       '$_languageCode${_countryCode != null ? '_$_countryCode' : ''}';

@@ -10,7 +10,7 @@ class JPLocale {
       return '';
     }
 
-    if (languageCode == 'pt') {
+    if (languageCode == JPLocaleKeys.pt) {
       return pt[key]!;
     }
 
@@ -18,16 +18,20 @@ class JPLocale {
   }
 
   static const Map<String, String> en = {
-    JPLocaleKeys.title: 'Hello',
     JPLocaleKeys.alreadyPaid: 'Already paid',
     JPLocaleKeys.currency: '\$',
     JPLocaleKeys.save: 'Save',
+    JPLocaleKeys.confirm: 'Confirm',
     JPLocaleKeys.cancel: 'Cancel',
     JPLocaleKeys.delete: 'Delete',
     JPLocaleKeys.edit: 'Edit',
     JPLocaleKeys.variableAmount: 'Variable amount',
 
-    ///Months
+    /// Languages
+    JPLocaleKeys.en: 'English',
+    JPLocaleKeys.pt: 'Português',
+
+    /// Months
     JPLocaleKeys.jan: 'Jan',
     JPLocaleKeys.feb: 'Feb',
     JPLocaleKeys.mar: 'Mar',
@@ -119,17 +123,26 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalSnack: 'Bill paid!',
     JPLocaleKeys.billConfirmationModalDateTitle: 'Date that it was paid',
     JPLocaleKeys.billConfirmationModalDateSubtitle: 'Date that it was paid',
+
+    /// SettingsTabWidget
+    JPLocaleKeys.settingsDarkMode: 'Dark mode',
+    JPLocaleKeys.settingsLanguage: 'Language',
+    JPLocaleKeys.settingsSelectLanguage: 'Select language',
   };
 
   static const Map<String, String> pt = {
-    JPLocaleKeys.title: 'Hello',
     JPLocaleKeys.alreadyPaid: 'Já paguei',
     JPLocaleKeys.currency: 'R\$',
     JPLocaleKeys.save: 'Salvar',
+    JPLocaleKeys.confirm: 'Confirmar',
     JPLocaleKeys.cancel: 'Cancelar',
     JPLocaleKeys.delete: 'Deletar',
     JPLocaleKeys.edit: 'Editar',
     JPLocaleKeys.variableAmount: 'Valor variável',
+
+    /// Languages
+    JPLocaleKeys.en: 'English',
+    JPLocaleKeys.pt: 'Português',
 
     ///Months
     JPLocaleKeys.jan: 'Jan',
@@ -222,21 +235,26 @@ class JPLocale {
     JPLocaleKeys.billConfirmationModalDateSubtitle:
         'A conta já foi paga nesse dia, '
         'deseja pagar novamente?',
+
+    /// SettingsTabWidget
+    JPLocaleKeys.settingsDarkMode: 'Modo escuro',
+    JPLocaleKeys.settingsLanguage: 'Idioma',
+    JPLocaleKeys.settingsSelectLanguage: 'Selecionar idioma',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {
     'en_US': en,
-    'en': en,
+    JPLocaleKeys.en: en,
     'pt_BR': pt,
-    'pt': pt,
+    JPLocaleKeys.pt: pt,
   };
 
   static const List<Locale> supportedLocales = [
-    Locale('en', 'US'),
-    Locale('en'),
+    Locale(JPLocaleKeys.en, 'US'),
+    Locale(JPLocaleKeys.en),
     Locale('en_US'),
-    Locale('pt', 'BR'),
-    Locale('pt'),
+    Locale(JPLocaleKeys.pt, 'BR'),
+    Locale(JPLocaleKeys.pt),
     Locale('pt_BR'),
   ];
 }

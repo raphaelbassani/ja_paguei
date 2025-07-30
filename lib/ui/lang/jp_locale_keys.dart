@@ -1,13 +1,16 @@
 abstract class JPLocaleKeys {
-  static const title = 'title';
-
   static const alreadyPaid = 'alreadyPaid';
   static const currency = 'currency';
   static const save = 'save';
+  static const confirm = 'confirm';
   static const cancel = 'cancel';
   static const delete = 'delete';
   static const edit = 'edit';
   static const variableAmount = 'variableAmount';
+
+  /// Languages
+  static const String en = 'en';
+  static const String pt = 'pt';
 
   /// Months
   static const jan = 'jan';
@@ -102,4 +105,9 @@ abstract class JPLocaleKeys {
       'billConfirmationModalDateTitle';
   static const billConfirmationModalDateSubtitle =
       'billConfirmationModalDateSubtitle';
+
+  /// SettingsTabWidget
+  static const settingsDarkMode = 'settingsDarkMode';
+  static const settingsLanguage = 'settingsLanguage';
+  static const settingsSelectLanguage = 'settingsSelectLanguage';
 }
