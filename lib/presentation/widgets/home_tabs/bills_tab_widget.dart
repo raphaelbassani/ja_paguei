@@ -57,6 +57,9 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DataBaseViewModel dataBaseViewModel = context
+        .read<DataBaseViewModel>();
+
     return Padding(
       padding: JPPadding.horizontal + JPPadding.bottom,
       child: Container(
@@ -69,7 +72,25 @@ class _ItemWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              JPText(bill.name, type: JPTextTypeEnum.l),
+              JPGestureDetector(
+                child: JPText(bill.name, type: JPTextTypeEnum.l),
+                onLongPress: () {
+                  context.showModal(
+                    child: JPConfirmationModal(
+                      title: context.translate(
+                        JPLocaleKeys.billDeleteModalTitle,
+                      ),
+                      primaryButtonLabel: context.translate(
+                        JPLocaleKeys.delete,
+                      ),
+                      onTapPrimaryButton: () {
+                        dataBaseViewModel.deleteBill(bill);
+                        context.pop();
+                      },
+                    ),
+                  );
+                },
+              ),
               JPSpacingVertical.xxs,
               Row(
                 children: [
