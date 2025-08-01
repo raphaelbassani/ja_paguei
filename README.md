@@ -14,7 +14,8 @@ The idea came from a need I encountered in my daily life — I always needed a s
 ## 📱 Features
 
 - Local database (no internet needed)
-- JP UI reusable components
+- UI reusable components
+- Lottie animations (SplashScreen and LoaderOverlay)
 - Create, Update, Edit and Delete bills (CRUD)
 - Mark bills as **paid**, with optional value updates for variable amount and payment date
 - View bill list sorted by due date, always showing the last 5 days first and then upcoming bills in ascending order
