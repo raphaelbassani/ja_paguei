@@ -2,34 +2,40 @@
 
 This Flutter app helps users **manually track and manage their monthly bills** by storing important payment information, alerting them to upcoming due dates, and providing a clean history and balance visualization.
 
-The idea came from a need I encountered in my daily life — I always needed a simple app to manage my bills, but the available apps were too complex to do so. As a result, I ended up using to-do list apps for this purpose, which was quite a manual process, and not made for it.
+The idea came from a need I encountered in my daily life — I always needed a simple app to manage my bills, but the available apps were overly complex. As a result, I ended up using to-do list apps, which was a very manual and inefficient solution for this purpose.
+
 
 > ⚠️ Note: This app **does not connect to banks** or process real payments. It is purely for personal financial tracking.
+
 > 🌎 App compatible languages: 🇺🇸 English 🇺🇸 ; 🇧🇷 Portuguese 🇧🇷 
 
 ---
 
 ## 📱 Features
 
-- Add and manage monthly bills
-- Mark bills as **paid**, with optional value updates for variable bills
-- View bill list sorted by **due date**
+- Local database (no internet needed)
+- JP UI reusable components
+- Create, Update, Edit and Delete bills (CRUD)
+- Mark bills as **paid**, with optional value updates for variable amount and payment date
+- View bill list sorted by due date, always showing the last 5 days first and then upcoming bills in ascending order
 - Assign different **payment methods** (BankSlip, Debit, Money, etc.)
 - Track bill **status**: Pending, Paid, or Overdue
-- View **payment history**
+- View **payment history** by months
 - See a **bar chart** of total expenses over the past 6 months
-- Tell me a joke (funny feature of the app)
+- Dark mode and Light mode from device and also user user-changeable (saved to local storage)
+- Language selection based on device settings, and also user-changeable (saved to local storage)
+- Delete all data
+- Tell me a joke (funny feature of the app using open JokeAPI https://sv443.net/jokeapi/v2/)
 
 ---
 
 ## 📸 Screenshots
 
-> Add your own screenshots in this section using markdown image links.
+| <img src="assets/screenshots/empty_state.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/bills_1.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/bills_2.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/bills_3_light_mode.png" alt="drawing" width="150"/> | <img src="assets/screenshots/bill_4_light_mode.png" alt="drawing" width="150"/>  | 
+|---|---|---|---|---|
+| <img src="assets/screenshots/bill_5_light_mode.png" alt="drawing" width="150"/>   |  <img src="assets/screenshots/bill_create.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/bill_create_errors.png" alt="drawing" width="150"/> | <img src="assets/screenshots/history.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/balance.png" alt="drawing" width="150"/>  |
+| <img src="assets/screenshots/settings.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/payment_change_date.png" alt="drawing" width="150"/> | <img src="assets/screenshots/payment_confirm.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/payment_variable_value.png" alt="drawing" width="150"/> | <img src="assets/screenshots/select_language.png" alt="drawing" width="150"/>  |
 
-<!-- Example: -->
-<!-- ![Bill List](screenshots/bill_list.png) -->
-<!-- ![Add Bill](screenshots/add_bill.png) -->
-<!-- ![Chart](screenshots/expenses_chart.png) -->
 
 ---
 
@@ -49,6 +55,7 @@ The idea came from a need I encountered in my daily life — I always needed a s
 ---
 
 ## 📁 Folder Structure
+```bash
 lib/
 ├── core/ # constants, extensions, ui
 ├── data/ # datasources (remote and local), errors, models, services
@@ -59,6 +66,7 @@ lib/
 │ └── routes/ # page routes for navigation 
 │ └── state/ # view_models 
 └── l10n/ # localization files, keys and values
+```
 
 ---
 
@@ -75,7 +83,7 @@ lib/
    ```bash
    flutter pub get
    
-2. **Run the app:**
+3. **Run the app:**
    
    ```bash
    flutter run
