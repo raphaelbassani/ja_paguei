@@ -59,8 +59,15 @@ The idea came from a need I encountered in my daily life — I always needed a s
 Based on Flutter documentation (https://docs.flutter.dev/app-architecture/guide) with some minor changes
 ```bash
 lib/
-├── core/ # constants, extensions, ui
-├── data/ # datasources (remote and local), errors, models, services
+├── core/
+│ ├── constants/ # consts
+│ ├── extensions/ # date_time, locale, navigator, presentation, string
+│ ├── ui/ # JP UI visual components
+├── data/ 
+│ ├── datasources/ # remote datasources and local databases
+│ ├── errors/ # exceptions and failures
+│ ├── models/ # app classes
+│ ├── services/ # remote datasources connections using either returns
 ├── presentation/
 │ ├── pages/ # screens
 │ ├── widgets/ # reusable internal UI components
