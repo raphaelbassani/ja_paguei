@@ -56,6 +56,7 @@ The idea came from a need I encountered in my daily life — I always needed a s
 ---
 
 ## 📁 Folder Structure
+Based on Flutter documentation (https://docs.flutter.dev/app-architecture/guide) with some minor changes
 ```bash
 lib/
 ├── core/ # constants, extensions, ui
@@ -98,7 +99,7 @@ No data is shared, uploaded, or monetized.
 ---
 
 ## 📄 License
-This project is open-source and available under the MIT License.
+This project is open-source and available under the MIT License (https://opensource.org/license/mit).
 
 ---
 
