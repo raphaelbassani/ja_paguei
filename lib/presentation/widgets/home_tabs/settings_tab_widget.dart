@@ -164,15 +164,15 @@ class _SettingTellMeAJokeContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final JokeService jokeService = JokeService(
-      languageCode: context.watch<LocaleViewModel>().languageCode!,
-      datasource: context.read<JokeDatasource>(),
-    );
-
     return _SettingContainerWidget(
       label: context.translate(JPLocaleKeys.settingsJoke),
       icon: Icons.auto_awesome,
       onTap: () async {
+        final JokeService jokeService = JokeService(
+          languageCode: context.languageCode,
+          datasource: context.read<JokeDatasource>(),
+        );
+
         context.showLoader();
         final result = await jokeService.getJoke();
         if (context.mounted) {

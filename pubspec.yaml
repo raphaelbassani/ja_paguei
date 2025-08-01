@@ -1,5 +1,5 @@
 name: ja_paguei
-description: "A Flutter project to simplify bill payment history."
+description: "A Flutter project to simplify bill payment tracking."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -25,7 +25,6 @@ dependencies:
   shared_preferences: 2.5.3
   stylish_bottom_bar: 1.1.1
   fl_chart: 1.0.0
-  page_transition: 2.2.1
   lottie: 3.3.1
   collection: 1.19.1
   dio: 5.8.0+1
