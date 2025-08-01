@@ -32,9 +32,9 @@ The idea came from a need I encountered in my daily life — I always needed a s
 
 ## 📸 Screenshots
 
-| <img src="assets/screenshots/empty_state.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/bills_1.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/bills_2.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/bills_3_light_mode.png" alt="drawing" width="150"/> | <img src="assets/screenshots/bill_4_light_mode.png" alt="drawing" width="150"/>  | 
+| <img src="assets/screenshots/empty_state.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/bills_1.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/bills_2.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/bills_3_light_mode.png" alt="drawing" width="150"/> | <img src="assets/screenshots/bills_4_light_mode.png" alt="drawing" width="150"/>  | 
 |---|---|---|---|---|
-| <img src="assets/screenshots/bill_5_light_mode.png" alt="drawing" width="150"/>   |  <img src="assets/screenshots/bill_create.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/bill_create_errors.png" alt="drawing" width="150"/> | <img src="assets/screenshots/history.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/balance.png" alt="drawing" width="150"/>  |
+| <img src="assets/screenshots/bills_5_light_mode.png" alt="drawing" width="150"/>   |  <img src="assets/screenshots/bill_create.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/bill_create_errors.png" alt="drawing" width="150"/> | <img src="assets/screenshots/history.png" alt="drawing" width="150"/>  | <img src="assets/screenshots/balance.png" alt="drawing" width="150"/>  |
 | <img src="assets/screenshots/settings.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/payment_change_date.png" alt="drawing" width="150"/> | <img src="assets/screenshots/payment_confirm.png" alt="drawing" width="150"/>  |  <img src="assets/screenshots/payment_variable_value.png" alt="drawing" width="150"/> | <img src="assets/screenshots/select_language.png" alt="drawing" width="150"/>  |
 
 
