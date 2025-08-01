@@ -8,22 +8,22 @@ import 'extensions.dart';
 extension LocaleExtensions on BuildContext {
   Locale get _systemLocale => Localizations.localeOf(this);
 
-  String get _languageCode => _systemLocale.languageCode;
+  String get languageCode => _systemLocale.languageCode;
 
   String? get _countryCode => _systemLocale.countryCode;
 
-  bool get _isPtBR => _languageCode == JPLocaleKeys.pt;
+  bool get _isPtBR => languageCode == JPLocaleKeys.pt;
 
   String? get jpLocale =>
-      '$_languageCode${_countryCode != null ? '_$_countryCode' : ''}';
+      '$languageCode${_countryCode != null ? '_$_countryCode' : ''}';
 
-  String translate(String? key) => JPLocale.translate(_languageCode, key);
+  String translate(String? key) => JPLocale.translate(languageCode, key);
 
   String get currency => translate(JPLocaleKeys.currency);
 
   CurrencyTextInputFormatter get currencyTextInputFormatter =>
       CurrencyTextInputFormatter.currency(
-        locale: '${_languageCode}_$_countryCode',
+        locale: '${languageCode}_$_countryCode',
         symbol: currency,
         decimalDigits: 2,
       );

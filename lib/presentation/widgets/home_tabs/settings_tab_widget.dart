@@ -169,7 +169,7 @@ class _SettingTellMeAJokeContainerWidget extends StatelessWidget {
       icon: Icons.auto_awesome,
       onTap: () async {
         final JokeService jokeService = JokeService(
-          languageCode: context.read<LocaleViewModel>().languageCode!,
+          languageCode: context.languageCode,
           datasource: context.read<JokeDatasource>(),
         );
 
