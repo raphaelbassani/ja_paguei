@@ -144,7 +144,8 @@ class DataBaseViewModel extends BaseViewModel {
       return {};
     }
 
-    final List<HistoryModel> ascHistory = _history;
+    final List<HistoryModel> ascHistory = [];
+    ascHistory.addAll(_history);
 
     ascHistory.sort((b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
 
