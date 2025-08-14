@@ -12,6 +12,7 @@ class HistoryFilterPage extends StatelessWidget {
     return Scaffold(
       appBar: JPAppBar(
         title: context.translate(JPLocaleKeys.historyFilterAppBar),
+        hasTrailing: true,
       ),
       body: CustomScrollView(slivers: []),
     );
