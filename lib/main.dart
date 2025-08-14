@@ -7,6 +7,7 @@ import 'core/extensions/extensions.dart';
 import 'core/ui/components/components.dart';
 import 'data/datasources/datasources.dart';
 import 'l10n/l10n.dart';
+import 'presentation/pages/history_filter_page.dart';
 import 'presentation/pages/pages.dart';
 import 'presentation/routes/routes.dart';
 import 'presentation/state/view_models.dart';
@@ -93,6 +94,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
         Routes.bill: (context) => const BillPage(),
         Routes.billVariableAmount: (context) => const BillVariableAmountPage(),
         Routes.billPaymentDate: (context) => const BillPaymentDatePage(),
+        Routes.historyFilter: (context) => const HistoryFilterPage(),
       },
     );
   }

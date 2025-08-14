@@ -4,4 +4,5 @@ class Routes {
   static String bill = '/bill';
   static String billVariableAmount = '/bill/variable_amount';
   static String billPaymentDate = '/bill/payment_date';
+  static String historyFilter = '/history/filter';
 }

@@ -22,10 +22,13 @@ class DataBaseViewModel extends BaseViewModel {
 
   List<HistoryModel> get history => _history;
 
+  List<HistoryModel> get filteredHistory => _filteredHistory ?? _history;
+
   List<BillModel> get bills => _bills;
 
   StatusEnum _status = StatusEnum.idle;
   List<HistoryModel> _history = [];
+  List<HistoryModel>? _filteredHistory;
   List<BillModel> _bills = [];
 
   Future<void> loadData() async {

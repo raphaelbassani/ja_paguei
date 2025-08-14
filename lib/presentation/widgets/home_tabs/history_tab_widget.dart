@@ -23,18 +23,20 @@ class HistoryTabWidget extends StatelessWidget {
               padding: JPPadding.all,
               child: JPText(context.translate(JPLocaleKeys.historyNoData)),
             ),
-          ),
-
+          )
+        else
+          const SliverToBoxAdapter(child: _FilterRowWidget()),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: dataBaseViewModel.history.length,
+            childCount: dataBaseViewModel.filteredHistory.length,
             (_, index) {
-              final HistoryModel payment = dataBaseViewModel.history[index];
+              final HistoryModel payment =
+                  dataBaseViewModel.filteredHistory[index];
               final bool isFirstOfMonth =
                   index == 0 ||
                   payment.paymentDateTime!.month !=
                       dataBaseViewModel
-                          .history[index - 1]
+                          .filteredHistory[index - 1]
                           .paymentDateTime!
                           .month;
 
@@ -118,6 +120,31 @@ class _ItemWidget extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _FilterRowWidget extends StatefulWidget {
+  const _FilterRowWidget();
+
+  @override
+  State<_FilterRowWidget> createState() => _FilterRowWidgetState();
+}
+
+class _FilterRowWidgetState extends State<_FilterRowWidget> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: JPPadding.horizontal,
+      child: JPGestureDetector(
+        onTap: () {},
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [Icon(Icons.filter_list)],
+        ),
       ),
     );
   }
