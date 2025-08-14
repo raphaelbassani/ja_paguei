@@ -5,6 +5,7 @@ import '../../../core/extensions/extensions.dart';
 import '../../../core/ui/ui.dart';
 import '../../../data/models/models.dart';
 import '../../../l10n/l10n.dart';
+import '../../routes/routes.dart';
 import '../../state/view_models.dart';
 
 class HistoryTabWidget extends StatelessWidget {
@@ -140,7 +141,7 @@ class _FilterRowWidgetState extends State<_FilterRowWidget> {
     return Padding(
       padding: JPPadding.horizontal,
       child: JPGestureDetector(
-        onTap: () {},
+        onTap: () => context.pushNamed(Routes.historyFilter),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [Icon(Icons.filter_list)],

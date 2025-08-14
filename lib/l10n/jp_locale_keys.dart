@@ -132,4 +132,7 @@ abstract class JPLocaleKeys {
   static const unknownFailure = 'unknownFailure';
   static const jokeAPIFailure = 'jokeAPIFailure';
   static const jokeRemoteFailure = 'jokeRemoteFailure';
+
+  /// HistoryFilterPage
+  static const historyFilterAppBar = 'historyFilterAppBar';
 }

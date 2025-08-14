@@ -152,6 +152,9 @@ class JPLocale {
     JPLocaleKeys.jokeAPIFailure: 'Error getting joke. Please, try again.',
     JPLocaleKeys.jokeRemoteFailure:
         'Error getting joke. The clown is sleeping.',
+
+    /// HistoryFilterPage
+    JPLocaleKeys.historyFilterAppBar: 'Filter',
   };
 
   static const Map<String, String> pt = {
@@ -290,6 +293,9 @@ class JPLocale {
         'Erro ao buscar piada. Por favor, tente novamente.',
     JPLocaleKeys.jokeRemoteFailure:
         'Erro ao buscar piada. O palhaço está dormindo.',
+
+    /// HistoryFilterPage
+    JPLocaleKeys.historyFilterAppBar: 'Filtrar',
   };
 
   static const Map<String, Map<String, String>> mapLocales = {
