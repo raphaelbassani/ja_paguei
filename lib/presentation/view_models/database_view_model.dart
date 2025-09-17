@@ -181,6 +181,15 @@ class DataBaseViewModel extends BaseViewModel {
     return await _billDatabase.exportAndShareJson();
   }
 
+  Future<void> importFromJson(List jsonData) async {
+    await _historyDatabase.deleteAllRows();
+    await _billDatabase.deleteAllRows();
+
+    await _billDatabase.importFromJson(jsonData);
+
+    loadData();
+  }
+
   final Map<int, String> _months = {
     1: JPLocaleKeys.jan,
     2: JPLocaleKeys.feb,

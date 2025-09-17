@@ -21,6 +21,7 @@ dependencies:
   share_plus: 12.0.0
   permission_handler: 12.0.1
   device_info_plus: 12.1.0
+  file_picker: 10.3.3
   intl: 0.20.2
   currency_text_input_formatter: 2.3.0
   modal_bottom_sheet: 3.0.0

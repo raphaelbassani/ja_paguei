@@ -121,4 +121,16 @@ class BillDatabase {
 
     return XFile(file.path);
   }
+
+  Future<void> importFromJson(List jsonData) async {
+    final db = await instance.database;
+
+    for (var item in jsonData) {
+      await db.insert(
+        BillFields.tableName,
+        Map<String, dynamic>.from(item),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
 }
