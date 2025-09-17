@@ -1,5 +1,5 @@
-import '../../presentation/enums/enums.dart';
-import '../datasources/datasources.dart';
+import '../../presentation/enums.dart';
+import '../datasources.dart';
 import 'base_model.dart';
 
 class HistoryModel extends BaseModel {

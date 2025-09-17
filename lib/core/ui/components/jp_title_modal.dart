@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../extensions/extensions.dart';
-import '../ui.dart';
+import '../../extensions.dart';
+import '../../ui.dart';
 
 class JPTitleModal extends StatelessWidget {
   final String title;

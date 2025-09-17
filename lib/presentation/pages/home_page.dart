@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
-import '../../core/extensions/extensions.dart';
-import '../../core/ui/ui.dart';
+import '../../core/extensions.dart';
+import '../../core/ui.dart';
 import '../../l10n/l10n.dart';
-import '../routes/routes.dart';
-import '../widgets/widgets.dart';
+import '../../routes.dart';
+import '../widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

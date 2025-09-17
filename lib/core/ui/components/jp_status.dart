@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../spacing.dart';
+import '../dimens/spacing.dart';
 import 'jp_text.dart';
 
 enum JPStatusEnum {

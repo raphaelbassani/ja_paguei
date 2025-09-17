@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../errors/exceptions.dart';
-import '../../models/models.dart';
+import '../../models.dart';
 
 class JokeDatasource {
   final Dio _dio;

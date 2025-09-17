@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ja_paguei/data/datasources/datasources.dart';
+import 'package:ja_paguei/data/datasources.dart';
 import 'package:ja_paguei/data/models/history_model.dart';
-import 'package:ja_paguei/presentation/enums/enums.dart';
+import 'package:ja_paguei/presentation/enums.dart';
 
 void main() {
   final tHistory = HistoryModel(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui.dart';
+import '../../ui.dart';
 
 class JPSelectionSwitch extends StatefulWidget {
   final String label;

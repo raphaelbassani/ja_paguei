@@ -3,13 +3,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 
-import 'core/extensions/extensions.dart';
-import 'core/ui/components/components.dart';
-import 'data/datasources/datasources.dart';
+import 'core/extensions.dart';
+import 'core/ui/components.dart';
+import 'data/datasources.dart';
 import 'l10n/l10n.dart';
-import 'presentation/pages/pages.dart';
-import 'presentation/routes/routes.dart';
-import 'presentation/state/view_models.dart';
+import 'presentation/pages.dart';
+import 'presentation/view_models.dart';
+import 'routes.dart';
 
 void main() {
   final BillDatabase billDatabase = BillDatabase.instance;

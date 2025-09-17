@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../extensions/extensions.dart';
+import '../../extensions.dart';
 
 class JPTextFormField extends StatelessWidget {
   final TextEditingController controller;

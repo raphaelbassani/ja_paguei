@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../l10n/l10n.dart';
-import '../../extensions/extensions.dart';
-import '../ui.dart';
+import '../../extensions.dart';
+import '../../ui.dart';
 
 class JPActionButtons extends StatelessWidget {
   final String? primaryButtonLabel;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/extensions/extensions.dart';
-import '../../../core/ui/ui.dart';
-import '../../../data/datasources/datasources.dart';
+import '../../../core/extensions.dart';
+import '../../../core/ui.dart';
+import '../../../data/datasources.dart';
 import '../../../data/models/joke_model.dart';
-import '../../../data/services/services.dart';
+import '../../../data/services.dart';
 import '../../../l10n/l10n.dart';
-import '../../state/view_models.dart';
+import '../../view_models.dart';
 
 class SettingsTabWidget extends StatelessWidget {
   const SettingsTabWidget({super.key});

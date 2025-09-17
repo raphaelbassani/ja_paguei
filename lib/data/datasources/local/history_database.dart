@@ -1,8 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../models/models.dart';
-import '../datasources.dart';
+import '../../datasources.dart';
+import '../../models.dart';
 
 class HistoryDatabase {
   static final HistoryDatabase instance = HistoryDatabase._internal();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/constants/constants.dart';
+import '../../core/constants.dart';
 import 'base_view_model.dart';
 
 class ThemeViewModel extends BaseViewModel {

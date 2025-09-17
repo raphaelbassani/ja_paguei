@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../extensions/extensions.dart';
-import '../ui.dart';
+import '../../extensions.dart';
+import '../../ui.dart';
 
 class JPSelectionModal extends StatefulWidget {
   final String title;

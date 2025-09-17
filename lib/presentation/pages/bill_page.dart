@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/extensions/extensions.dart';
-import '../../core/ui/ui.dart';
-import '../../data/models/models.dart';
+import '../../core/extensions.dart';
+import '../../core/ui.dart';
+import '../../data/models.dart';
 import '../../l10n/l10n.dart';
 import '../enums/bill_payment_method_enum.dart';
-import '../state/view_models.dart';
+import '../view_models.dart';
 
 class BillPage extends StatefulWidget {
   const BillPage({super.key});
