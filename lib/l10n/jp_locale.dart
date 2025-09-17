@@ -139,6 +139,10 @@ class JPLocale {
     JPLocaleKeys.settingsDarkMode: 'Dark mode',
     JPLocaleKeys.settingsLanguage: 'Language',
     JPLocaleKeys.settingsSelectLanguage: 'Select language',
+    JPLocaleKeys.settingsExportAllData: 'Export all data',
+    JPLocaleKeys.settingsExportAllDataPermission: 'Could not access storage.',
+    JPLocaleKeys.settingsExportAllDataSnack:
+        'All data has been copied to clipboard.',
     JPLocaleKeys.settingsDeleteAllData: 'Delete all data',
     JPLocaleKeys.settingsDeleteAllDataModal: 'Delete all saved data?',
     JPLocaleKeys.settingsDeleteAllDataSnack: 'All data has been deleted.',
@@ -276,6 +280,10 @@ class JPLocale {
     JPLocaleKeys.settingsDarkMode: 'Modo escuro',
     JPLocaleKeys.settingsLanguage: 'Idioma',
     JPLocaleKeys.settingsSelectLanguage: 'Selecionar idioma',
+    JPLocaleKeys.settingsExportAllData: 'Exportar dados salvos',
+    JPLocaleKeys.settingsExportAllDataPermission:
+        'Não foi possível acessar o armazenamento.',
+    JPLocaleKeys.settingsExportAllDataSnack: 'Todos os dados foram copiados.',
     JPLocaleKeys.settingsDeleteAllData: 'Deletar dados salvos',
     JPLocaleKeys.settingsDeleteAllDataModal: 'Deletar todos os dados salvos?',
     JPLocaleKeys.settingsDeleteAllDataSnack: 'Todos os dados foram deletados.',

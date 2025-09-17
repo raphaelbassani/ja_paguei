@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
@@ -27,6 +32,8 @@ class SettingsTabWidget extends StatelessWidget {
                 JPSpacingVertical.m,
                 const _SettingLanguageContainerWidget(),
                 JPSpacingVertical.m,
+                const _SettingExportAllDataContainerWidget(),
+                JPSpacingVertical.m,
                 const _SettingDeleteAllDataContainerWidget(),
               ],
             ),
@@ -51,7 +58,7 @@ class _SettingThemeModeContainerWidget extends StatelessWidget {
       trailingWidget: Switch(
         value: themeViewModel.isDarkMode,
         onChanged: (_) => onTap(themeViewModel),
-        activeColor: Colors.green,
+        activeThumbColor: Colors.green,
       ),
     );
   }
@@ -156,6 +163,93 @@ class _SettingDeleteAllDataContainerWidget extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class _SettingExportAllDataContainerWidget extends StatelessWidget {
+  const _SettingExportAllDataContainerWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final DataBaseViewModel dataBaseViewModel = context
+        .watch<DataBaseViewModel>();
+
+    return _SettingContainerWidget(
+      label: context.translate(JPLocaleKeys.settingsExportAllData),
+      icon: Icons.folder_copy,
+      onTap: () =>
+          onTap(context: context, dataBaseViewModel: dataBaseViewModel),
+      trailingWidget: Column(
+        children: [
+          JPSpacingVertical.s,
+          const Icon(Icons.chevron_right),
+          JPSpacingVertical.s,
+        ],
+      ),
+    );
+  }
+
+  void noPermissionSnackBar({required BuildContext context}) {
+    context.showSnackError(
+      context.translate(JPLocaleKeys.settingsExportAllDataPermission),
+    );
+  }
+
+  Future<void> androidPermission({
+    required BuildContext context,
+    required Permission permission,
+  }) async {
+    final AndroidDeviceInfo build = await DeviceInfoPlugin().androidInfo;
+
+    if (build.version.sdkInt >= 30) {
+      var newPermission = await Permission.manageExternalStorage.request();
+
+      if (newPermission.isGranted) {
+        return;
+      }
+
+      if (context.mounted) {
+        noPermissionSnackBar(context: context);
+      }
+      return;
+    }
+
+    var permissionStatus = await permission.isGranted;
+
+    if (permissionStatus) {
+      return;
+    }
+
+    var newPermission = await permission.request();
+
+    if (newPermission.isGranted) {
+      return;
+    }
+
+    if (context.mounted) {
+      noPermissionSnackBar(context: context);
+    }
+
+    return;
+  }
+
+  Future<void> onTap({
+    required BuildContext context,
+    required DataBaseViewModel dataBaseViewModel,
+  }) async {
+    if (Platform.isAndroid) {
+      await androidPermission(permission: Permission.storage, context: context);
+    }
+
+    if (context.mounted) {
+      context.showLoader();
+    }
+    XFile file = await dataBaseViewModel.exportAndShareJson();
+    if (context.mounted) {
+      context.hideLoader();
+    }
+
+    await SharePlus.instance.share(ShareParams(files: [file]));
   }
 }
 

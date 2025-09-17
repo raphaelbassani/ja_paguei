@@ -121,6 +121,10 @@ abstract class JPLocaleKeys {
   static const settingsDarkMode = 'settingsDarkMode';
   static const settingsLanguage = 'settingsLanguage';
   static const settingsSelectLanguage = 'settingsSelectLanguage';
+  static const settingsExportAllData = 'settingsExportAllData';
+  static const settingsExportAllDataPermission =
+      'settingsExportAllDataPermission';
+  static const settingsExportAllDataSnack = 'settingsExportAllDataSnack';
   static const settingsDeleteAllData = 'settingsDeleteAllData';
   static const settingsDeleteAllDataModal = 'settingsDeleteAllDataModal';
   static const settingsDeleteAllDataSnack = 'settingsDeleteAllDataSnack';

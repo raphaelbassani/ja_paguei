@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../data/datasources.dart';
 import '../../data/models.dart';
@@ -174,6 +175,10 @@ class DataBaseViewModel extends BaseViewModel {
     graphItems.addAll(newItem);
 
     return graphItems;
+  }
+
+  Future<XFile> exportAndShareJson() async {
+    return await _billDatabase.exportAndShareJson();
   }
 
   final Map<int, String> _months = {

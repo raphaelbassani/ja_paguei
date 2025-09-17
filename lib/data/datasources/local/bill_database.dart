@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../datasources.dart';
@@ -101,5 +106,19 @@ class BillDatabase {
   Future<void> close() async {
     final db = await instance.database;
     db.close();
+  }
+
+  Future<XFile> exportAndShareJson() async {
+    final db = await instance.database;
+    List<Map<String, dynamic>> data = await db.query(BillFields.tableName);
+
+    String jsonString = jsonEncode(data);
+
+    final directory = await getTemporaryDirectory();
+    final path = '${directory.path}/data.json';
+    final file = File(path);
+    await file.writeAsString(jsonString);
+
+    return XFile(file.path);
   }
 }

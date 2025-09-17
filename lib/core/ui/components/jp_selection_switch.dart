@@ -38,7 +38,7 @@ class _JPSelectionSwitchState extends State<JPSelectionSwitch> {
           Switch(
             value: widget.isSelected,
             onChanged: (_) => selection(),
-            activeColor: Colors.green,
+            activeThumbColor: Colors.green,
           ),
         ],
       ),
