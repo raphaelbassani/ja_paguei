@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../data/datasources.dart';
@@ -178,14 +182,39 @@ class DataBaseViewModel extends BaseViewModel {
   }
 
   Future<XFile> exportAndShareJson() async {
-    return await _billDatabase.exportAndShareJson();
+    List<Map<String, dynamic>> billJson = await _billDatabase.exportAsJson();
+    List<Map<String, dynamic>> historyJson = await _historyDatabase
+        .exportAsJson();
+
+    Map<String, dynamic> json = {'bill': billJson, 'history': historyJson};
+
+    String jsonString = jsonEncode(json);
+
+    late final Directory directory;
+    if (Platform.isAndroid) {
+      directory = await getTemporaryDirectory();
+    } else {
+      directory = await getApplicationDocumentsDirectory();
+    }
+
+    final path = '${directory.path}/data.json';
+    final file = File(path);
+    await file.writeAsString(jsonString);
+
+    return XFile(file.path);
   }
 
-  Future<void> importFromJson(List jsonData) async {
+  Future<void> importFromJson(String jsonString) async {
     await _historyDatabase.deleteAllRows();
     await _billDatabase.deleteAllRows();
 
-    await _billDatabase.importFromJson(jsonData);
+    Map<String, dynamic> data = jsonDecode(jsonString);
+
+    List<dynamic> billData = data['bill'];
+    List<dynamic> historyData = data['history'];
+
+    await _billDatabase.importFromJson(billData);
+    await _historyDatabase.importFromJson(historyData);
 
     loadData();
   }

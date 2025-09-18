@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -250,12 +249,11 @@ class _SettingImportAllDataContainerWidget extends StatelessWidget {
 
     try {
       String jsonString = await file.readAsString();
-      List<dynamic> jsonData = jsonDecode(jsonString);
 
       if (context.mounted) {
         context.showLoader();
       }
-      await dataBaseViewModel.importFromJson(jsonData);
+      await dataBaseViewModel.importFromJson(jsonString);
       if (context.mounted) {
         context.hideLoader();
       }
