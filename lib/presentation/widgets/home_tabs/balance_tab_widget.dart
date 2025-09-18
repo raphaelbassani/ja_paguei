@@ -33,7 +33,12 @@ class BalanceTabWidget extends StatelessWidget {
               ] else
                 Padding(
                   padding: JPPadding.all,
-                  child: JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
+                    ],
+                  ),
                 ),
             ],
           ),
