@@ -114,7 +114,13 @@ class BillDatabase {
 
     String jsonString = jsonEncode(data);
 
-    final directory = await getTemporaryDirectory();
+    late final Directory directory;
+    if (Platform.isAndroid) {
+      directory = await getTemporaryDirectory();
+    } else {
+      directory = await getApplicationDocumentsDirectory();
+    }
+
     final path = '${directory.path}/data.json';
     final file = File(path);
     await file.writeAsString(jsonString);

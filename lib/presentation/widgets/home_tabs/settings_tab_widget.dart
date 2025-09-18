@@ -176,6 +176,19 @@ class _SettingExportAllDataContainerWidget extends StatelessWidget {
       context.hideLoader();
     }
 
+    if (Platform.isIOS && context.mounted) {
+      final box = context.findRenderObject() as RenderBox?;
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [file],
+          sharePositionOrigin: box != null
+              ? Rect.fromLTWH(0, 0, box.size.width, box.size.height)
+              : Rect.zero,
+        ),
+      );
+      return;
+    }
+
     await SharePlus.instance.share(ShareParams(files: [file]));
   }
 }
