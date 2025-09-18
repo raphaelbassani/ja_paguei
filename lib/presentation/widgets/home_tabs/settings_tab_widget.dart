@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -215,30 +215,17 @@ class _SettingImportAllDataContainerWidget extends StatelessWidget {
     required BuildContext context,
     required DataBaseViewModel dataBaseViewModel,
   }) async {
-    String? path;
-    if (Platform.isAndroid) {
-      bool hasPermission = await context.androidStoragePermission(
-        permission: Permission.storage,
-        noPermissionSnackBar: permissionSnackBar,
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if ((result?.files == null || (result?.files.isEmpty ?? true)) &&
+        context.mounted) {
+      context.showSnackError(
+        context.translate(JPLocaleKeys.settingsImportAllDataAccessError),
       );
-      if (hasPermission) {
-        final dirs = await getExternalStorageDirectories(
-          type: StorageDirectory.downloads,
-        );
-        if ((dirs == null || dirs.isEmpty) && context.mounted) {
-          context.showSnackError(
-            context.translate(JPLocaleKeys.settingsImportAllDataAccessError),
-          );
-          return;
-        }
-        path = '${dirs!.first.path}/data.json';
-      }
-    } else {
-      final docs = await getApplicationDocumentsDirectory();
-      path = '${docs.path}/data.json';
+      return;
     }
+    String path = result!.files.first.path!;
 
-    final file = File(path!);
+    final file = File(path);
     final bool fileExists = await file.exists();
 
     if (!fileExists && context.mounted) {
@@ -261,7 +248,7 @@ class _SettingImportAllDataContainerWidget extends StatelessWidget {
       }
 
       if (context.mounted) {
-        context.showSnackError(
+        context.showSnackSuccess(
           context.translate(JPLocaleKeys.settingsImportAllDataSuccess),
         );
       }
