@@ -25,6 +25,8 @@ The idea came from a need I encountered in my daily life — I always needed a s
 - See a **bar chart** of total expenses over the past 6 months
 - Dark mode and Light mode from device and also user user-changeable (saved to local storage)
 - Language selection based on device settings, and also user-changeable (saved to local storage)
+- Export all data into json file
+- Import all data from json file
 - Delete all data
 - Tell me a joke (funny feature of the app using open JokeAPI https://sv443.net/jokeapi/v2/)
 
