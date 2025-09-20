@@ -1,8 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../models/models.dart';
-import '../datasources.dart';
+import '../../datasources.dart';
+import '../../models.dart';
 
 class HistoryDatabase {
   static final HistoryDatabase instance = HistoryDatabase._internal();
@@ -75,5 +75,24 @@ class HistoryDatabase {
   Future<void> close() async {
     final db = await instance.database;
     db.close();
+  }
+
+  Future<List<Map<String, dynamic>>> exportAsJson() async {
+    final db = await instance.database;
+    List<Map<String, dynamic>> data = await db.query(HistoryFields.tableName);
+
+    return data;
+  }
+
+  Future<void> importFromJson(List jsonData) async {
+    final db = await instance.database;
+
+    for (var item in jsonData) {
+      await db.insert(
+        HistoryFields.tableName,
+        Map<String, dynamic>.from(item),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ja_paguei/core/extensions/extensions.dart';
-import 'package:ja_paguei/data/datasources/datasources.dart';
-import 'package:ja_paguei/data/errors/exceptions.dart';
-import 'package:ja_paguei/data/errors/failures.dart';
-import 'package:ja_paguei/data/models/models.dart';
-import 'package:ja_paguei/data/services/services.dart';
+import 'package:ja_paguei/core/extensions.dart';
+import 'package:ja_paguei/data/datasources.dart';
+import 'package:ja_paguei/data/errors.dart';
+import 'package:ja_paguei/data/models.dart';
+import 'package:ja_paguei/data/services.dart';
 import 'package:ja_paguei/l10n/l10n.dart';
 import 'package:mocktail/mocktail.dart';
 

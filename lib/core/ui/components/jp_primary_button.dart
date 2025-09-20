@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui.dart';
+import '../../ui.dart';
 
 class JPPrimaryButton extends StatelessWidget {
   final String label;

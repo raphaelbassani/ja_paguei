@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui.dart';
+import '../../ui.dart';
 
 class JPSelectionTile extends StatelessWidget {
   final String title;

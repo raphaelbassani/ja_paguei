@@ -73,7 +73,7 @@ lib/
 │ ├── widgets/ # reusable internal UI components
 │ └── enums/ # status and models enums
 │ └── routes/ # page routes for navigation 
-│ └── state/ # view_models 
+│ └── view_models/ # view_models 
 └── l10n/ # localization files, keys and values
 ```
 

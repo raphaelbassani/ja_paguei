@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/extensions.dart';
+import '../../core/extensions.dart';
 import '../../l10n/l10n.dart';
-import '../../presentation/enums/enums.dart';
+import '../../presentation/enums.dart';
 
 abstract class BaseModel extends Equatable {
   final int? id;

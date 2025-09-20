@@ -2,9 +2,8 @@ import 'package:dart_either/dart_either.dart';
 
 import '../../l10n/l10n.dart';
 import '../datasources/remote/joke_datasource.dart';
-import '../errors/exceptions.dart';
-import '../errors/failures.dart';
-import '../models/models.dart';
+import '../errors.dart';
+import '../models.dart';
 import 'base_service.dart';
 
 class JokeService extends BaseService {

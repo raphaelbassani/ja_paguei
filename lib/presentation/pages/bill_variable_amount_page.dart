@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/extensions.dart';
-import '../../core/ui/ui.dart';
-import '../../data/models/models.dart';
+import '../../core/extensions.dart';
+import '../../core/ui.dart';
+import '../../data/models.dart';
 import '../../l10n/l10n.dart';
 import '../enums/bill_status_enum.dart';
-import '../widgets/widgets.dart';
+import '../widgets.dart';
 
 class BillVariableAmountPage extends StatefulWidget {
   const BillVariableAmountPage({super.key});

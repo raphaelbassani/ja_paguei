@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui.dart';
+import '../../ui.dart';
 
 class JPSelectionSwitch extends StatefulWidget {
   final String label;
@@ -38,7 +38,7 @@ class _JPSelectionSwitchState extends State<JPSelectionSwitch> {
           Switch(
             value: widget.isSelected,
             onChanged: (_) => selection(),
-            activeColor: Colors.green,
+            activeThumbColor: Colors.green,
           ),
         ],
       ),

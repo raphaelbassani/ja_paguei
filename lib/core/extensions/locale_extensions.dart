@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../l10n/l10n.dart';
-import 'extensions.dart';
+import '../extensions.dart';
 
 extension LocaleExtensions on BuildContext {
   Locale get _systemLocale => Localizations.localeOf(this);

@@ -4,10 +4,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/extensions/extensions.dart';
-import '../../../core/ui/ui.dart';
+import '../../../core/extensions.dart';
+import '../../../core/ui.dart';
 import '../../../l10n/jp_locale_keys.dart';
-import '../../state/view_models.dart';
+import '../../view_models.dart';
 
 class BalanceTabWidget extends StatelessWidget {
   const BalanceTabWidget({super.key});
@@ -33,7 +33,12 @@ class BalanceTabWidget extends StatelessWidget {
               ] else
                 Padding(
                   padding: JPPadding.all,
-                  child: JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
+                    ],
+                  ),
                 ),
             ],
           ),

@@ -1,4 +1,4 @@
-import '../../core/ui/ui.dart';
+import '../../core/ui.dart';
 
 enum BillStatusEnum {
   pending(jpStatus: JPStatusEnum.warning),

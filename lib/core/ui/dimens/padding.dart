@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'constants/jp_constants.dart';
+import '../constants/jp_constants.dart';
 
 class JPPadding {
   static EdgeInsets all = EdgeInsets.all(JPConstants.m);

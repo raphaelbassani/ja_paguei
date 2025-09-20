@@ -139,6 +139,13 @@ class JPLocale {
     JPLocaleKeys.settingsDarkMode: 'Dark mode',
     JPLocaleKeys.settingsLanguage: 'Language',
     JPLocaleKeys.settingsSelectLanguage: 'Select language',
+    JPLocaleKeys.settingsImportAllData: 'Import exported data',
+    JPLocaleKeys.settingsImportAllDataPermission: 'Could not access storage.',
+    JPLocaleKeys.settingsImportAllDataAccessError: 'Could not access file.',
+    JPLocaleKeys.settingsImportAllDataError: 'Error importing data from file.',
+    JPLocaleKeys.settingsImportAllDataSuccess: 'Success on data import.',
+    JPLocaleKeys.settingsExportAllData: 'Export all data',
+    JPLocaleKeys.settingsExportAllDataPermission: 'Could not access storage.',
     JPLocaleKeys.settingsDeleteAllData: 'Delete all data',
     JPLocaleKeys.settingsDeleteAllDataModal: 'Delete all saved data?',
     JPLocaleKeys.settingsDeleteAllDataSnack: 'All data has been deleted.',
@@ -276,6 +283,18 @@ class JPLocale {
     JPLocaleKeys.settingsDarkMode: 'Modo escuro',
     JPLocaleKeys.settingsLanguage: 'Idioma',
     JPLocaleKeys.settingsSelectLanguage: 'Selecionar idioma',
+    JPLocaleKeys.settingsImportAllData: 'Importar dados salvos',
+    JPLocaleKeys.settingsImportAllDataPermission:
+        'Não foi possível acessar o armazenamento.',
+    JPLocaleKeys.settingsImportAllDataAccessError:
+        'Não foi possível acessar o arquivo.',
+    JPLocaleKeys.settingsImportAllDataError:
+        'Erro ao importar os dados do arquivo.',
+    JPLocaleKeys.settingsImportAllDataSuccess:
+        'Sucesso ao importar os dados do arquivo.',
+    JPLocaleKeys.settingsExportAllData: 'Exportar dados salvos',
+    JPLocaleKeys.settingsExportAllDataPermission:
+        'Não foi possível acessar o armazenamento.',
     JPLocaleKeys.settingsDeleteAllData: 'Deletar dados salvos',
     JPLocaleKeys.settingsDeleteAllDataModal: 'Deletar todos os dados salvos?',
     JPLocaleKeys.settingsDeleteAllDataSnack: 'Todos os dados foram deletados.',

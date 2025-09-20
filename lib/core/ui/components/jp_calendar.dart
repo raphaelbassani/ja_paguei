@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../extensions/extensions.dart';
+import '../../extensions.dart';
 import 'jp_text.dart';
 
 class JPCalendar extends StatefulWidget {
