@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
 import '../../../l10n/jp_locale_keys.dart';
+import '../../view_models/database_view_model.dart';
 import '../default_padding_widget.dart';
 
 class BalanceTabWidget extends StatelessWidget {
@@ -13,11 +15,11 @@ class BalanceTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final Map<String, List<double>> items = context
-    //     .watch<DataBaseViewModel>()
-    //     .balanceGraphItems();
+    Map<String, List<double>> items = context
+        .watch<DataBaseViewModel>()
+        .balanceGraphItems();
 
-    final items = mockBalanceGraphItems();
+    items = mockBalanceGraphItems();
 
     return CustomScrollView(
       slivers: [
@@ -52,7 +54,7 @@ class BalanceTabWidget extends StatelessWidget {
 
     return {
       for (var m in months)
-        m: List.generate(1, (_) => random.nextDouble() * 1000),
+        m: List.generate(1, (_) => random.nextDouble() * 100),
     };
   }
 
@@ -102,10 +104,12 @@ class _VerticalTitlesWidget extends StatelessWidget {
       angle: degreeToRadian(0),
       meta: meta,
       space: 4,
-      child: JPText(
-        '${context.currency} ${value.round().toString()}',
-        type: JPTextTypeEnum.xs,
-      ),
+      child: value >= 0
+          ? JPText(
+              '${context.currency} ${value.round().toString()}',
+              type: JPTextTypeEnum.xs,
+            )
+          : const SizedBox(),
     );
   }
 
@@ -149,12 +153,27 @@ class _LineChartWidget extends StatelessWidget {
             LineChartBarData(
               spots: _generateSpots(),
               isCurved: true,
-              color: const Color(0xFF2196F3),
-              barWidth: 4,
+              color: context.baseColor,
+              barWidth: 3,
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
-                color: const Color(0xFF2196F3).withOpacity(0.2),
+                gradient: LinearGradient(
+                  colors: [
+                    context.baseColor.withValues(alpha: 0.4),
+                    context.baseColor.withValues(alpha: 0.2),
+                    context.baseColor.withValues(alpha: 0.1),
+                    context.baseColor.withValues(alpha: 0.0),
+                    context.baseColor.withValues(alpha: 0.0),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              gradient: LinearGradient(
+                colors: [context.baseColor, context.baseColor],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
               ),
             ),
           ],
