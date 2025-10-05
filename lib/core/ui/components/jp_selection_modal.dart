@@ -122,11 +122,11 @@ class _Item extends StatelessWidget {
                   groupValue: selectedValue,
                   fillColor: WidgetStateProperty<Color>.fromMap(
                     <WidgetStatesConstraint, Color>{
-                      WidgetState.focused: Colors.green,
+                      WidgetState.focused: context.baseColor,
                       WidgetState.pressed |
                               WidgetState.hovered |
                               WidgetState.selected:
-                          Colors.green,
+                          context.baseColor,
                       WidgetState.any: Colors.grey,
                     },
                   ),

@@ -64,11 +64,15 @@ class _SwitchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.isIos
-        ? CNSwitch(value: isSelected, onChanged: onTap, color: Colors.green)
+        ? CNSwitch(
+            value: isSelected,
+            onChanged: onTap,
+            color: context.baseColor,
+          )
         : Switch(
             value: isSelected,
             onChanged: onTap,
-            activeThumbColor: Colors.green,
+            activeThumbColor: context.baseColor,
           );
   }
 }

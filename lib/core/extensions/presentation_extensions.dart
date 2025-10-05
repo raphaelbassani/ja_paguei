@@ -17,6 +17,8 @@ extension PresentationExtensions on BuildContext {
 
   Color get textColor => textStyle.color!;
 
+  Color get baseColor => Colors.green;
+
   double get height => MediaQuery.of(this).size.height;
 
   double get width => MediaQuery.of(this).size.width;

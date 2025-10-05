@@ -120,7 +120,7 @@ class _IosHomePageState extends State<_IosHomePage>
           Align(
             alignment: Alignment.bottomCenter,
             child: CNTabBar(
-              tint: Colors.green,
+              tint: context.baseColor,
               items: [
                 CNTabBarItem(
                   label: widget.tabTitle[0],
@@ -194,19 +194,19 @@ class _AndroidHomePage extends StatelessWidget {
         items: [
           BottomBarItem(
             icon: const Icon(Icons.credit_card),
-            title: JPText(tabTitle[0], color: Colors.green),
+            title: JPText(tabTitle[0], color: context.baseColor),
           ),
           BottomBarItem(
             icon: const Icon(Icons.history),
-            title: JPText(tabTitle[1], color: Colors.green),
+            title: JPText(tabTitle[1], color: context.baseColor),
           ),
           BottomBarItem(
             icon: const Icon(Icons.attach_money),
-            title: JPText(tabTitle[2], color: Colors.green),
+            title: JPText(tabTitle[2], color: context.baseColor),
           ),
           BottomBarItem(
             icon: const Icon(Icons.settings),
-            title: JPText(tabTitle[3], color: Colors.green),
+            title: JPText(tabTitle[3], color: context.baseColor),
           ),
         ],
       ),

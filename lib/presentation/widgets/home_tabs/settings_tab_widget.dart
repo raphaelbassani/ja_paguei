@@ -385,7 +385,7 @@ class _SettingContainerWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 16,
-                    backgroundColor: Colors.green,
+                    backgroundColor: context.baseColor,
                     child: Icon(icon, color: context.backgroundColor),
                   ),
                   JPSpacingHorizontal.s,
