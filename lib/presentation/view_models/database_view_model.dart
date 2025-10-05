@@ -149,36 +149,48 @@ class DataBaseViewModel extends BaseViewModel {
       return {};
     }
 
-    final List<HistoryModel> ascHistory = _history;
-
+    final List<HistoryModel> ascHistory = List.from(_history);
     ascHistory.sort((b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
 
     int barCount = 0;
     int currentMonth = ascHistory.first.paymentDateTime!.month;
+    int currentYear = ascHistory.first.paymentDateTime!.year;
     List<double> values = [];
     for (var item in ascHistory) {
       final int itemMonth = item.paymentDateTime!.month;
+      final int itemYear = item.paymentDateTime!.year;
 
-      if (currentMonth != itemMonth) {
-        Map<String, List<double>> newItem = {_months[currentMonth]!: values};
-        graphItems.addAll(newItem);
+      if (currentMonth != itemMonth || currentYear != itemYear) {
+        graphItems[_months[currentMonth]!] = values;
         barCount++;
 
         if (barCount == maxNumberOfBars) {
-          return graphItems;
+          break;
         }
 
         currentMonth = itemMonth;
+        currentYear = itemYear;
         values = [];
       }
-
       values.add(item.amount);
     }
+    graphItems[_months[currentMonth]!] = values;
 
-    Map<String, List<double>> newItem = {_months[currentMonth]!: values};
-    graphItems.addAll(newItem);
+    // Preencher meses anteriores se necessário
+    while (graphItems.length < maxNumberOfBars) {
+      currentMonth--;
+      if (currentMonth == 0) {
+        currentMonth = 12;
+      }
+      graphItems[_months[currentMonth]!] = [];
+    }
 
-    return graphItems;
+    // Garantir ordem correta (do mais recente ao mais antigo)
+    final ordered = Map<String, List<double>>.fromEntries(
+      graphItems.entries.toList().reversed.take(maxNumberOfBars),
+    );
+
+    return ordered;
   }
 
   Future<XFile> exportAndShareJson() async {
