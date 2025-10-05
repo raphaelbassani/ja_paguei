@@ -102,7 +102,6 @@ class _IosHomePageState extends State<_IosHomePage>
     return CupertinoPageScaffold(
       child: Stack(
         children: [
-          // Content below
           Positioned.fill(
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
@@ -110,7 +109,6 @@ class _IosHomePageState extends State<_IosHomePage>
               children: widget.tabPages,
             ),
           ),
-          // Native tab bar overlay
           Align(
             alignment: Alignment.bottomCenter,
             child: CNTabBar(

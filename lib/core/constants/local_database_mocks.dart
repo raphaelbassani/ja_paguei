@@ -21,7 +21,7 @@ List<BillModel> mockLoadBills() {
           ? DateTime.now().subtract(Duration(days: 5 * (i + 1)))
           : null,
       paymentMethod: value,
-      isVariableAmount: i % 2 == 0, // exemplo de valor booleano
+      isVariableAmount: i % 2 == 0,
     ),
   );
 }
