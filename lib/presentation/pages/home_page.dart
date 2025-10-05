@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:cupertino_native/cupertino_native.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 import '../../core/extensions.dart';
 import '../../core/ui.dart';
-import '../../l10n/l10n.dart';
+import '../../l10n/jp_locale_keys.dart';
 import '../../routes.dart';
 import '../widgets.dart';
 
@@ -16,15 +20,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
-  final List<Widget> tabPages = [
-    const BillsTabWidget(),
-    const HistoryTabWidget(),
-    const BalanceTabWidget(),
-    const SettingsTabWidget(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> tabPages = [
+      const BillsTabWidget(),
+      const HistoryTabWidget(),
+      const BalanceTabWidget(),
+      const SettingsTabWidget(),
+    ];
+
     final List<String> tabTitle = [
       context.translate(JPLocaleKeys.homeAccountTab),
       context.translate(JPLocaleKeys.homeHistoryTab),
@@ -32,6 +37,137 @@ class _HomePageState extends State<HomePage> {
       context.translate(JPLocaleKeys.homeSettingsTab),
     ];
 
+    if (Platform.isIOS) {
+      return _IosHomePage(
+        tabIndex: tabIndex,
+        tabPages: tabPages,
+        tabTitle: tabTitle,
+        onTabTapped: onTabTapped,
+      );
+    }
+
+    return _AndroidHomePage(
+      tabIndex: tabIndex,
+      tabPages: tabPages,
+      tabTitle: tabTitle,
+      onTabTapped: onTabTapped,
+    );
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      tabIndex = index;
+    });
+  }
+}
+
+class _IosHomePage extends StatefulWidget {
+  final int tabIndex;
+  final List<Widget> tabPages;
+  final List<String> tabTitle;
+  final Function(int) onTabTapped;
+
+  const _IosHomePage({
+    required this.tabIndex,
+    required this.tabPages,
+    required this.tabTitle,
+    required this.onTabTapped,
+  });
+
+  @override
+  State<_IosHomePage> createState() => _IosHomePageState();
+}
+
+class _IosHomePageState extends State<_IosHomePage>
+    with SingleTickerProviderStateMixin {
+  late final TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 4, vsync: this);
+    _controller.addListener(() {
+      final i = _controller.index;
+      if (i != widget.tabIndex) {
+        widget.onTabTapped(i);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Native Tab Bar'),
+        automaticallyImplyLeading: false,
+      ),
+      child: Stack(
+        children: [
+          // Content below
+          Positioned.fill(
+            child: TabBarView(
+              controller: _controller,
+              children: widget.tabPages,
+            ),
+          ),
+          // Native tab bar overlay
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CNTabBar(
+              items: [
+                CNTabBarItem(
+                  label: widget.tabTitle[0],
+                  icon: const CNSymbol('creditcard'),
+                ),
+                CNTabBarItem(
+                  label: widget.tabTitle[1],
+                  icon: const CNSymbol('clock'),
+                ),
+                CNTabBarItem(
+                  label: widget.tabTitle[2],
+                  icon: const CNSymbol('dollarsign.circle'),
+                ),
+                CNTabBarItem(
+                  label: widget.tabTitle[3],
+                  icon: const CNSymbol('gearshape'),
+                ),
+              ],
+              currentIndex: widget.tabIndex,
+              split: false,
+              shrinkCentered: true,
+              onTap: (i) {
+                widget.onTabTapped(i);
+                _controller.animateTo(i);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AndroidHomePage extends StatelessWidget {
+  final int tabIndex;
+  final List<Widget> tabPages;
+  final List<String> tabTitle;
+  final Function(int) onTabTapped;
+
+  const _AndroidHomePage({
+    required this.tabIndex,
+    required this.tabPages,
+    required this.tabTitle,
+    required this.onTabTapped,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: JPAppBar(title: tabTitle[tabIndex]),
       floatingActionButton: tabIndex == 0
@@ -66,11 +202,5 @@ class _HomePageState extends State<HomePage> {
       ),
       body: tabPages[tabIndex],
     );
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      tabIndex = index;
-    });
   }
 }
