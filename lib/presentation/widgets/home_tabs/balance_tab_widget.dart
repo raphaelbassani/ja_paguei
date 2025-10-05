@@ -28,8 +28,24 @@ class BalanceTabWidget extends StatelessWidget {
           child: Column(
             children: [
               if (items.isNotEmpty) ...[
-                JPSpacingVertical.l,
-                _LineChartWidget(graphItems: items, maxY: maxY(items)),
+                Padding(
+                  padding: JPPadding.horizontal,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      top: 30,
+                      bottom: 20,
+                      right: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: _LineChartWidget(
+                      graphItems: items,
+                      maxY: maxY(items),
+                    ),
+                  ),
+                ),
               ] else
                 Padding(
                   padding: JPPadding.all,
@@ -215,15 +231,10 @@ class _LineChartWidget extends StatelessWidget {
           ),
           gridData: FlGridData(
             show: true,
-            getDrawingVerticalLine: (value) {
-              return FlLine(
-                color: context.textColor.withAlpha(25),
-                strokeWidth: 0.8,
-              );
-            },
+            drawVerticalLine: false,
             getDrawingHorizontalLine: (value) {
               return FlLine(
-                color: context.textColor.withAlpha(25),
+                color: context.textColor.withAlpha(15),
                 strokeWidth: 0.8,
               );
             },
