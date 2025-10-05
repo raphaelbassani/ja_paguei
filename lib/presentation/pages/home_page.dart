@@ -35,20 +35,21 @@ class _HomePageState extends State<HomePage> {
       context.translate(JPLocaleKeys.homeSettingsTab),
     ];
 
-    if (context.isIos) {
-      return _IosHomePage(
-        tabIndex: tabIndex,
-        tabPages: tabPages,
-        tabTitle: tabTitle,
-        onTabTapped: onTabTapped,
-      );
-    }
-
-    return _AndroidHomePage(
-      tabIndex: tabIndex,
-      tabPages: tabPages,
-      tabTitle: tabTitle,
-      onTabTapped: onTabTapped,
+    return PopScope(
+      canPop: false,
+      child: context.isIos
+          ? _IosHomePage(
+              tabIndex: tabIndex,
+              tabPages: tabPages,
+              tabTitle: tabTitle,
+              onTabTapped: onTabTapped,
+            )
+          : _AndroidHomePage(
+              tabIndex: tabIndex,
+              tabPages: tabPages,
+              tabTitle: tabTitle,
+              onTabTapped: onTabTapped,
+            ),
     );
   }
 
