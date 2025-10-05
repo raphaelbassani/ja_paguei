@@ -1,11 +1,15 @@
+import 'dart:math';
+
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants.dart';
 import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
-import '../../../data/models.dart';
-import '../../../l10n/l10n.dart';
-import '../../view_models.dart';
+import '../../../data/models/history_model.dart';
+import '../../../l10n/jp_locale_keys.dart';
+import '../../view_models/database_view_model.dart';
 import '../default_padding_widget.dart';
 
 class HistoryTabWidget extends StatelessWidget {
@@ -16,9 +20,25 @@ class HistoryTabWidget extends StatelessWidget {
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
 
+    final Map<String, List<double>> items = dataBaseViewModel
+        .balanceGraphItems();
+
     return CustomScrollView(
       slivers: [
         const DefaultPaddingWidget(),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: JPPadding.horizontal + JPPadding.bottom * 2,
+            child: Container(
+              padding: const EdgeInsets.only(top: 30, bottom: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.grey),
+              ),
+              child: _LineChartWidget(graphItems: items, maxY: maxY(items)),
+            ),
+          ),
+        ),
         if (dataBaseViewModel.history.isEmpty)
           SliverToBoxAdapter(
             child: Padding(
@@ -31,30 +51,32 @@ class HistoryTabWidget extends StatelessWidget {
             childCount: dataBaseViewModel.history.length,
             (_, index) {
               final HistoryModel payment = dataBaseViewModel.history[index];
-              final bool isFirstOfMonth =
+              final DateTime paymentDateTime = payment.paymentDateTime!;
+              final bool isFirstOfDay =
                   index == 0 ||
-                  payment.paymentDateTime!.month !=
-                      dataBaseViewModel
-                          .history[index - 1]
-                          .paymentDateTime!
-                          .month;
+                  paymentDateTime.day !=
+                      dataBaseViewModel.history[index - 1].paymentDateTime!.day;
+              final isCurrentYear = paymentDateTime.year == context.now.year;
+              final monthKey =
+                  LocalStorageConstants.months[paymentDateTime.month];
 
               return Padding(
                 padding: JPPadding.horizontal,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (isFirstOfMonth) ...[
-                      JPSpacingVertical.s,
+                    if (isFirstOfDay) ...[
                       JPText(
-                        context.mmmm(payment.paymentDateTime!),
-                        type: JPTextTypeEnum.xxl,
+                        '${paymentDateTime.day.toString().padLeft(2, '0')} '
+                        '${context.translate(monthKey)} '
+                        '${isCurrentYear ? '' : paymentDateTime.year}',
+                        type: JPTextTypeEnum.l,
                         hasDefaultOpacity: true,
                       ),
                       JPSpacingVertical.s,
                     ],
                     _ItemWidget(payment),
-                    JPSpacingVertical.xs,
+                    JPSpacingVertical.s,
                   ],
                 ),
               );
@@ -63,6 +85,178 @@ class HistoryTabWidget extends StatelessWidget {
         ),
         const DefaultPaddingWidget(),
       ],
+    );
+  }
+
+  double maxY(Map<String, List<double>> items) {
+    List<List<double>> values = items.values.toList();
+    double newMaxY = 0;
+
+    for (var e in values) {
+      double sum = e.fold(
+        0.0,
+        (previousValue, element) => previousValue + element,
+      );
+
+      if (sum > newMaxY) {
+        newMaxY = sum;
+      }
+    }
+
+    return newMaxY + (newMaxY * .2);
+  }
+}
+
+class _HorizontalTitlesWidget extends StatelessWidget {
+  final String monthKey;
+  final TitleMeta meta;
+
+  const _HorizontalTitlesWidget({required this.monthKey, required this.meta});
+
+  @override
+  Widget build(BuildContext context) {
+    return SideTitleWidget(
+      meta: meta,
+      child: JPText(context.translate(monthKey)),
+    );
+  }
+}
+
+class _VerticalTitlesWidget extends StatelessWidget {
+  final double value;
+  final TitleMeta meta;
+
+  const _VerticalTitlesWidget({required this.value, required this.meta});
+
+  @override
+  Widget build(BuildContext context) {
+    return SideTitleWidget(
+      angle: degreeToRadian(0),
+      meta: meta,
+      space: 4,
+      child: value >= 0
+          ? JPText(
+              '${context.currency} ${value.round().toString()}',
+              type: JPTextTypeEnum.xs,
+            )
+          : const SizedBox(),
+    );
+  }
+
+  double degreeToRadian(double degree) {
+    return degree * 3.1415926535897932 / 180;
+  }
+}
+
+class _LineChartWidget extends StatelessWidget {
+  final Map<String, List<double>> graphItems;
+  final double maxY;
+
+  const _LineChartWidget({required this.graphItems, required this.maxY});
+
+  List<FlSpot> _generateSpots() {
+    final items = graphItems.values.toList();
+    return List<FlSpot>.generate(
+      items.length,
+      (index) => FlSpot(
+        index.toDouble(),
+        items[index].fold(0.0, (prev, el) => prev + el),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final months = graphItems.keys.toList();
+    final minX = -0.5;
+    final maxX = months.length - 0.5;
+    final double fixedMaxY = maxY == 0 ? 100 : maxY;
+
+    return AspectRatio(
+      aspectRatio: 1,
+      child: LineChart(
+        LineChartData(
+          minX: minX,
+          maxX: maxX,
+          minY: 0 - fixedMaxY / 3,
+          maxY: fixedMaxY,
+          lineBarsData: [
+            LineChartBarData(
+              spots: _generateSpots(),
+              isCurved: true,
+              color: context.baseColor,
+              barWidth: 3,
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(
+                show: true,
+                gradient: LinearGradient(
+                  colors: [
+                    context.baseColor.withValues(alpha: 0.4),
+                    context.baseColor.withValues(alpha: 0.2),
+                    context.baseColor.withValues(alpha: 0.1),
+                    context.baseColor.withValues(alpha: 0.0),
+                    context.baseColor.withValues(alpha: 0.0),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              gradient: LinearGradient(
+                colors: [context.baseColor, context.baseColor],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+          ],
+          titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 50,
+                interval: fixedMaxY / 4,
+                getTitlesWidget: (value, meta) =>
+                    _VerticalTitlesWidget(value: value, meta: meta),
+              ),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 32,
+                interval: 1,
+                getTitlesWidget: (value, meta) {
+                  int index = value.toInt();
+                  if (value != index.toDouble() ||
+                      index < 0 ||
+                      index >= months.length) {
+                    return const SizedBox.shrink();
+                  }
+                  return _HorizontalTitlesWidget(
+                    monthKey: months[index],
+                    meta: meta,
+                  );
+                },
+              ),
+            ),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+          ),
+          gridData: FlGridData(
+            show: true,
+            drawVerticalLine: false,
+            getDrawingHorizontalLine: (value) {
+              return FlLine(
+                color: context.textColor.withAlpha(15),
+                strokeWidth: 0.8,
+              );
+            },
+          ),
+          borderData: FlBorderData(show: false),
+        ),
+      ),
     );
   }
 }
@@ -99,13 +293,7 @@ class _ItemWidget extends StatelessWidget {
               JPText(payment.name, type: JPTextTypeEnum.l),
               JPSpacingVertical.xxs,
               JPText(
-                payment.labelWithDueDate(context),
-                hasDefaultOpacity: true,
-                type: JPTextTypeEnum.s,
-              ),
-              JPSpacingVertical.xs,
-              JPText(
-                payment.labelWithPaymentDate(context),
+                payment.labelWithTheDueDate(context),
                 hasDefaultOpacity: true,
                 type: JPTextTypeEnum.s,
               ),

@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../core/constants.dart';
 import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
 import '../../../data/datasources.dart';
@@ -33,6 +34,8 @@ class SettingsTabWidget extends StatelessWidget {
                 const _SettingThemeModeContainerWidget(),
                 JPSpacingVertical.m,
                 const _SettingLanguageContainerWidget(),
+                JPSpacingVertical.m,
+                const _SettingColorContainerWidget(),
                 JPSpacingVertical.m,
                 const _SettingExportAllDataContainerWidget(),
                 JPSpacingVertical.m,
@@ -120,6 +123,55 @@ class _SettingLanguageContainerWidget extends StatelessWidget {
             localeViewModel.changeLang(const Locale(JPLocaleKeys.en));
           } else {
             localeViewModel.changeLang(const Locale(JPLocaleKeys.pt));
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _SettingColorContainerWidget extends StatelessWidget {
+  const _SettingColorContainerWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorViewModel colorViewModel = context.watch<ColorViewModel>();
+
+    return _SettingContainerWidget(
+      label: context.translate(JPLocaleKeys.settingsColors),
+      icon: Icons.color_lens_outlined,
+      onTap: () => onTap(context: context, colorViewModel: colorViewModel),
+      trailingWidget: Column(
+        children: [
+          JPSpacingVertical.s,
+          const Icon(Icons.chevron_right),
+          JPSpacingVertical.s,
+        ],
+      ),
+    );
+  }
+
+  void onTap({
+    required BuildContext context,
+    required ColorViewModel colorViewModel,
+  }) {
+    final List<String> items = LocalStorageConstants.colors.entries
+        .map((e) => context.translate(e.key))
+        .toList();
+
+    context.showModal(
+      child: JPSelectionModal(
+        title: context.translate(JPLocaleKeys.settingsSelectColor),
+        items: items,
+        preSelectedValue: context.translate(colorViewModel.appColorKey),
+        primaryButtonLabel: context.translate(JPLocaleKeys.confirm),
+        onTapPrimaryButton: (value) {
+          if (value != null) {
+            colorViewModel.changeColor(
+              LocalStorageConstants.colors.entries
+                  .firstWhere((entry) => context.translate(entry.key) == value)
+                  .key,
+            );
           }
         },
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions.dart';
 import '../../core/ui.dart';
 
 class DefaultPaddingWidget extends StatelessWidget {
@@ -8,9 +7,6 @@ class DefaultPaddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (context.isIos) {
-      return SliverToBoxAdapter(child: Padding(padding: JPPadding.top * 3));
-    }
-    return const SliverToBoxAdapter();
+    return SliverToBoxAdapter(child: Padding(padding: JPPadding.top * 3));
   }
 }

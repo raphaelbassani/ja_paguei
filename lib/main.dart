@@ -26,6 +26,7 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
         ChangeNotifierProvider(create: (_) => LocaleViewModel()),
+        ChangeNotifierProvider(create: (_) => ColorViewModel()),
         Provider(create: (_) => JokeDatasource()),
       ],
       child: JaPagueiApp(
@@ -59,6 +60,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       context.read<DataBaseViewModel>().loadData();
       context.read<ThemeViewModel>().loadTheme();
       context.read<LocaleViewModel>().loadLang();
+      context.read<ColorViewModel>().loadColor();
     });
   }
 

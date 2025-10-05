@@ -46,7 +46,6 @@ class JPStatus extends StatelessWidget {
             ],
           ),
         ),
-        const Spacer(),
       ],
     );
   }

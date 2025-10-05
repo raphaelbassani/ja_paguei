@@ -17,6 +17,14 @@ class JPLocale {
     return en[key]!;
   }
 
+  static String getKey(String languageCode, String translation) {
+    if (languageCode == JPLocaleKeys.pt) {
+      return pt.entries.firstWhere((entry) => entry.value == translation).key;
+    }
+
+    return en.entries.firstWhere((entry) => entry.value == translation).key;
+  }
+
   static const Map<String, String> en = {
     JPLocaleKeys.alreadyPaid: 'Already paid',
     JPLocaleKeys.currency: '\$',
@@ -31,6 +39,18 @@ class JPLocale {
     /// Languages
     JPLocaleKeys.en: 'English',
     JPLocaleKeys.pt: 'Português',
+
+    /// Colors
+    JPLocaleKeys.green: 'Green',
+    JPLocaleKeys.blue: 'Blue',
+    JPLocaleKeys.red: 'Red',
+    JPLocaleKeys.orange: 'Orange',
+    JPLocaleKeys.purple: 'Purple',
+    JPLocaleKeys.pink: 'Pink',
+    JPLocaleKeys.teal: 'Teal',
+    JPLocaleKeys.cyan: 'Cyan',
+    JPLocaleKeys.lime: 'Lime',
+    JPLocaleKeys.indigo: 'Indigo',
 
     /// Months
     JPLocaleKeys.jan: 'Jan',
@@ -62,7 +82,9 @@ class JPLocale {
 
     /// BaseModel
     JPLocaleKeys.dueDate: 'Due date',
-    JPLocaleKeys.onTheDay: 'On the',
+    JPLocaleKeys.dueDay: 'Due day',
+    JPLocaleKeys.onDay: 'On the',
+    JPLocaleKeys.onEveryDay: 'Always on the',
     JPLocaleKeys.paidOn: 'Paid on',
 
     /// BillPage
@@ -139,6 +161,8 @@ class JPLocale {
     JPLocaleKeys.settingsDarkMode: 'Dark mode',
     JPLocaleKeys.settingsLanguage: 'Language',
     JPLocaleKeys.settingsSelectLanguage: 'Select language',
+    JPLocaleKeys.settingsColors: 'Main color',
+    JPLocaleKeys.settingsSelectColor: 'Select color',
     JPLocaleKeys.settingsImportAllData: 'Import exported data',
     JPLocaleKeys.settingsImportAllDataPermission: 'Could not access storage.',
     JPLocaleKeys.settingsImportAllDataAccessError: 'Could not access file.',
@@ -176,6 +200,18 @@ class JPLocale {
     JPLocaleKeys.en: 'English',
     JPLocaleKeys.pt: 'Português',
 
+    /// Colors
+    JPLocaleKeys.green: 'Verde',
+    JPLocaleKeys.blue: 'Azul',
+    JPLocaleKeys.red: 'Vermelho',
+    JPLocaleKeys.orange: 'Laranja',
+    JPLocaleKeys.purple: 'Roxo',
+    JPLocaleKeys.pink: 'Rosa',
+    JPLocaleKeys.teal: 'Azul esverdeado',
+    JPLocaleKeys.cyan: 'Ciano',
+    JPLocaleKeys.lime: 'Lima',
+    JPLocaleKeys.indigo: 'Índigo',
+
     ///Months
     JPLocaleKeys.jan: 'Jan',
     JPLocaleKeys.feb: 'Fev',
@@ -205,8 +241,10 @@ class JPLocale {
     JPLocaleKeys.overdueTomorrow: 'Vence amanhã',
 
     /// BaseModel
-    JPLocaleKeys.dueDate: 'Vencimento',
-    JPLocaleKeys.onTheDay: 'Todo dia',
+    JPLocaleKeys.dueDate: 'Vence',
+    JPLocaleKeys.dueDay: 'Vencimento',
+    JPLocaleKeys.onDay: 'Dia',
+    JPLocaleKeys.onEveryDay: 'Todo dia',
     JPLocaleKeys.paidOn: 'Paga em',
 
     /// BillPage
@@ -283,6 +321,8 @@ class JPLocale {
     JPLocaleKeys.settingsDarkMode: 'Modo escuro',
     JPLocaleKeys.settingsLanguage: 'Idioma',
     JPLocaleKeys.settingsSelectLanguage: 'Selecionar idioma',
+    JPLocaleKeys.settingsColors: 'Cor principal',
+    JPLocaleKeys.settingsSelectColor: 'Selecionar cor',
     JPLocaleKeys.settingsImportAllData: 'Importar dados salvos',
     JPLocaleKeys.settingsImportAllDataPermission:
         'Não foi possível acessar o armazenamento.',

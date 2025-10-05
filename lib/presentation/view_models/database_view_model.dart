@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/constants.dart';
 import '../../data/datasources.dart';
 import '../../data/models.dart';
-import '../../l10n/l10n.dart';
-import '../enums/bill_status_enum.dart';
-import '../enums/status_enum.dart';
+import '../enums.dart';
 import 'base_view_model.dart';
 
 class DataBaseViewModel extends BaseViewModel {
@@ -33,6 +32,12 @@ class DataBaseViewModel extends BaseViewModel {
   List<HistoryModel> _history = [];
   List<BillModel> _bills = [];
 
+  bool isMock = false;
+  void setIsMock(bool value) {
+    isMock = value;
+    safeNotify();
+  }
+
   Future<void> loadData() async {
     _status = StatusEnum.loading;
     safeNotify();
@@ -45,12 +50,22 @@ class DataBaseViewModel extends BaseViewModel {
   }
 
   Future<void> _loadHistory() async {
+    if (isMock) {
+      _history = mockLoadHistory();
+      return;
+    }
+
     await _historyDatabase.readAll().then((value) {
       _history = value;
     });
   }
 
   Future<void> _loadBills() async {
+    if (isMock) {
+      _resetBillIfNeeded(mockLoadBills());
+      return;
+    }
+
     await _billDatabase.readAll().then((savedBills) {
       _resetBillIfNeeded(savedBills);
     });
@@ -142,43 +157,54 @@ class DataBaseViewModel extends BaseViewModel {
     );
   }
 
-  Map<String, List<double>> balanceGraphItems({int maxNumberOfBars = 6}) {
+  Map<String, List<double>> balanceGraphItems({int numberOfMonths = 6}) {
     Map<String, List<double>> graphItems = {};
+    int currentMonth = DateTime.now().month;
 
-    if (_history.isEmpty) {
-      return {};
-    }
+    if (_history.isNotEmpty) {
+      final List<HistoryModel> ascHistory = List.from(_history);
+      ascHistory.sort(
+        (b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!),
+      );
 
-    final List<HistoryModel> ascHistory = _history;
+      int barCount = 0;
+      currentMonth = ascHistory.first.paymentDateTime!.month;
+      int currentYear = ascHistory.first.paymentDateTime!.year;
+      List<double> values = [];
+      for (var item in ascHistory) {
+        final int itemMonth = item.paymentDateTime!.month;
+        final int itemYear = item.paymentDateTime!.year;
 
-    ascHistory.sort((b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
+        if (currentMonth != itemMonth || currentYear != itemYear) {
+          graphItems[LocalStorageConstants.months[currentMonth]!] = values;
+          barCount++;
 
-    int barCount = 0;
-    int currentMonth = ascHistory.first.paymentDateTime!.month;
-    List<double> values = [];
-    for (var item in ascHistory) {
-      final int itemMonth = item.paymentDateTime!.month;
+          if (barCount == numberOfMonths) {
+            break;
+          }
 
-      if (currentMonth != itemMonth) {
-        Map<String, List<double>> newItem = {_months[currentMonth]!: values};
-        graphItems.addAll(newItem);
-        barCount++;
-
-        if (barCount == maxNumberOfBars) {
-          return graphItems;
+          currentMonth = itemMonth;
+          currentYear = itemYear;
+          values = [];
         }
-
-        currentMonth = itemMonth;
-        values = [];
+        values.add(item.amount);
       }
-
-      values.add(item.amount);
+      graphItems[LocalStorageConstants.months[currentMonth]!] = values;
     }
 
-    Map<String, List<double>> newItem = {_months[currentMonth]!: values};
-    graphItems.addAll(newItem);
+    while (graphItems.length < numberOfMonths) {
+      currentMonth--;
+      if (currentMonth == 0) {
+        currentMonth = 12;
+      }
+      graphItems[LocalStorageConstants.months[currentMonth]!] = [];
+    }
 
-    return graphItems;
+    final ordered = Map<String, List<double>>.fromEntries(
+      graphItems.entries.toList().reversed.take(numberOfMonths),
+    );
+
+    return ordered;
   }
 
   Future<XFile> exportAndShareJson() async {
@@ -218,19 +244,4 @@ class DataBaseViewModel extends BaseViewModel {
 
     loadData();
   }
-
-  final Map<int, String> _months = {
-    1: JPLocaleKeys.jan,
-    2: JPLocaleKeys.feb,
-    3: JPLocaleKeys.mar,
-    4: JPLocaleKeys.apr,
-    5: JPLocaleKeys.may,
-    6: JPLocaleKeys.jun,
-    7: JPLocaleKeys.jul,
-    8: JPLocaleKeys.aug,
-    9: JPLocaleKeys.sep,
-    10: JPLocaleKeys.oct,
-    11: JPLocaleKeys.nov,
-    12: JPLocaleKeys.dec,
-  };
 }

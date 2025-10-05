@@ -24,14 +24,12 @@ class _HomePageState extends State<HomePage> {
     final List<Widget> tabPages = [
       const BillsTabWidget(),
       const HistoryTabWidget(),
-      const BalanceTabWidget(),
       const SettingsTabWidget(),
     ];
 
     final List<String> tabTitle = [
       context.translate(JPLocaleKeys.homeAccountTab),
       context.translate(JPLocaleKeys.homeHistoryTab),
-      context.translate(JPLocaleKeys.homeBalanceTab),
       context.translate(JPLocaleKeys.homeSettingsTab),
     ];
 
@@ -84,7 +82,7 @@ class _IosHomePageState extends State<_IosHomePage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 4, vsync: this);
+    _controller = TabController(length: widget.tabPages.length, vsync: this);
     _controller.addListener(() {
       final i = _controller.index;
       if (i != widget.tabIndex) {
@@ -104,7 +102,6 @@ class _IosHomePageState extends State<_IosHomePage>
     return CupertinoPageScaffold(
       child: Stack(
         children: [
-          // Content below
           Positioned.fill(
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
@@ -112,7 +109,6 @@ class _IosHomePageState extends State<_IosHomePage>
               children: widget.tabPages,
             ),
           ),
-          // Native tab bar overlay
           Align(
             alignment: Alignment.bottomCenter,
             child: CNTabBar(
@@ -128,16 +124,10 @@ class _IosHomePageState extends State<_IosHomePage>
                 ),
                 CNTabBarItem(
                   label: widget.tabTitle[2],
-                  icon: const CNSymbol('dollarsign.circle'),
-                ),
-                CNTabBarItem(
-                  label: widget.tabTitle[3],
                   icon: const CNSymbol('gearshape'),
                 ),
               ],
               currentIndex: widget.tabIndex,
-              split: false,
-              shrinkCentered: true,
               onTap: (i) {
                 widget.onTabTapped(i);
                 _controller.animateTo(i);
@@ -180,7 +170,6 @@ class _AndroidHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JPAppBar(title: tabTitle[tabIndex]),
       floatingActionButton: tabIndex == 0
           ? JPFab(
               label: context.translate(JPLocaleKeys.homeAccount),
@@ -194,20 +183,25 @@ class _AndroidHomePage extends StatelessWidget {
         backgroundColor: context.backgroundColor,
         items: [
           BottomBarItem(
-            icon: const Icon(Icons.credit_card),
+            icon: Icon(
+              Icons.credit_card,
+              color: tabIndex == 0 ? context.baseColor : null,
+            ),
             title: JPText(tabTitle[0], color: context.baseColor),
           ),
           BottomBarItem(
-            icon: const Icon(Icons.history),
+            icon: Icon(
+              Icons.history,
+              color: tabIndex == 1 ? context.baseColor : null,
+            ),
             title: JPText(tabTitle[1], color: context.baseColor),
           ),
           BottomBarItem(
-            icon: const Icon(Icons.attach_money),
+            icon: Icon(
+              Icons.settings,
+              color: tabIndex == 2 ? context.baseColor : null,
+            ),
             title: JPText(tabTitle[2], color: context.baseColor),
-          ),
-          BottomBarItem(
-            icon: const Icon(Icons.settings),
-            title: JPText(tabTitle[3], color: context.baseColor),
           ),
         ],
       ),
