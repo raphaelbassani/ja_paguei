@@ -46,7 +46,11 @@ class _BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onTap,
-      style: ElevatedButton.styleFrom(backgroundColor: context.baseColor),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: context.baseColor,
+        minimumSize: isSmall ? const Size(0, 32) : null,
+        padding: isSmall ? const EdgeInsets.symmetric(horizontal: 16) : null,
+      ),
       child: isSmall
           ? JPText(label, type: JPTextTypeEnum.s, color: Colors.white)
           : Column(

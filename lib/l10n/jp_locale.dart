@@ -205,8 +205,8 @@ class JPLocale {
     JPLocaleKeys.overdueTomorrow: 'Vence amanhã',
 
     /// BaseModel
-    JPLocaleKeys.dueDate: 'Vencimento',
-    JPLocaleKeys.onTheDay: 'Todo dia',
+    JPLocaleKeys.dueDate: 'Vence',
+    JPLocaleKeys.onTheDay: 'Dia',
     JPLocaleKeys.paidOn: 'Paga em',
 
     /// BillPage
