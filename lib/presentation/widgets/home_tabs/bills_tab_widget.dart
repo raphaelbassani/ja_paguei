@@ -133,8 +133,6 @@ class _ItemWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                JPSpacingVertical.s,
-                // if (bill.isNotPaid) _Buttons(bill),
               ],
             ),
           ),

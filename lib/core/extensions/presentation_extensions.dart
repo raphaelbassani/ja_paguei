@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../../presentation/view_models.dart';
 import '../ui.dart';
 
 extension PresentationExtensions on BuildContext {
@@ -19,7 +21,7 @@ extension PresentationExtensions on BuildContext {
 
   Color get textColor => textStyle.color!;
 
-  Color get baseColor => Colors.green;
+  Color get baseColor => watch<ColorViewModel>().appColor;
 
   double get height => MediaQuery.of(this).size.height;
 

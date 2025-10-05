@@ -13,6 +13,18 @@ abstract class JPLocaleKeys {
   static const String en = 'en';
   static const String pt = 'pt';
 
+  /// Colors
+  static const String green = 'green';
+  static const String blue = 'blue';
+  static const String red = 'red';
+  static const String orange = 'orange';
+  static const String purple = 'purple';
+  static const String pink = 'pink';
+  static const String teal = 'teal';
+  static const String cyan = 'cyan';
+  static const String lime = 'lime';
+  static const String indigo = 'indigo';
+
   /// Months
   static const jan = 'jan';
   static const feb = 'feb';
@@ -123,6 +135,8 @@ abstract class JPLocaleKeys {
   static const settingsDarkMode = 'settingsDarkMode';
   static const settingsLanguage = 'settingsLanguage';
   static const settingsSelectLanguage = 'settingsSelectLanguage';
+  static const settingsColors = 'settingsColors';
+  static const settingsSelectColor = 'settingsSelectColor';
   static const settingsImportAllData = 'settingsImportAllData';
   static const settingsImportAllDataPermission =
       'settingsImportAllDataPermission';

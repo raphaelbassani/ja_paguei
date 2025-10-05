@@ -9,6 +9,7 @@ import 'data/datasources.dart';
 import 'l10n/l10n.dart';
 import 'presentation/pages.dart';
 import 'presentation/view_models.dart';
+import 'presentation/view_models/color_view_model.dart';
 import 'routes.dart';
 
 void main() {
@@ -26,6 +27,7 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
         ChangeNotifierProvider(create: (_) => LocaleViewModel()),
+        ChangeNotifierProvider(create: (_) => ColorViewModel()),
         Provider(create: (_) => JokeDatasource()),
       ],
       child: JaPagueiApp(
@@ -61,6 +63,7 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
       context.read<DataBaseViewModel>().loadData();
       context.read<ThemeViewModel>().loadTheme();
       context.read<LocaleViewModel>().loadLang();
+      context.read<ColorViewModel>().loadColor();
     });
   }
 
