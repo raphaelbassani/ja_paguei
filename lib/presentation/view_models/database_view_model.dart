@@ -9,7 +9,6 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/constants.dart';
 import '../../data/datasources.dart';
 import '../../data/models.dart';
-import '../../l10n/l10n.dart';
 import '../enums.dart';
 import 'base_view_model.dart';
 
@@ -177,7 +176,7 @@ class DataBaseViewModel extends BaseViewModel {
         final int itemYear = item.paymentDateTime!.year;
 
         if (currentMonth != itemMonth || currentYear != itemYear) {
-          graphItems[_months[currentMonth]!] = values;
+          graphItems[LocalStorageConstants.months[currentMonth]!] = values;
           barCount++;
 
           if (barCount == numberOfMonths) {
@@ -190,7 +189,7 @@ class DataBaseViewModel extends BaseViewModel {
         }
         values.add(item.amount);
       }
-      graphItems[_months[currentMonth]!] = values;
+      graphItems[LocalStorageConstants.months[currentMonth]!] = values;
     }
 
     while (graphItems.length < numberOfMonths) {
@@ -198,7 +197,7 @@ class DataBaseViewModel extends BaseViewModel {
       if (currentMonth == 0) {
         currentMonth = 12;
       }
-      graphItems[_months[currentMonth]!] = [];
+      graphItems[LocalStorageConstants.months[currentMonth]!] = [];
     }
 
     final ordered = Map<String, List<double>>.fromEntries(
@@ -245,19 +244,4 @@ class DataBaseViewModel extends BaseViewModel {
 
     loadData();
   }
-
-  final Map<int, String> _months = {
-    1: JPLocaleKeys.jan,
-    2: JPLocaleKeys.feb,
-    3: JPLocaleKeys.mar,
-    4: JPLocaleKeys.apr,
-    5: JPLocaleKeys.may,
-    6: JPLocaleKeys.jun,
-    7: JPLocaleKeys.jul,
-    8: JPLocaleKeys.aug,
-    9: JPLocaleKeys.sep,
-    10: JPLocaleKeys.oct,
-    11: JPLocaleKeys.nov,
-    12: JPLocaleKeys.dec,
-  };
 }

@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants.dart';
 import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
 import '../../../data/models/history_model.dart';
@@ -19,9 +20,8 @@ class HistoryTabWidget extends StatelessWidget {
     final DataBaseViewModel dataBaseViewModel = context
         .watch<DataBaseViewModel>();
 
-    Map<String, List<double>> items = dataBaseViewModel.balanceGraphItems();
-
-    // items = mockBalanceGraphItems();
+    final Map<String, List<double>> items = dataBaseViewModel
+        .balanceGraphItems();
 
     return CustomScrollView(
       slivers: [
@@ -51,30 +51,32 @@ class HistoryTabWidget extends StatelessWidget {
             childCount: dataBaseViewModel.history.length,
             (_, index) {
               final HistoryModel payment = dataBaseViewModel.history[index];
-              final bool isFirstOfMonth =
+              final DateTime paymentDateTime = payment.paymentDateTime!;
+              final bool isFirstOfDay =
                   index == 0 ||
-                  payment.paymentDateTime!.month !=
-                      dataBaseViewModel
-                          .history[index - 1]
-                          .paymentDateTime!
-                          .month;
+                  paymentDateTime.day !=
+                      dataBaseViewModel.history[index - 1].paymentDateTime!.day;
+              final isCurrentYear = paymentDateTime.year == context.now.year;
+              final monthKey =
+                  LocalStorageConstants.months[paymentDateTime.month];
 
               return Padding(
                 padding: JPPadding.horizontal,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (isFirstOfMonth) ...[
-                      JPSpacingVertical.s,
+                    if (isFirstOfDay) ...[
                       JPText(
-                        context.mmmm(payment.paymentDateTime!),
-                        type: JPTextTypeEnum.xxl,
+                        '${paymentDateTime.day.toString().padLeft(2, '0')} '
+                        '${context.translate(monthKey)} '
+                        '${isCurrentYear ? '' : paymentDateTime.year}',
+                        type: JPTextTypeEnum.l,
                         hasDefaultOpacity: true,
                       ),
                       JPSpacingVertical.s,
                     ],
                     _ItemWidget(payment),
-                    JPSpacingVertical.xs,
+                    JPSpacingVertical.s,
                   ],
                 ),
               );
@@ -84,16 +86,6 @@ class HistoryTabWidget extends StatelessWidget {
         const DefaultPaddingWidget(),
       ],
     );
-  }
-
-  Map<String, List<double>> mockBalanceGraphItems() {
-    final random = Random();
-    final months = ['jun', 'jul', 'aug', 'sep', 'oct'];
-
-    return {
-      for (var m in months)
-        m: List.generate(1, (_) => random.nextDouble() * 100),
-    };
   }
 
   double maxY(Map<String, List<double>> items) {
@@ -301,13 +293,7 @@ class _ItemWidget extends StatelessWidget {
               JPText(payment.name, type: JPTextTypeEnum.l),
               JPSpacingVertical.xxs,
               JPText(
-                payment.labelWithDueDate(context),
-                hasDefaultOpacity: true,
-                type: JPTextTypeEnum.s,
-              ),
-              JPSpacingVertical.xs,
-              JPText(
-                payment.labelWithPaymentDate(context),
+                payment.labelWithTheDueDate(context),
                 hasDefaultOpacity: true,
                 type: JPTextTypeEnum.s,
               ),

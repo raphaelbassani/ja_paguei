@@ -43,7 +43,9 @@ abstract class JPLocaleKeys {
 
   /// BaseModel
   static const dueDate = 'dueDate';
-  static const onTheDay = 'onTheDay';
+  static const dueDay = 'dueDay';
+  static const onDay = 'onDay';
+  static const onEveryDay = 'onEveryDay';
   static const paidOn = 'paidOn';
 
   /// BillPage

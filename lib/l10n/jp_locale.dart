@@ -62,7 +62,9 @@ class JPLocale {
 
     /// BaseModel
     JPLocaleKeys.dueDate: 'Due date',
-    JPLocaleKeys.onTheDay: 'On the',
+    JPLocaleKeys.dueDay: 'Due day',
+    JPLocaleKeys.onDay: 'On the',
+    JPLocaleKeys.onEveryDay: 'Always on the',
     JPLocaleKeys.paidOn: 'Paid on',
 
     /// BillPage
@@ -206,7 +208,9 @@ class JPLocale {
 
     /// BaseModel
     JPLocaleKeys.dueDate: 'Vence',
-    JPLocaleKeys.onTheDay: 'Dia',
+    JPLocaleKeys.dueDay: 'Vencimento',
+    JPLocaleKeys.onDay: 'Dia',
+    JPLocaleKeys.onEveryDay: 'Todo dia',
     JPLocaleKeys.paidOn: 'Paga em',
 
     /// BillPage
