@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../extensions.dart';
 import '../../ui.dart';
 
 class JPFab extends StatelessWidget {
@@ -12,7 +13,7 @@ class JPFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       label: JPText(label, color: Colors.white),
-      backgroundColor: Colors.green,
+      backgroundColor: context.baseColor,
       icon: const Icon(Icons.add, color: Colors.white),
       onPressed: onTap,
     );

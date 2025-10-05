@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../extensions.dart';
 import '../../ui.dart';
 
 class JPPrimaryButton extends StatelessWidget {
@@ -45,7 +46,7 @@ class _BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onTap,
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      style: ElevatedButton.styleFrom(backgroundColor: context.baseColor),
       child: isSmall
           ? JPText(label, type: JPTextTypeEnum.s, color: Colors.white)
           : Column(

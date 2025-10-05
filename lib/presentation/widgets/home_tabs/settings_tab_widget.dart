@@ -13,6 +13,7 @@ import '../../../data/models/joke_model.dart';
 import '../../../data/services.dart';
 import '../../../l10n/l10n.dart';
 import '../../view_models.dart';
+import '../default_padding_widget.dart';
 
 class SettingsTabWidget extends StatelessWidget {
   const SettingsTabWidget({super.key});
@@ -21,6 +22,7 @@ class SettingsTabWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
+        const DefaultPaddingWidget(),
         SliverToBoxAdapter(
           child: Padding(
             padding: JPPadding.all,
@@ -41,6 +43,7 @@ class SettingsTabWidget extends StatelessWidget {
             ),
           ),
         ),
+        const DefaultPaddingWidget(),
       ],
     );
   }
@@ -56,20 +59,19 @@ class _SettingThemeModeContainerWidget extends StatelessWidget {
     return _SettingContainerWidget(
       label: context.translate(JPLocaleKeys.settingsDarkMode),
       icon: Icons.dark_mode,
-      onTap: () => onTap(themeViewModel),
-      trailingWidget: Switch(
-        value: themeViewModel.isDarkMode,
-        onChanged: (_) => onTap(themeViewModel),
-        activeThumbColor: Colors.green,
+      onTap: () {},
+      trailingWidget: JPSelectionSwitch(
+        isSelected: themeViewModel.isDarkMode,
+        onTap: (_) => onTap(themeViewModel),
       ),
     );
   }
 
-  void onTap(ThemeViewModel themeViewModel) {
+  Future<void> onTap(ThemeViewModel themeViewModel) async {
     if (themeViewModel.isLightMode) {
-      themeViewModel.changeToDarkTheme();
+      await themeViewModel.changeToDarkTheme();
     } else {
-      themeViewModel.changeToLightTheme();
+      await themeViewModel.changeToLightTheme();
     }
   }
 }
@@ -386,7 +388,7 @@ class _SettingContainerWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 16,
-                    backgroundColor: Colors.green,
+                    backgroundColor: context.baseColor,
                     child: Icon(icon, color: context.backgroundColor),
                   ),
                   JPSpacingHorizontal.s,

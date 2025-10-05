@@ -36,6 +36,7 @@ dependencies:
   dart_either: 2.0.0
   loader_overlay: 5.0.0
   mocktail: 1.0.4
+  cupertino_native: ^0.1.1
 
 dev_dependencies:
   flutter_test:
