@@ -24,14 +24,12 @@ class _HomePageState extends State<HomePage> {
     final List<Widget> tabPages = [
       const BillsTabWidget(),
       const HistoryTabWidget(),
-      const BalanceTabWidget(),
       const SettingsTabWidget(),
     ];
 
     final List<String> tabTitle = [
       context.translate(JPLocaleKeys.homeAccountTab),
       context.translate(JPLocaleKeys.homeHistoryTab),
-      context.translate(JPLocaleKeys.homeBalanceTab),
       context.translate(JPLocaleKeys.homeSettingsTab),
     ];
 
@@ -128,16 +126,10 @@ class _IosHomePageState extends State<_IosHomePage>
                 ),
                 CNTabBarItem(
                   label: widget.tabTitle[2],
-                  icon: const CNSymbol('dollarsign.circle'),
-                ),
-                CNTabBarItem(
-                  label: widget.tabTitle[3],
                   icon: const CNSymbol('gearshape'),
                 ),
               ],
               currentIndex: widget.tabIndex,
-              split: false,
-              shrinkCentered: true,
               onTap: (i) {
                 widget.onTabTapped(i);
                 _controller.animateTo(i);
@@ -202,12 +194,8 @@ class _AndroidHomePage extends StatelessWidget {
             title: JPText(tabTitle[1], color: context.baseColor),
           ),
           BottomBarItem(
-            icon: const Icon(Icons.attach_money),
-            title: JPText(tabTitle[2], color: context.baseColor),
-          ),
-          BottomBarItem(
             icon: const Icon(Icons.settings),
-            title: JPText(tabTitle[3], color: context.baseColor),
+            title: JPText(tabTitle[2], color: context.baseColor),
           ),
         ],
       ),
