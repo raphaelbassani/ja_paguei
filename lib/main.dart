@@ -9,7 +9,6 @@ import 'data/datasources.dart';
 import 'l10n/l10n.dart';
 import 'presentation/pages.dart';
 import 'presentation/view_models.dart';
-import 'presentation/view_models/color_view_model.dart';
 import 'routes.dart';
 
 void main() {
@@ -58,8 +57,6 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<DataBaseViewModel>().setIsMock(true);
-
       context.read<DataBaseViewModel>().loadData();
       context.read<ThemeViewModel>().loadTheme();
       context.read<LocaleViewModel>().loadLang();
