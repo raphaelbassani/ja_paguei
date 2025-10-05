@@ -107,6 +107,7 @@ class _IosHomePageState extends State<_IosHomePage>
           // Content below
           Positioned.fill(
             child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _controller,
               children: widget.tabPages,
             ),

@@ -13,7 +13,7 @@ import '../../../data/models/joke_model.dart';
 import '../../../data/services.dart';
 import '../../../l10n/l10n.dart';
 import '../../view_models.dart';
-import '../top_padding_widget.dart';
+import '../default_padding_widget.dart';
 
 class SettingsTabWidget extends StatelessWidget {
   const SettingsTabWidget({super.key});
@@ -22,7 +22,7 @@ class SettingsTabWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        const TopPaddingWidget(),
+        const DefaultPaddingWidget(),
         SliverToBoxAdapter(
           child: Padding(
             padding: JPPadding.all,
@@ -43,6 +43,7 @@ class SettingsTabWidget extends StatelessWidget {
             ),
           ),
         ),
+        const DefaultPaddingWidget(),
       ],
     );
   }

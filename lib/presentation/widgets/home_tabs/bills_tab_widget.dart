@@ -8,7 +8,7 @@ import '../../../l10n/l10n.dart';
 import '../../../routes.dart';
 import '../../view_models.dart';
 import '../../widgets.dart';
-import '../top_padding_widget.dart';
+import '../default_padding_widget.dart';
 
 class BillsTabWidget extends StatelessWidget {
   const BillsTabWidget({super.key});
@@ -20,7 +20,7 @@ class BillsTabWidget extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        const TopPaddingWidget(),
+        const DefaultPaddingWidget(),
         if (dataBaseViewModel.bills.isEmpty)
           SliverToBoxAdapter(
             child: Padding(
@@ -47,6 +47,7 @@ class BillsTabWidget extends StatelessWidget {
             },
           ),
         ),
+        const DefaultPaddingWidget(),
       ],
     );
   }
