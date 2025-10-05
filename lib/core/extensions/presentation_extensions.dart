@@ -8,6 +8,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../ui.dart';
+
 extension PresentationExtensions on BuildContext {
   Object? get arguments => ModalRoute.of(this)?.settings.arguments;
 
@@ -38,21 +40,36 @@ extension PresentationExtensions on BuildContext {
   void showSnackInfo(String message) {
     showTopSnackBar(
       Overlay.of(this),
-      CustomSnackBar.info(message: message, maxLines: 20),
+      CustomSnackBar.info(
+        message: message,
+        maxLines: 20,
+        backgroundColor: JPStatusEnum.info.color,
+        icon: const SizedBox(),
+      ),
     );
   }
 
   void showSnackSuccess(String message) {
     showTopSnackBar(
       Overlay.of(this),
-      CustomSnackBar.success(message: message, maxLines: 20),
+      CustomSnackBar.success(
+        message: message,
+        maxLines: 20,
+        backgroundColor: JPStatusEnum.positive.color,
+        icon: const SizedBox(),
+      ),
     );
   }
 
   void showSnackError(String message) {
     showTopSnackBar(
       Overlay.of(this),
-      CustomSnackBar.error(message: message, maxLines: 20),
+      CustomSnackBar.error(
+        message: message,
+        maxLines: 20,
+        backgroundColor: JPStatusEnum.error.color,
+        icon: const SizedBox(),
+      ),
     );
   }
 
