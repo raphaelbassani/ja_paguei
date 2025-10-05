@@ -142,42 +142,42 @@ class DataBaseViewModel extends BaseViewModel {
     );
   }
 
-  Map<String, List<double>> balanceGraphItems({int maxNumberOfBars = 6}) {
+  Map<String, List<double>> balanceGraphItems({int numberOfMonths = 6}) {
     Map<String, List<double>> graphItems = {};
+    int currentMonth = DateTime.now().month;
 
-    if (_history.isEmpty) {
-      return {};
-    }
+    if (_history.isNotEmpty) {
+      final List<HistoryModel> ascHistory = List.from(_history);
+      ascHistory.sort(
+        (b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!),
+      );
 
-    final List<HistoryModel> ascHistory = List.from(_history);
-    ascHistory.sort((b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!));
+      int barCount = 0;
+      currentMonth = ascHistory.first.paymentDateTime!.month;
+      int currentYear = ascHistory.first.paymentDateTime!.year;
+      List<double> values = [];
+      for (var item in ascHistory) {
+        final int itemMonth = item.paymentDateTime!.month;
+        final int itemYear = item.paymentDateTime!.year;
 
-    int barCount = 0;
-    int currentMonth = ascHistory.first.paymentDateTime!.month;
-    int currentYear = ascHistory.first.paymentDateTime!.year;
-    List<double> values = [];
-    for (var item in ascHistory) {
-      final int itemMonth = item.paymentDateTime!.month;
-      final int itemYear = item.paymentDateTime!.year;
+        if (currentMonth != itemMonth || currentYear != itemYear) {
+          graphItems[_months[currentMonth]!] = values;
+          barCount++;
 
-      if (currentMonth != itemMonth || currentYear != itemYear) {
-        graphItems[_months[currentMonth]!] = values;
-        barCount++;
+          if (barCount == numberOfMonths) {
+            break;
+          }
 
-        if (barCount == maxNumberOfBars) {
-          break;
+          currentMonth = itemMonth;
+          currentYear = itemYear;
+          values = [];
         }
-
-        currentMonth = itemMonth;
-        currentYear = itemYear;
-        values = [];
+        values.add(item.amount);
       }
-      values.add(item.amount);
+      graphItems[_months[currentMonth]!] = values;
     }
-    graphItems[_months[currentMonth]!] = values;
 
-    // Preencher meses anteriores se necessário
-    while (graphItems.length < maxNumberOfBars) {
+    while (graphItems.length < numberOfMonths) {
       currentMonth--;
       if (currentMonth == 0) {
         currentMonth = 12;
@@ -185,9 +185,8 @@ class DataBaseViewModel extends BaseViewModel {
       graphItems[_months[currentMonth]!] = [];
     }
 
-    // Garantir ordem correta (do mais recente ao mais antigo)
     final ordered = Map<String, List<double>>.fromEntries(
-      graphItems.entries.toList().reversed.take(maxNumberOfBars),
+      graphItems.entries.toList().reversed.take(numberOfMonths),
     );
 
     return ordered;

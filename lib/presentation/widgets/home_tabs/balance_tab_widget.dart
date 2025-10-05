@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
-import '../../../l10n/jp_locale_keys.dart';
 import '../../view_models/database_view_model.dart';
 import '../default_padding_widget.dart';
 
@@ -19,7 +18,7 @@ class BalanceTabWidget extends StatelessWidget {
         .watch<DataBaseViewModel>()
         .balanceGraphItems();
 
-    items = mockBalanceGraphItems();
+    // items = mockBalanceGraphItems();
 
     return CustomScrollView(
       slivers: [
@@ -27,35 +26,21 @@ class BalanceTabWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              if (items.isNotEmpty) ...[
-                Padding(
-                  padding: JPPadding.horizontal,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      top: 30,
-                      bottom: 20,
-                      right: 20,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: _LineChartWidget(
-                      graphItems: items,
-                      maxY: maxY(items),
-                    ),
+              Padding(
+                padding: JPPadding.horizontal,
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                    bottom: 20,
+                    right: 20,
                   ),
-                ),
-              ] else
-                Padding(
-                  padding: JPPadding.all,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      JPText(context.translate(JPLocaleKeys.balanceNoGraph)),
-                    ],
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey),
                   ),
+                  child: _LineChartWidget(graphItems: items, maxY: maxY(items)),
                 ),
+              ),
             ],
           ),
         ),
@@ -156,6 +141,7 @@ class _LineChartWidget extends StatelessWidget {
     final months = graphItems.keys.toList();
     final minX = -0.5;
     final maxX = months.length - 0.5;
+    final double fixedMaxY = maxY == 0 ? 100 : maxY;
 
     return AspectRatio(
       aspectRatio: 1,
@@ -163,8 +149,8 @@ class _LineChartWidget extends StatelessWidget {
         LineChartData(
           minX: minX,
           maxX: maxX,
-          minY: 0 - maxY / 3,
-          maxY: maxY,
+          minY: 0 - fixedMaxY / 3,
+          maxY: fixedMaxY,
           lineBarsData: [
             LineChartBarData(
               spots: _generateSpots(),
@@ -198,7 +184,7 @@ class _LineChartWidget extends StatelessWidget {
               sideTitles: SideTitles(
                 showTitles: true,
                 reservedSize: 50,
-                interval: maxY / 4,
+                interval: fixedMaxY / 4,
                 getTitlesWidget: (value, meta) =>
                     _VerticalTitlesWidget(value: value, meta: meta),
               ),
