@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cupertino_native/cupertino_native.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       context.translate(JPLocaleKeys.homeSettingsTab),
     ];
 
-    if (Platform.isIOS) {
+    if (context.isIos) {
       return _IosHomePage(
         tabIndex: tabIndex,
         tabPages: tabPages,
@@ -103,23 +101,25 @@ class _IosHomePageState extends State<_IosHomePage>
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Native Tab Bar'),
-        automaticallyImplyLeading: false,
-      ),
       child: Stack(
         children: [
           // Content below
-          Positioned.fill(
-            child: TabBarView(
-              controller: _controller,
-              children: widget.tabPages,
+          SafeArea(
+            child: Positioned.fill(
+              child: Padding(
+                padding: JPPadding.top,
+                child: TabBarView(
+                  controller: _controller,
+                  children: widget.tabPages,
+                ),
+              ),
             ),
           ),
           // Native tab bar overlay
           Align(
             alignment: Alignment.bottomCenter,
             child: CNTabBar(
+              tint: Colors.green,
               items: [
                 CNTabBarItem(
                   label: widget.tabTitle[0],
@@ -145,6 +145,15 @@ class _IosHomePageState extends State<_IosHomePage>
                 widget.onTabTapped(i);
                 _controller.animateTo(i);
               },
+            ),
+          ),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: CNButton.icon(
+                icon: const CNSymbol('plus.circle', size: 18),
+                onPressed: () => context.pushNamed(Routes.bill),
+              ),
             ),
           ),
         ],

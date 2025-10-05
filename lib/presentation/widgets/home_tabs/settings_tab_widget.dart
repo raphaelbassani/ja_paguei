@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cupertino_native/components/switch.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -57,11 +58,17 @@ class _SettingThemeModeContainerWidget extends StatelessWidget {
       label: context.translate(JPLocaleKeys.settingsDarkMode),
       icon: Icons.dark_mode,
       onTap: () => onTap(themeViewModel),
-      trailingWidget: Switch(
-        value: themeViewModel.isDarkMode,
-        onChanged: (_) => onTap(themeViewModel),
-        activeThumbColor: Colors.green,
-      ),
+      trailingWidget: context.isIos
+          ? CNSwitch(
+              value: themeViewModel.isDarkMode,
+              onChanged: (_) => onTap(themeViewModel),
+              color: Colors.green,
+            )
+          : Switch(
+              value: themeViewModel.isDarkMode,
+              onChanged: (_) => onTap(themeViewModel),
+              activeThumbColor: Colors.green,
+            ),
     );
   }
 

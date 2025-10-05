@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -20,6 +22,8 @@ extension PresentationExtensions on BuildContext {
   double get width => MediaQuery.of(this).size.width;
 
   get unfocus => FocusScope.of(this).requestFocus(FocusNode());
+
+  bool get isIos => Platform.isIOS;
 
   void showModal({required Widget child}) {
     showBarModalBottomSheet(
