@@ -28,7 +28,7 @@ class HistoryTabWidget extends StatelessWidget {
         const DefaultPaddingWidget(),
         SliverToBoxAdapter(
           child: Padding(
-            padding: JPPadding.horizontal + JPPadding.bottom,
+            padding: JPPadding.horizontal + JPPadding.bottom * 2,
             child: Container(
               padding: const EdgeInsets.only(top: 30, bottom: 20, right: 20),
               decoration: BoxDecoration(
