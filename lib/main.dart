@@ -56,6 +56,8 @@ class _JaPagueiAppState extends State<JaPagueiApp> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<DataBaseViewModel>().setIsMock(true);
+
       context.read<DataBaseViewModel>().loadData();
       context.read<ThemeViewModel>().loadTheme();
       context.read<LocaleViewModel>().loadLang();

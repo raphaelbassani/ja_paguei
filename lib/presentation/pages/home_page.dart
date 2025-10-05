@@ -82,7 +82,7 @@ class _IosHomePageState extends State<_IosHomePage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 4, vsync: this);
+    _controller = TabController(length: widget.tabPages.length, vsync: this);
     _controller.addListener(() {
       final i = _controller.index;
       if (i != widget.tabIndex) {

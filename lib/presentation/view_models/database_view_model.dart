@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/constants.dart';
 import '../../data/datasources.dart';
 import '../../data/models.dart';
 import '../../l10n/l10n.dart';
-import '../enums/bill_status_enum.dart';
-import '../enums/status_enum.dart';
+import '../enums.dart';
 import 'base_view_model.dart';
 
 class DataBaseViewModel extends BaseViewModel {
@@ -33,6 +33,12 @@ class DataBaseViewModel extends BaseViewModel {
   List<HistoryModel> _history = [];
   List<BillModel> _bills = [];
 
+  bool isMock = false;
+  void setIsMock(bool value) {
+    isMock = value;
+    safeNotify();
+  }
+
   Future<void> loadData() async {
     _status = StatusEnum.loading;
     safeNotify();
@@ -45,12 +51,22 @@ class DataBaseViewModel extends BaseViewModel {
   }
 
   Future<void> _loadHistory() async {
+    if (isMock) {
+      _history = mockLoadHistory();
+      return;
+    }
+
     await _historyDatabase.readAll().then((value) {
       _history = value;
     });
   }
 
   Future<void> _loadBills() async {
+    if (isMock) {
+      _resetBillIfNeeded(mockLoadBills());
+      return;
+    }
+
     await _billDatabase.readAll().then((savedBills) {
       _resetBillIfNeeded(savedBills);
     });
