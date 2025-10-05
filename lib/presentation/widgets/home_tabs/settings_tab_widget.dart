@@ -56,7 +56,7 @@ class _SettingThemeModeContainerWidget extends StatelessWidget {
     return _SettingContainerWidget(
       label: context.translate(JPLocaleKeys.settingsDarkMode),
       icon: Icons.dark_mode,
-      onTap: () => onTap(themeViewModel),
+      onTap: () {},
       trailingWidget: JPSelectionSwitch(
         isSelected: themeViewModel.isDarkMode,
         onTap: (_) => onTap(themeViewModel),
@@ -64,11 +64,11 @@ class _SettingThemeModeContainerWidget extends StatelessWidget {
     );
   }
 
-  void onTap(ThemeViewModel themeViewModel) {
+  Future<void> onTap(ThemeViewModel themeViewModel) async {
     if (themeViewModel.isLightMode) {
-      themeViewModel.changeToDarkTheme();
+      await themeViewModel.changeToDarkTheme();
     } else {
-      themeViewModel.changeToLightTheme();
+      await themeViewModel.changeToLightTheme();
     }
   }
 }
