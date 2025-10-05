@@ -8,6 +8,7 @@ import '../../../core/extensions.dart';
 import '../../../core/ui.dart';
 import '../../../l10n/jp_locale_keys.dart';
 import '../../view_models.dart';
+import '../top_padding_widget.dart';
 
 class BalanceTabWidget extends StatelessWidget {
   const BalanceTabWidget({super.key});
@@ -20,6 +21,7 @@ class BalanceTabWidget extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
+        const TopPaddingWidget(),
         SliverToBoxAdapter(
           child: Column(
             children: [

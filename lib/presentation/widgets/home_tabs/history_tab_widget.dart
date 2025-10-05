@@ -6,6 +6,7 @@ import '../../../core/ui.dart';
 import '../../../data/models.dart';
 import '../../../l10n/l10n.dart';
 import '../../view_models.dart';
+import '../top_padding_widget.dart';
 
 class HistoryTabWidget extends StatelessWidget {
   const HistoryTabWidget({super.key});
@@ -17,6 +18,7 @@ class HistoryTabWidget extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
+        const TopPaddingWidget(),
         if (dataBaseViewModel.history.isEmpty)
           SliverToBoxAdapter(
             child: Padding(

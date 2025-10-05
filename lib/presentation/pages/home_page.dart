@@ -105,15 +105,10 @@ class _IosHomePageState extends State<_IosHomePage>
       child: Stack(
         children: [
           // Content below
-          SafeArea(
-            child: Positioned.fill(
-              child: Padding(
-                padding: JPPadding.top,
-                child: TabBarView(
-                  controller: _controller,
-                  children: widget.tabPages,
-                ),
-              ),
+          Positioned.fill(
+            child: TabBarView(
+              controller: _controller,
+              children: widget.tabPages,
             ),
           ),
           // Native tab bar overlay
@@ -148,15 +143,20 @@ class _IosHomePageState extends State<_IosHomePage>
               },
             ),
           ),
-          SafeArea(
-            child: Align(
-              alignment: Alignment.topRight,
-              child: CNButton.icon(
-                icon: const CNSymbol('plus.circle', size: 18),
-                onPressed: () => context.pushNamed(Routes.bill),
+          if (widget.tabIndex == 0)
+            SafeArea(
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: JPPadding.bottom * 3 + JPPadding.right,
+                  child: CNButton.icon(
+                    size: 60,
+                    icon: const CNSymbol('plus.circle', size: 24),
+                    onPressed: () => context.pushNamed(Routes.bill),
+                  ),
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
