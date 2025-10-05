@@ -172,7 +172,6 @@ class _AndroidHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JPAppBar(title: tabTitle[tabIndex]),
       floatingActionButton: tabIndex == 0
           ? JPFab(
               label: context.translate(JPLocaleKeys.homeAccount),
@@ -186,15 +185,24 @@ class _AndroidHomePage extends StatelessWidget {
         backgroundColor: context.backgroundColor,
         items: [
           BottomBarItem(
-            icon: const Icon(Icons.credit_card),
+            icon: Icon(
+              Icons.credit_card,
+              color: tabIndex == 0 ? context.baseColor : null,
+            ),
             title: JPText(tabTitle[0], color: context.baseColor),
           ),
           BottomBarItem(
-            icon: const Icon(Icons.history),
+            icon: Icon(
+              Icons.history,
+              color: tabIndex == 1 ? context.baseColor : null,
+            ),
             title: JPText(tabTitle[1], color: context.baseColor),
           ),
           BottomBarItem(
-            icon: const Icon(Icons.settings),
+            icon: Icon(
+              Icons.settings,
+              color: tabIndex == 2 ? context.baseColor : null,
+            ),
             title: JPText(tabTitle[2], color: context.baseColor),
           ),
         ],
