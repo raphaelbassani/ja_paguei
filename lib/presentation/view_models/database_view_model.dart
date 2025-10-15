@@ -33,6 +33,7 @@ class DataBaseViewModel extends BaseViewModel {
   List<BillModel> _bills = [];
 
   bool isMock = false;
+
   void setIsMock(bool value) {
     isMock = value;
     safeNotify();
@@ -200,8 +201,13 @@ class DataBaseViewModel extends BaseViewModel {
       graphItems[LocalStorageConstants.months[currentMonth]!] = [];
     }
 
+    final monthOrder = LocalStorageConstants.months.values.toList();
+    final entries = graphItems.entries.toList();
+    entries.sort(
+      (a, b) => monthOrder.indexOf(a.key).compareTo(monthOrder.indexOf(b.key)),
+    );
     final ordered = Map<String, List<double>>.fromEntries(
-      graphItems.entries.toList().reversed.take(numberOfMonths),
+      entries.take(numberOfMonths),
     );
 
     return ordered;
