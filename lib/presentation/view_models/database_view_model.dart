@@ -160,45 +160,26 @@ class DataBaseViewModel extends BaseViewModel {
 
   Map<String, List<double>> balanceGraphItems({int numberOfMonths = 6}) {
     Map<String, List<double>> graphItems = {};
-    int currentMonth = DateTime.now().month;
-
     if (_history.isNotEmpty) {
-      final List<HistoryModel> ascHistory = List.from(_history);
-      ascHistory.sort(
-        (b, a) => b.paymentDateTime!.compareTo(a.paymentDateTime!),
-      );
-
-      int barCount = 0;
-      currentMonth = ascHistory.first.paymentDateTime!.month;
-      int currentYear = ascHistory.first.paymentDateTime!.year;
-      List<double> values = [];
-      for (var item in ascHistory) {
-        final int itemMonth = item.paymentDateTime!.month;
-        final int itemYear = item.paymentDateTime!.year;
-
-        if (currentMonth != itemMonth || currentYear != itemYear) {
-          graphItems[LocalStorageConstants.months[currentMonth]!] = values;
-          barCount++;
-
-          if (barCount == numberOfMonths) {
-            break;
-          }
-
-          currentMonth = itemMonth;
-          currentYear = itemYear;
-          values = [];
-        }
-        values.add(item.amount);
+      Map<String, double> monthSum = {};
+      for (var item in _history) {
+        final int month = item.paymentDateTime!.month;
+        final int year = item.paymentDateTime!.year;
+        final String key = '${year}_${month}';
+        monthSum[key] = (monthSum[key] ?? 0) + item.amount;
       }
-      graphItems[LocalStorageConstants.months[currentMonth]!] = values;
+
+      final sortedKeys = monthSum.keys.toList()..sort((a, b) => b.compareTo(a));
+      for (var key in sortedKeys.take(numberOfMonths)) {
+        final parts = key.split('_');
+        final int month = int.parse(parts[1]);
+        graphItems[LocalStorageConstants.months[month]!] = [monthSum[key]!];
+      }
     }
 
     while (graphItems.length < numberOfMonths) {
-      currentMonth--;
-      if (currentMonth == 0) {
-        currentMonth = 12;
-      }
-      graphItems[LocalStorageConstants.months[currentMonth]!] = [];
+      int missingMonth = graphItems.length + 1;
+      graphItems[LocalStorageConstants.months[missingMonth]!] = [0.0];
     }
 
     final monthOrder = LocalStorageConstants.months.values.toList();
